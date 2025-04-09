@@ -15,7 +15,11 @@ body {
     align-items: center;
     justify-content: space-between;
     border-radius: 20px;
-    position: sticky;
+    position: fixed;  /* Changes from sticky to fixed */
+    top: 15px;        /* 10px gap from the top of the viewport */
+    left: 20px;          /* Ensures it stays full-width */
+    right: 20px;
+    z-index: 1000;  
 }
 
 .logo {
@@ -101,3 +105,55 @@ body {
     border-color: white;
     cursor: pointer;
 }
+
+.main_content{
+    padding-top: 90px;
+}
+/* GPT animations (temporary)*/
+
+.scroll-section {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    border-radius: 20px; /* apply rounding */
+    overflow: hidden;     /* ensures background is clipped */
+    margin: 20px 0;        /* optional: adds vertical space between sections */
+}
+
+
+.scroll-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(85, 122, 129, 0.2); /* make the overlay more transparent */
+    z-index: 0;
+    border-radius: 20px; /* make sure this matches your section's border radius */
+}
+
+
+.scroll-section .overlay {
+    position: relative;
+    z-index: 1;
+    max-width: 80%;
+    padding: 2rem;
+    border-radius: 15px;
+    background: rgba(7, 113, 135, 0.5); /* matches your palette */
+    backdrop-filter: blur(5px);
+}
+
+.scroll-section h2 {
+    font-size: 3em;
+    margin: 0 0 10px;
+}
+
+.scroll-section p {
+    font-size: 1.25em;
+}
+
