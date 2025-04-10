@@ -14,3 +14,9 @@ searchInput.addEventListener('blur', () => {
     searchBar.classList.remove('active');
   }
 });
+
+
+document.getElementById('tickets_btn').addEventListener('click', function () {
+    window.location.href = 'tickets.html';
+});
+
