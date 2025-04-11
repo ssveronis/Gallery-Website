@@ -6,6 +6,7 @@
     <title>Document</title>
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tickets_style.css">
 </head>
 <body>
     <div class="navbar">
@@ -33,7 +34,57 @@
     </div>
     
     <div class="main_content"></div>
+    <div class="main_content ticket-form-section">
+        <form class="ticket-form">
+            <select name="event" required>
+                <option value="">Select Event / Venue</option>
+                <option value="permanent">Permanent Exhibition</option>
+                <option value="temporary">Temporary Exhibition</option>
+            </select>
 
+            <input type="date" name="date" required>
+
+            <select name="time-slot" required>
+                <option value="">Select Time</option>
+                <option value="10:00">10:00 - 11:00</option>
+                <option value="11:00">11:00 - 12:00</option>
+                <option value="12:00">12:00 - 13:00</option>
+                <option value="13:00">13:00 - 14:00</option>
+                <option value="14:00">14:00 - 15:00</option>
+                <option value="15:00">15:00 - 16:00</option>
+                <option value="16:00">16:00 - 17:00</option>
+            </select>
+
+            <select name="adults">
+                <option value="0">Adults: 0</option>
+                <option value="1">Adults: 1</option>
+                <option value="2">Adults: 2</option>
+                <option value="3">Adults: 3</option>
+                <option value="4">Adults: 4+</option>
+            </select>
+
+            <select name="children">
+                <option value="0">Children: 0</option>
+                <option value="1">Children: 1</option>
+                <option value="2">Children: 2</option>
+                <option value="3">Children: 3</option>
+                <option value="4">Children: 4+</option>
+            </select>
+
+            <select name="ticket-type">
+                <option value="">Select Ticket Type</option>
+                <option value="entry">Entry Ticket</option>
+                <option value="guided">Guided Tour Ticket</option>
+            </select>
+
+            <label>
+                <input type="checkbox" name="accessibility">
+                I require accessibility accommodations
+            </label>
+
+            <button type="submit" class="search_btn">Search</button>
+        </form>
+    </div>
     
     
     <footer class="footer">
