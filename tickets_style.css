@@ -56,3 +56,53 @@
 .ticket-form .search_btn:hover {
     background-color: #055c66;
 }
+
+/* adult and childrenn form */
+.ticket-counter-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0.5rem 0;
+}
+
+.ticket-counter-group label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+    min-width: 80px;
+}
+
+.counter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #f0f0f0;
+    padding: 0.4rem 0.6rem;
+    border-radius: 8px;
+}
+
+.counter button {
+    background-color: #64958f;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.counter button:hover {
+    background-color: #517b78;
+}
+
+.counter input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: bold;
+}

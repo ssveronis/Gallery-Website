@@ -55,21 +55,33 @@
                 <option value="16:00">16:00 - 17:00</option>
             </select>
 
-            <select name="adults">
-                <option value="0">Adults: 0</option>
-                <option value="1">Adults: 1</option>
-                <option value="2">Adults: 2</option>
-                <option value="3">Adults: 3</option>
-                <option value="4">Adults: 4+</option>
-            </select>
+            <div class="ticket-counter-group">
+                <label for="adults">Adults</label>
+                <div class="counter">
+                    <button type="button" class="decrement">−</button>
+                    <input type="number" name="adults" id="adults" value="0" min="0" readonly>
+                    <button type="button" class="increment">+</button>
+                </div>
+            </div>
+            
+            <div class="ticket-counter-group">
+                <label for="children">Children</label>
+                <div class="counter">
+                    <button type="button" class="decrement">−</button>
+                    <input type="number" name="children" id="children" value="0" min="0" readonly>
+                    <button type="button" class="increment">+</button>
+                </div>
+            </div>
 
-            <select name="children">
-                <option value="0">Children: 0</option>
-                <option value="1">Children: 1</option>
-                <option value="2">Children: 2</option>
-                <option value="3">Children: 3</option>
-                <option value="4">Children: 4+</option>
-            </select>
+            <div class="ticket-counter-group">
+                <label for="Student">Student</label>
+                <div class="counter">
+                    <button type="button" class="decrement">−</button>
+                    <input type="number" name="children" id="children" value="0" min="0" readonly>
+                    <button type="button" class="increment">+</button>
+                </div>
+            </div>
+            
 
             <select name="ticket-type">
                 <option value="">Select Ticket Type</option>
