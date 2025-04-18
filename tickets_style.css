@@ -4,10 +4,10 @@
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     margin: 40px auto;
-    max-width: 1000px;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 50%;
 }
 
 .ticket-form {
@@ -30,7 +30,7 @@
 }
 
 .ticket-form label {
-    flex: 1 1 100%;
+    flex: 50%;
     font-size: 14px;
     color: #333;
     margin-top: 10px;
@@ -57,13 +57,11 @@
     background-color: #055c66;
 }
 
-/* adult and childrenn form */
+/* adult and children form */
 .ticket-counter-group {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin: 0.5rem 0;
+    justify-content: space-around;
 }
 
 .ticket-counter-group label {
@@ -78,12 +76,12 @@
     align-items: center;
     gap: 0.5rem;
     background-color: #f0f0f0;
-    padding: 0.4rem 0.6rem;
+    padding: 0.4rem 0.4rem;
     border-radius: 8px;
 }
 
 .counter button {
-    background-color: #64958f;
+    background-color: #077187;
     border: none;
     color: white;
     font-size: 1.2rem;
@@ -95,7 +93,7 @@
 }
 
 .counter button:hover {
-    background-color: #517b78;
+    background-color: #055c66;
 }
 
 .counter input {
