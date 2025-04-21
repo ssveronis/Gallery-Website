@@ -6,13 +6,15 @@
     <title>Document</title>
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="navbar">
         <div class="logo">
-            <a href="HomePage.html"><img src="images\Logo4.png" alt="Logo" class="logo-img"></a>
+            <a href="HomePage.html"><img src="images/Logo4.png" alt="Logo" class="logo-img"></a>
         </div>
         
+        <!-- Desktop Menu (visible on larger screens) -->
         <div class="menu">   
             <div class="search_bar">
                 <input type="text" placeholder="Αναζήτηση">
@@ -29,6 +31,30 @@
                 </ul>
             </nav>
             <button class="tickets_btn">Αγορά Εισιτηρίου</button>
+        </div>
+
+        <!-- Mobile Burger Menu (hidden on desktop) -->
+        <div class="mobile-menu">
+            <button class="burger-btn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="mobile-nav">
+                <div class="mobile-search_bar">
+                    <input type="text" placeholder="Αναζήτηση">
+                    <button class="mobile-search_btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <nav>
+                    <ul class="mobile-nav_links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-tickets_btn">Αγορά Εισιτηρίου</button>
+            </div>
         </div>
     </div>
     
@@ -102,16 +128,7 @@
     </footer>
 
     <script src="https://kit.fontawesome.com/1505bebe8c.js" crossorigin="anonymous"></script>
-    <!-- AOS Script (animations) -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1000,    // Adjust duration to make animations slower or faster
-            once: true,        // Trigger animations only once
-            easing: 'ease-in-out',  // Easing function for smoothness
-        });
-    </script>
     <script src="script.js"></script>
-
 </body>
 </html>

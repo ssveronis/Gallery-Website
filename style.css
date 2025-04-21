@@ -1,3 +1,4 @@
+/* === Base Styles === */
 body {
     font-family: Arial, sans-serif;
     background-color: #e2f0e9;
@@ -6,6 +7,7 @@ body {
     padding: 20px;
 }
 
+/* === Navbar (Shared Styles) === */
 .navbar {
     background-color: #074f57;
     color: white;
@@ -15,29 +17,21 @@ body {
     align-items: center;
     justify-content: space-between;
     border-radius: 20px;
-    position: fixed;  /* Changes from sticky to fixed */
-    top: 15px;        /* 10px gap from the top of the viewport */
-    left: 20px;          /* Ensures it stays full-width */
+    position: fixed;
+    top: 15px;
+    left: 20px;
     right: 20px;
-    z-index: 1000;  
-}
-
-.logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
+    z-index: 1000;
 }
 
 .logo img {
     width: 150px;
     height: 75px;
     border-radius: 10px;
-    
 }
 
-
-.menu{
+/* === Desktop Menu (Default) === */
+.menu {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -59,16 +53,16 @@ body {
     padding: 10px;
 }
 
+.search_bar input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 .search_btn {
     background: #077187;
     border: none;
-    border-radius: 50%;;
+    border-radius: 50%;
     padding: 10px;
     cursor: pointer;
-}
-
-.search_bar input::placeholder{
-    color: rgba(255, 255, 255, 0.5);
 }
 
 .search_btn:hover {
@@ -80,13 +74,6 @@ body {
     font-size: 16px;
 }
 
-.nav_links a{
-    color:rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: 100;
-}
-
 .nav_links {
     flex: 1;
     display: flex;
@@ -95,21 +82,154 @@ body {
     list-style: none;
 }
 
+.nav_links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.nav_links a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
 .tickets_btn {
     background: #077187;
-    border-radius: 50px;    
+    border-radius: 50px;
     padding: 15px;
     color: white;
     font-size: 16px;
     font-weight: bold;
     border-color: white;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
-.main_content{
-    padding-top: 90px;
+.tickets_btn:hover {
+    background: #055661;
 }
-/* GPT animations (temporary)*/
+
+/* === Mobile Menu (Hidden by Default) === */
+.mobile-menu {
+    display: none; /* Hidden on desktop */
+}
+
+.burger-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: #074f57;
+    border-radius: 20px;
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}
+
+.mobile-nav.active {
+    display: block;
+}
+
+.mobile-search_bar {
+    display: flex;
+    background: #077187;
+    border-radius: 50px;
+    margin-bottom: 15px;
+}
+
+.mobile-search_bar input[type="text"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+}
+
+.mobile-search_btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    cursor: pointer;
+}
+
+.mobile-nav_links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.mobile-nav_links li {
+    margin-bottom: 10px;
+}
+
+.mobile-nav_links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.mobile-nav_links a:hover {
+    color: white;
+}
+
+.mobile-tickets_btn {
+    background: #077187;
+    border-radius: 50px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.mobile-tickets_btn:hover {
+    background: #055661;
+}
+
+/* === Responsive Breakpoint (Mobile) === */
+@media (max-width: 768px) {
+    .menu {
+        display: none; /* Hide desktop menu */
+    }
+
+    .mobile-menu {
+        display: block; /* Show burger button */
+    }
+
+    .navbar {
+        justify-content: space-between; /* Logo left, burger right */
+    }
+
+    /* Center ticket button in mobile menu */
+    .mobile-tickets_btn {
+        display: block;
+        margin: 0 auto;
+        max-width: 200px;
+    }
+}
+
+/* === Shared Content Styles (No Changes Needed) === */
+.main_content {
+    padding-top: 120px;
+}
 
 .scroll-section {
     height: 100vh;
@@ -122,21 +242,19 @@ body {
     justify-content: center;
     text-align: center;
     color: white;
-    border-radius: 20px; /* apply rounding */
-    overflow: hidden;     /* ensures background is clipped */
-    margin: 20px 0;        /* optional: adds vertical space between sections */
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 20px 0;
 }
-
 
 .scroll-section::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(85, 122, 129, 0.2); /* make the overlay more transparent */
+    background: rgba(85, 122, 129, 0.2);
     z-index: 0;
-    border-radius: 20px; /* make sure this matches your section's border radius */
+    border-radius: 20px;
 }
-
 
 .scroll-section .overlay {
     position: relative;
@@ -144,7 +262,7 @@ body {
     max-width: 80%;
     padding: 2rem;
     border-radius: 15px;
-    background: rgba(7, 113, 135, 0.5); /* matches your palette */
+    background: rgba(7, 113, 135, 0.5);
     backdrop-filter: blur(5px);
 }
 
@@ -156,8 +274,8 @@ body {
 .scroll-section p {
     font-size: 1.25em;
 }
-/* footer */
 
+/* === Footer (No Changes Needed) === */
 .footer {
     background-color: #e2f0e9;
     color: #074f57;
@@ -224,7 +342,7 @@ body {
 }
 
 .footer-map iframe {
-    width: 25%;
+    width: 100%;
     border-radius: 12px;
     margin-bottom: 30px;
 }
