@@ -7,12 +7,13 @@ body {
     padding: 20px;
 }
 
-/* === Navbar (Shared Styles) === */
+/*Navbar*/
 .navbar {
     background-color: #074f57;
     color: white;
     padding: 10px 20px;
     display: flex;
+    flex-wrap: wrap; /* ADD THIS */
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -21,8 +22,9 @@ body {
     top: 15px;
     left: 20px;
     right: 20px;
-    z-index: 1000;
+    z-index: 1000;  
 }
+
 
 .logo img {
     width: 150px;
@@ -30,7 +32,7 @@ body {
     border-radius: 10px;
 }
 
-/* === Desktop Menu (Default) === */
+/*Desktop Menu (Default)*/
 .menu {
     display: flex;
     align-items: center;
@@ -110,9 +112,9 @@ body {
     background: #055661;
 }
 
-/* === Mobile Menu (Hidden by Default) === */
+/*Mobile Menu (Hidden by Default)*/
 .mobile-menu {
-    display: none; /* Hidden on desktop */
+    display: none;
 }
 
 .burger-btn {
@@ -159,10 +161,14 @@ body {
     width: 100%;
 }
 
+.mobile-search_bar input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 .mobile-search_btn {
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
     padding: 10px;
     cursor: pointer;
 }
@@ -204,18 +210,18 @@ body {
     background: #055661;
 }
 
-/* === Responsive Breakpoint (Mobile) === */
+/*Responsive Breakpoint (Mobile)*/
 @media (max-width: 768px) {
     .menu {
-        display: none; /* Hide desktop menu */
+        display: none;
     }
 
     .mobile-menu {
-        display: block; /* Show burger button */
+        display: block; 
     }
 
     .navbar {
-        justify-content: space-between; /* Logo left, burger right */
+        justify-content: space-between;
     }
 
     /* Center ticket button in mobile menu */
@@ -226,7 +232,7 @@ body {
     }
 }
 
-/* === Shared Content Styles (No Changes Needed) === */
+/*Shared Content Styles*/
 .main_content {
     padding-top: 120px;
 }
@@ -275,7 +281,7 @@ body {
     font-size: 1.25em;
 }
 
-/* === Footer (No Changes Needed) === */
+/*Footer*/
 .footer {
     background-color: #e2f0e9;
     color: #074f57;
