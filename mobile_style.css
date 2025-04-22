@@ -6,13 +6,13 @@ body {
     padding: 20px;
 }
 
+/*Navbar*/
 .navbar {
     background-color: #074f57;
     color: white;
     padding: 10px 20px;
     display: flex;
-    flex-wrap: wrap; /* ADD THIS */
-    flex-direction: row;
+    flex-wrap: wrap; /* Allow items to wrap on resize */
     align-items: center;
     justify-content: space-between;
     border-radius: 20px;
@@ -20,98 +20,122 @@ body {
     top: 15px;
     left: 20px;
     right: 20px;
-    z-index: 1000;  
-}
-
-
-.logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
+    z-index: 1000;
+    transition: padding 0.3s ease; /* Smooth padding changes */
 }
 
 .logo img {
     width: 150px;
     height: 75px;
     border-radius: 10px;
-    
 }
 
-
-.menu{
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.burger-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
 }
 
-.search_bar {
+.mobile-nav {
+    display: active;
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: #074f57;
+    border-radius: 20px;
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-nav.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mobile-nav.active {
+    display: block;
+}
+
+.mobile-search_bar {
     display: flex;
     background: #077187;
     border-radius: 50px;
-    max-width: 300px;
+    margin-bottom: 15px;
 }
 
-.search_bar input[type="text"] {
+.mobile-search_bar input[type="text"] {
     background: transparent;
     border: none;
     outline: none;
     color: white;
     font-size: 16px;
     padding: 10px;
+    width: 100%;
 }
 
-.search_btn {
-    background: #077187;
+.mobile-search_bar input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.mobile-search_btn {
+    background: transparent;
     border: none;
-    border-radius: 50%;;
+    color: rgba(255, 255, 255, 0.8);
     padding: 10px;
     cursor: pointer;
 }
 
-.search_bar input::placeholder{
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.search_btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.search_btn i {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 16px;
-}
-
-.nav_links a{
-    color:rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: 100;
-}
-
-.nav_links {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
+.mobile-nav_links {
     list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
 }
 
-.tickets_btn {
+.mobile-nav_links li {
+    margin-bottom: 10px;
+}
+
+.mobile-nav_links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.mobile-nav_links a:hover {
+    color: white;
+}
+
+.mobile-tickets_btn {
     background: #077187;
-    border-radius: 50px;    
-    padding: 15px;
+    border-radius: 50px;
+    padding: 12px 20px;
     color: white;
     font-size: 16px;
     font-weight: bold;
-    border-color: white;
+    border: none;
+    width: 100%;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
-.main_content{
-    padding-top: 90px;
+.mobile-tickets_btn:hover {
+    background: #055661;
 }
-/* GPT animations (temporary)*/
+
+/*Shared Content Styles*/
+.main_content {
+    padding-top: 120px;
+}
 
 .scroll-section {
     height: 100vh;
@@ -124,21 +148,19 @@ body {
     justify-content: center;
     text-align: center;
     color: white;
-    border-radius: 20px; /* apply rounding */
-    overflow: hidden;     /* ensures background is clipped */
-    margin: 20px 0;        /* optional: adds vertical space between sections */
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 20px 0;
 }
-
 
 .scroll-section::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(85, 122, 129, 0.2); /* make the overlay more transparent */
+    background: rgba(85, 122, 129, 0.2);
     z-index: 0;
-    border-radius: 20px; /* make sure this matches your section's border radius */
+    border-radius: 20px;
 }
-
 
 .scroll-section .overlay {
     position: relative;
@@ -146,7 +168,7 @@ body {
     max-width: 80%;
     padding: 2rem;
     border-radius: 15px;
-    background: rgba(7, 113, 135, 0.5); /* matches your palette */
+    background: rgba(7, 113, 135, 0.5);
     backdrop-filter: blur(5px);
 }
 
@@ -158,8 +180,8 @@ body {
 .scroll-section p {
     font-size: 1.25em;
 }
-/* footer */
 
+/*Footer*/
 .footer {
     background-color: #e2f0e9;
     color: #074f57;
@@ -225,85 +247,24 @@ body {
     background-color: #074f57;
 }
 
-.footer-map iframe {
-    width: 25%;
-    border-radius: 12px;
+.footer-map {
+    width: 30%;
+    float: left; 
+    margin-right: 40px;
     margin-bottom: 30px;
 }
 
+.footer-map iframe {
+    width: 100%;
+    border-radius: 12px;
+    border: 0;
+}
+
 .footer-bottom {
+    clear: both;
     text-align: center;
     font-size: 0.9em;
     color: #555;
     border-top: 1px solid #ccc;
     padding-top: 20px;
-}
-
-/* ========== Responsive Layout ========== */
-
-/* Tablets and below */
-@media (max-width: 1024px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 15px 20px;
-    }
-
-    .menu {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-    }
-
-    .search_bar {
-        width: 100%;
-        max-width: none;
-    }
-
-    .nav_links {
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .tickets_btn {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-/* Phones */
-@media (max-width: 600px) {
-    .logo img {
-        width: 120px;
-        height: auto;
-    }
-
-    .scroll-section h2 {
-        font-size: 2em;
-    }
-
-    .scroll-section p {
-        font-size: 1em;
-    }
-
-    .footer-top {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .footer-map iframe {
-        width: 100%;
-        height: 200px;
-    }
-
-    .newsletter-form {
-        flex-direction: column;
-    }
-
-    .newsletter-form input[type="email"],
-    .newsletter-form button {
-        width: 100%;
-    }
 }
