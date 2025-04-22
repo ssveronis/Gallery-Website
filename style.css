@@ -35,9 +35,7 @@ body {
     width: 150px;
     height: 75px;
     border-radius: 10px;
-    
 }
-
 
 .menu{
     display: flex;
@@ -49,7 +47,6 @@ body {
     display: flex;
     background: #077187;
     border-radius: 50px;
-    max-width: 300px;
 }
 
 .search_bar input[type="text"] {
@@ -59,6 +56,7 @@ body {
     color: white;
     font-size: 16px;
     padding: 10px;
+    width: 140px;
 }
 
 .search_btn {
@@ -67,6 +65,7 @@ body {
     border-radius: 50%;;
     padding: 10px;
     cursor: pointer;
+    margin-left: -30px;
 }
 
 .search_bar input::placeholder{
@@ -239,71 +238,142 @@ body {
     padding-top: 20px;
 }
 
-/* ========== Responsive Layout ========== */
 
-/* Tablets and below */
+/* ===== Mobile Menu Toggle System ===== */
+.mobile-menu {
+    display: none; /* Hidden by default (for desktop) */
+}
+
+.burger-btn {
+    display: none; /* Hidden by default */
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: #074f57;
+    border-radius: 20px;
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-nav.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== Responsive Breakpoints ===== */
 @media (max-width: 1024px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 15px 20px;
-    }
-
+    /* Hide desktop menu */
     .menu {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
+        display: none;
     }
-
-    .search_bar {
-        width: 100%;
-        max-width: none;
+    
+    /* Show mobile menu components */
+    .mobile-menu {
+        display: block;
     }
-
-    .nav_links {
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .tickets_btn {
-        width: 100%;
-        text-align: center;
+    
+    .burger-btn {
+        display: block;
     }
 }
 
-/* Phones */
-@media (max-width: 600px) {
-    .logo img {
-        width: 120px;
-        height: auto;
+@media (min-width: 1025px) {
+    /* Ensure mobile menu is hidden on desktop */
+    .mobile-menu {
+        display: none !important;
     }
-
-    .scroll-section h2 {
-        font-size: 2em;
-    }
-
-    .scroll-section p {
-        font-size: 1em;
-    }
-
-    .footer-top {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .footer-map iframe {
-        width: 100%;
-        height: 200px;
-    }
-
-    .newsletter-form {
-        flex-direction: column;
-    }
-
-    .newsletter-form input[type="email"],
-    .newsletter-form button {
-        width: 100%;
+    
+    /* Ensure desktop menu is visible */
+    .menu {
+        display: flex;
     }
 }
+    
+.mobile-search_bar {
+    display: flex;
+    background: #077187;
+    border-radius: 50px;
+    margin-bottom: 15px;
+}
+
+.mobile-search_bar input[type="text"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+}
+
+.mobile-search_bar input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.mobile-search_btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    cursor: pointer;
+}
+
+.mobile-nav_links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.mobile-nav_links li {
+    margin-bottom: 10px;
+}
+
+.mobile-nav_links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.mobile-nav_links a:hover {
+    color: white;
+}
+
+.mobile-tickets_btn {
+    background: #077187;
+    border-radius: 50px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.mobile-tickets_btn:hover {
+    background: #055661;
+}
+
+
+
+
+
