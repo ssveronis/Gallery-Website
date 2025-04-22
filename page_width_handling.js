@@ -17,7 +17,7 @@ function handleScreenSize() {
 let resizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(handleScreenSize, 100);
+  resizeTimer = setTimeout(handleScreenSize, 10);
 });
 
 handleScreenSize();
