@@ -11,7 +11,7 @@ body {
     color: white;
     padding: 10px 20px;
     display: flex;
-    flex-wrap: wrap; /* ADD THIS */
+    flex-wrap: wrap; 
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -22,7 +22,6 @@ body {
     right: 20px;
     z-index: 1000;  
 }
-
 
 .logo {
     font-size: 1.5em;
@@ -110,8 +109,9 @@ body {
 .main_content{
     padding-top: 90px;
 }
-/* GPT animations (temporary)*/
 
+
+/* GPT animations*/
 .scroll-section {
     height: 100vh;
     background-size: cover;
@@ -138,7 +138,6 @@ body {
     border-radius: 20px; /* make sure this matches your section's border radius */
 }
 
-
 .scroll-section .overlay {
     position: relative;
     z-index: 1;
@@ -157,8 +156,8 @@ body {
 .scroll-section p {
     font-size: 1.25em;
 }
-/* footer */
 
+/* footer */
 .footer {
     background-color: #e2f0e9;
     color: #074f57;
@@ -239,9 +238,9 @@ body {
 }
 
 
-/* ===== Mobile Menu Toggle System ===== */
+/*Mobile Menu Toggle System*/
 .mobile-menu {
-    display: none; /* Hidden by default (for desktop) */
+    display: none; /* Hidden by default */
 }
 
 .burger-btn {
@@ -278,30 +277,25 @@ body {
     transform: translateY(0);
 }
 
-/* ===== Responsive Breakpoints ===== */
 @media (max-width: 1024px) {
-    /* Hide desktop menu */
     .menu {
         display: none;
     }
-    
-    /* Show mobile menu components */
+
     .mobile-menu {
         display: block;
     }
-    
+
     .burger-btn {
         display: block;
     }
 }
 
 @media (min-width: 1025px) {
-    /* Ensure mobile menu is hidden on desktop */
     .mobile-menu {
         display: none !important;
     }
     
-    /* Ensure desktop menu is visible */
     .menu {
         display: flex;
     }
