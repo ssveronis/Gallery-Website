@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="adminStyles.css">
+  <link rel="stylesheet" href="ticketSales.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+<div class="navbar">
+  <div class="logo">
+    <a href="HomePage.html"><img src="images\Logo4.png" alt="Logo" class="logo-img"></a>
+  </div>
+
+  <div class="menu">
+    <div class="search_bar">
+      <input type="text" placeholder="Αναζήτηση">
+      <button class="search_btn">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+    <nav>
+      <ul class="nav_links">
+        <li><a href="#">Χρήστες</a></li>
+        <li><a href="#">Διαχείρηση Εισιτηρίων</a></li>
+        <li><a href="#">Πωλήσεις Εισιτηρίων</a></li>
+      </ul>
+    </nav>
+    <button><span class="material-symbols-outlined">logout</span></button>
+  </div>
+</div>
+
+<div class="main_content">
+  Πωλήσεις Εισιτηρίων
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ticket ID</th>
+      <th>Όνομα</th>
+      <th>Email</th>
+      <th>Αρ. Εισιτηρίων</th>
+      <th>Ενέργεις</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>001</td>
+    <td>ABC</td>
+    <td>something@example.com</td>
+    <td>3</td>
+    <td>
+      <button><span class="material-symbols-outlined">visibility</span></button>
+    </td>
+  </tr>
+  <tr>
+    <td>001</td>
+    <td>ABC</td>
+    <td>something@example.com</td>
+    <td>3</td>
+    <td>
+      <button><span class="material-symbols-outlined">visibility</span></button>
+    </td>
+  </tr>
+  <tr>
+    <td>001</td>
+    <td>ABC</td>
+    <td>something@example.com</td>
+    <td>3</td>
+    <td>
+      <button><span class="material-symbols-outlined">visibility</span></button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-about">
+      <h2>Art Gallery</h2>
+      <p>Your space for timeless art and creative exploration.</p>
+      <div class="footer-socials">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h3>Visit Us</h3>
+      <p>Opening Hours:<br>
+        Mon–Fri: 10:00–18:00<br>
+        Sat–Sun: 11:00–20:00</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Contact</h3>
+      <p>Email: info@artgallery.com<br>
+        Phone: +30 210 1234567</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Partners & Sponsors</h3>
+      <ul>
+        <li>ArtFund</li>
+        <li>CultureNow</li>
+        <li>CreativeEU</li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Newsletter</h3>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Enter your email">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer-map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18..." width="100%" height="200" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Art Gallery. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="bottom-sheet">
+  <div class="bottom-sheet-header">
+    <h2>Ticket ID: 001 | ABC</h2>
+    <button><span class="material-symbols-outlined">close</span></button>
+  </div>
+  <div class="bottom-sheet-content">
+    <div>ID: 001</div>
+    <div>Όνομα: ABC</div>
+    <div>E-mail: someone@example.com</div>
+    <div>Ολόκληρα εισιτήρια: 2</div>
+    <div>Μειωμένα εισιτήρια: 1</div>
+    <div><b>Συνολικά εισιτήρια: 3</b></div>
+    <div><b>Τιμή: 30.00 €</b></div>
+  </div>
+</div>
+
+<script src="https://kit.fontawesome.com/1505bebe8c.js" crossorigin="anonymous"></script>
+<!-- AOS Script (animations) -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,    // Adjust duration to make animations slower or faster
+    once: true,        // Trigger animations only once
+    easing: 'ease-in-out',  // Easing function for smoothness
+  });
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>

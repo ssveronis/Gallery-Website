@@ -1,0 +1,42 @@
+table{
+    margin: 2rem;
+    width: 100%;
+    text-align: start;
+}
+
+th {
+    text-align: start;
+}
+
+td button{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+td button:hover{
+    background: rgba(169, 169, 169, 0.46);
+    border-radius: 5px;
+}
+
+tr{
+    border-bottom: 1px solid #000000;
+}
+
+.main_content button{
+    background: #077187;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0.5rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.main_content button:hover{
+    background: #074f57;
+}
+
