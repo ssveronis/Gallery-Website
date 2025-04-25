@@ -6,6 +6,7 @@
     <title>Document</title>
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="gallery.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
@@ -25,7 +26,7 @@
             <nav>   
                 <ul class="nav_links">
                     <li><a href="homePage.html">Home</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="#">Gallery</a></li>
                     <li><a href="About.html">About</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
@@ -47,7 +48,7 @@
                 <nav>
                     <ul class="mobile-nav_links">
                         <li><a href="homePage.html">Home</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="#">Gallery</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
@@ -57,23 +58,13 @@
         </div>
     </div>
     
-</div>
-    
-    <div class="main_content"></div>
-
-    <section class="scroll-section" style="background-image: url('images/image1.png');" data-aos="fade-up">
-        <div class="overlay">
-            <h2>Μόνιμη Έκθεση</h2>
-            <p>Εξερευνήστε διαχρονικά έργα.</p>
+    <main class="gallery-container">
+        <h2 class="gallery-title">Μόνιμη Συλλογή</h2>
+        <div class="gallery-grid" id="gallery">
+            <!-- JS will populate gallery cards here -->
         </div>
-    </section>
-    
-    <section class="scroll-section" style="background-image: url('images/image2.png');" data-aos="fade-up">
-        <div class="overlay">
-            <h2>Προσωρινή Έκθεση</h2>
-            <p>Ανακαλύψτε εκθέσεις περιορισμένου χρόνου που παρουσιάζουν νέους καλλιτέχνες.</p>
-        </div>
-    </section>
+    </main>
+   
     
     <footer class="footer">
         <div class="footer-top">
@@ -129,6 +120,7 @@
     </footer>
     
     <script src="script.js"></script>
+    <script src="gallery.js"></script>
     <script src="mobile_script.js"></script>
     <script src="https://kit.fontawesome.com/1505bebe8c.js" crossorigin="anonymous"></script>
     
