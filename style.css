@@ -123,9 +123,9 @@ body {
     justify-content: center;
     text-align: center;
     color: white;
-    border-radius: 20px; /* apply rounding */
-    overflow: hidden;     /* ensures background is clipped */
-    margin: 20px 0;        /* optional: adds vertical space between sections */
+    border-radius: 20px; 
+    overflow: hidden;     
+    margin: 20px 0;        
 }
 
 
@@ -133,9 +133,9 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(85, 122, 129, 0.2); /* make the overlay more transparent */
+    background: rgba(85, 122, 129, 0.2); 
     z-index: 0;
-    border-radius: 20px; /* make sure this matches your section's border radius */
+    border-radius: 20px; 
 }
 
 .scroll-section .overlay {
@@ -144,7 +144,7 @@ body {
     max-width: 80%;
     padding: 2rem;
     border-radius: 15px;
-    background: rgba(7, 113, 135, 0.5); /* matches your palette */
+    background: rgba(7, 113, 135, 0.5); 
     backdrop-filter: blur(5px);
 }
 

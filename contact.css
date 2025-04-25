@@ -1,5 +1,5 @@
 .contact-main {
-    padding: 120px 20px 40px; /* Top padding adjusted from 40px to 120px */
+    padding: 120px 20px 40px; 
     max-width: 1200px;
     margin: 0 auto;
     color: #074f57;
@@ -17,7 +17,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
-    justify-content: center; /* changed from space-between to center for symmetry */
+    justify-content: center; 
     align-items: flex-start;
 }
 
@@ -26,7 +26,7 @@
     flex: 1 1 300px;
     max-width: 500px;
     background-color: #ffffff;
-    padding: 30px 40px; /* increased horizontal padding for better symmetry */
+    padding: 30px 40px; 
     padding-right: 60px;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -87,8 +87,6 @@
     margin-bottom: 12px;
     font-size: 1em;
 }
-
-
 
 /* Responsive */
 @media (max-width: 768px) {
