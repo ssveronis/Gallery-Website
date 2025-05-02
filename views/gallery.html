@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="css_files/style.css">
-    <link rel="stylesheet" href="css_files/contact.css">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/gallery.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
@@ -26,9 +26,9 @@
             <nav>   
                 <ul class="nav_links">
                     <li><a href="homePage.html">Home</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="#">Gallery</a></li>
                     <li><a href="About.html">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
             <button class="tickets_btn">Αγορά Εισιτηρίου</button>
@@ -48,9 +48,9 @@
                 <nav>
                     <ul class="mobile-nav_links">
                         <li><a href="homePage.html">Home</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="#">Gallery</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </nav>
                 <button class="mobile-tickets_btn">Αγορά Εισιτηρίου</button>
@@ -58,33 +58,13 @@
         </div>
     </div>
     
-    <main class="contact-main">
-        <h2 class="section-title">Επικοινωνία</h2>
-      
-        <div class="contact-container">
-          <form class="contact-form">
-            <label for="name">Ονοματεπώνυμο</label>
-            <input type="text" id="name" name="name" required>
-      
-            <label for="email">Ηλεκτρονικό Ταχυδρομείο</label>
-            <input type="email" id="email" name="email" required>
-      
-            <label for="message">Μήνυμα</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-      
-            <button type="submit">Αποστολή</button>
-          </form>
-      
-          <div class="contact-info">
-            <h3>Στοιχεία Επικοινωνίας</h3>
-            <p><strong>Διεύθυνση:</strong> Οδός Τέχνης 123, Αθήνα, Ελλάδα</p>
-            <p><strong>Τηλέφωνο:</strong> +30 210 123 4567</p>
-            <p><strong>Email:</strong> info@artgallery.gr</p>
-          </div>
+    <main class="gallery-container">
+        <h2 class="gallery-title">Μόνιμη Συλλογή</h2>
+        <div class="gallery-grid" id="gallery">
+            <!-- JS will populate gallery cards here -->
         </div>
-      </main>
-      
-    
+    </main>
+   
     
     <footer class="footer">
         <div class="footer-top">
@@ -139,8 +119,9 @@
         </div>
     </footer>
     
-    <script src="js_files/script.js"></script>
-    <script src="js_files/mobile_script.js"></script>
+    <script src="../public/js/script.js"></script>
+    <script src="../public/js/gallery.js"></script>
+    <script src="../public/js/mobile_script.js"></script>
     <script src="https://kit.fontawesome.com/1505bebe8c.js" crossorigin="anonymous"></script>
     
     <!-- AOS Script (animations) -->

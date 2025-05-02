@@ -4,5 +4,5 @@ const searchInput = document.querySelector('.search_bar input[type="text"]');
 
 
 document.querySelector('.tickets_btn').addEventListener('click', function () {
-  window.location.href = 'tickets.html';
+  window.location.href = '/tickets';
 });
