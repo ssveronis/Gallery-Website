@@ -5,6 +5,7 @@ import device from 'express-device';
 import {getNav} from "./helpers.js";
 import DB from "./db.js";
 import Email from "./data/email.ts";
+import WP_Users from "./data/wp_users.ts";
 
 const db = new DB();
 const app = express();

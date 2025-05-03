@@ -31,6 +31,14 @@ class Email {
         return new Email(db, email);
     }
 
+    static async getAll(db: DB) {
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT * FROM EMAIL`);
+        const emails = res.map(email => new Email(db, email.id));
+        for (const email of emails) await email.init();
+        return emails;
+    }
+
     getId(){
         if (!this.id) throw new Error("Email not found");
         return this.id;
