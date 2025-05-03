@@ -15,27 +15,39 @@
     </div>
 
     <div class="ticket-counter-group hidden" id="ticketForm">
-        <label for="adults">Ενήλικες</label>
-        <div class="counter">
-        <button type="button" class="decrement">−</button>
-        <input type="number" name="adults" id="adults" value="0" min="0" readonly>
-        <button type="button" class="increment">+</button>
-        </div>
+        <div class="first-row">
+            <label for="adults">Ενήλικες</label>
+            <div class="counter">
+            <button type="button" class="decrement">−</button>
+            <input type="number" name="adults" id="adults" value="0" min="0" readonly>
+            <button type="button" class="increment">+</button>
+            </div>
 
-        <label for="children">Παιδιά</label>
-        <div class="counter">
-          <button type="button" class="decrement">−</button>
-          <input type="number" name="children" id="children" value="0" min="0" readonly>
-          <button type="button" class="increment">+</button>
+            <label for="children">Παιδιά</label>
+            <div class="counter">
+            <button type="button" class="decrement">−</button>
+            <input type="number" name="children" id="children" value="0" min="0" readonly>
+            <button type="button" class="increment">+</button>
+            </div>
         </div>
+        
+        <div class="second-row">
+            <label for="students">Φοιτητές</label>  
+            <div class="counter">
+            <button type="button" class="decrement">−</button>
+            <input type="number" name="students" id="students" value="0" min="0" readonly>
+            <button type="button" class="increment">+</button>
+            </div>
 
-        <label for="students">Φοιτητές</label>  
-        <div class="counter">
-          <button type="button" class="decrement">−</button>
-          <input type="number" name="students" id="students" value="0" min="0" readonly>
-          <button type="button" class="increment">+</button>
+            <label for="audioguides">Audioguides</label>
+            <div class="counter">
+            <button type="button" class="decrement">−</button>
+            <input type="number" name="children" id="children" value="0" min="0" readonly>
+            <button type="button" class="increment">+</button>
+            </div>
         </div>
     </div>
-
+    <button type="submit" class="search hidden" id="searchBtn">Search</button>
+    
 </div>
 

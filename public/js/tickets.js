@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedEventInput = document.getElementById("selectedEvent");
     const nextButton = document.getElementById("nextButton");
     const ticketForm = document.getElementById("ticketForm");
+    const searchBtn = document.getElementById("searchBtn");
 
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -23,25 +24,23 @@ document.addEventListener("DOMContentLoaded", () => {
         ticketForm.classList.remove("hidden");
         ticketForm.classList.add("flex-container");
         const selectedDate = document.querySelector('input[name="date"]:checked');
-
+        searchBtn.classList.remove("hidden");
     });
 
+    // Ticket counters
+    document.querySelectorAll(".counter").forEach(counter => {
+        const input = counter.querySelector("input");
+        const inc = counter.querySelector(".increment");
+        const dec = counter.querySelector(".decrement");
+
+        inc.addEventListener("click", () => {
+            input.value = parseInt(input.value) + 1;
+        });
+
+        dec.addEventListener("click", () => {
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
+        });
+    });
 });
-
-//     // Ticket counters
-//     document.querySelectorAll(".counter").forEach(counter => {
-//         const input = counter.querySelector("input");
-//         const inc = counter.querySelector(".increment");
-//         const dec = counter.querySelector(".decrement");
-
-//         inc.addEventListener("click", () => {
-//             input.value = parseInt(input.value) + 1;
-//         });
-
-//         dec.addEventListener("click", () => {
-//             if (parseInt(input.value) > 0) {
-//                 input.value = parseInt(input.value) - 1;
-//             }
-//         });
-//     });
-// });
