@@ -1,7 +1,7 @@
 import mariadb from 'mariadb';
 import fs from 'fs';
 
-class DB{
+class DB {
 
     constructor() {
         //reading certificates from file
@@ -45,3 +45,10 @@ class DB{
 }
 
 export default DB;
+
+export { default as Email } from "./data/email.ts";
+export { default as WP_User } from "./data/wp_users.ts";
+export { default as Person } from "./data/person.ts";
+export { default as TicketsCategory } from "./data/tickets_category.ts";
+export { default as AvailableTickets } from "./data/available_tickets.ts";
+export { default as TicketSales } from "./data/ticket_sales.ts";
