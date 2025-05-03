@@ -8,6 +8,8 @@ import Email from "./data/email.ts";
 import WP_User from "./data/wp_users.ts";
 import Person from "./data/person.ts";
 import TicketsCategory from "./data/tickets_category.ts";
+import AvailableTickets from "./data/available_tickets.ts";
+import Available_tickets from "./data/available_tickets.ts";
 
 const db = new DB();
 const app = express();
