@@ -80,6 +80,11 @@ class AvailableTickets {
         await this.db.query(`UPDATE AVAIL_TICKETS SET max_tickets = '${maxTickets}' WHERE id = ${this.id}`);
         await this.init()
     }
+
+    delete(){
+        if (!this.categoryId) throw new Error("Available Tickets not found");
+        this.db.query(`DELETE FROM AVAIL_TICKETS WHERE id = ${this.id}`);
+    }
 }
 
 export default AvailableTickets;

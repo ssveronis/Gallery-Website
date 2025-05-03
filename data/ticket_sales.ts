@@ -97,6 +97,11 @@ class TicketSales {
         if (!this.regularTickets) throw new Error("Ticket Sales not found");
         return this.availableTicketsId;
     }
+
+    delete(){
+        if (!this.regularTickets) throw new Error("Ticket Sales not found");
+        this.db.query(`DELETE FROM TICKET_SALES WHERE id = ${this.id}`);
+    }
 }
 
 export default TicketSales;

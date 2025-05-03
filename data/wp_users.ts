@@ -94,6 +94,10 @@ class WP_User {
         return this.userEmail;
     }
 
+    delete(){
+        if (!this.id) throw new Error("Email not found");
+        this.db.query(`DELETE FROM WP_USERS WHERE id = ${this.id}`);
+    }
 }
 
 export default WP_User;

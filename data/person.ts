@@ -98,6 +98,11 @@ class Person {
         if (!this.personId) throw new Error("Person not found");
         return this.personId;
     }
+
+    delete(){
+        if (!this.personId) throw new Error("Person not found");
+        this.db.query(`DELETE FROM PERSON WHERE id = ${this.personId}`);
+    }
 }
 
 export default Person;

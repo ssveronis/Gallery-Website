@@ -60,6 +60,11 @@ class Email {
         this.emailORid = this.id
         await this.init();
     }
+
+    delete(){
+        if (!this.id) throw new Error("Email not found");
+        this.db.query(`DELETE FROM EMAIL WHERE id = ${this.id}`);
+    }
 }
 
 export default Email;
