@@ -4,6 +4,7 @@ import 'dotenv/config'
 import device from 'express-device';
 import {getNav} from "./helpers.js";
 import DB from "./db.js";
+import Email from "./data/email.ts";
 
 const db = new DB();
 const app = express();

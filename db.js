@@ -27,11 +27,19 @@ class DB{
             "database": process.env.DB_NAME,
             "compress": true,
             "connectTimeout": 500,
-            "socketTimeout": 500,
+            "socketTimeout": 0,
             "queryTimeout": 100
         })
 
         this.ready = true;
+    }
+
+    async query(query){
+        return await this.db.query(query);
+    }
+
+    async close(){
+        await this.db.end();
     }
 
 }
