@@ -3,7 +3,9 @@ import { create } from 'express-handlebars';
 import 'dotenv/config'
 import device from 'express-device';
 import {getNav} from "./helpers.js";
+import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User } from "./db.js";
 
+const db = new DB();
 const app = express();
 const port = process.env.PORT;
 const hbs = create({ extname: '.hbs',
@@ -92,6 +94,7 @@ app.get('/tickets', async (req, res) => {
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
         scripts: [
             "/js/script.js",
+            "/js/tickets.js",
             "/js/mobile_script.js",
             "/js/tickets.js"
         ]
