@@ -2,7 +2,7 @@ import DB from "../db.js";
 // @ts-ignore
 import Email from "./email.ts";
 
-class WP_Users {
+class WP_User {
     private db: DB;
     private idORuserLogin: string | number;
 
@@ -38,13 +38,13 @@ class WP_Users {
         if (!db.ready) throw new Error("Database not ready");
         // Add logic to hash the password
         await db.query(`INSERT INTO WP_USERS (user_login, user_pass, display_name, email_id) VALUES ('${login}', '${password}', '${displayName}', '${email.getId()}')`);
-        return new WP_Users(db, login);
+        return new WP_User(db, login);
     }
 
     static async getAll(db: DB) {
         if (!db.ready) throw new Error("Database not ready");
         const res = await db.query(`SELECT * FROM WP_USERS`);
-        const users = res.map(user => new WP_Users(db, user.id));
+        const users = res.map(user => new WP_User(db, user.id));
         for (const user of users) await user.init();
         return users;
     }
@@ -96,4 +96,4 @@ class WP_Users {
 
 }
 
-export default WP_Users;
+export default WP_User;
