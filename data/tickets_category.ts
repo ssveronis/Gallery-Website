@@ -41,7 +41,15 @@ class TicketsCategory {
 
     static async getAll(db: DB){
         if (!db.ready) throw new Error("Database not ready");
-        const res = await db.query(`SELECT * FROM TICKETS_CATEGORY`);
+        const res = await db.query(`SELECT id FROM TICKETS_CATEGORY`);
+        const categories = res.map(category => new TicketsCategory(db, category.id))
+        for (const category of categories) await category.init()
+        return categories
+    }
+
+    static async searchByName(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT id FROM TICKETS_CATEGORY WHERE name LIKE "%${search}%";`);
         const categories = res.map(category => new TicketsCategory(db, category.id))
         for (const category of categories) await category.init()
         return categories

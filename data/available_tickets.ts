@@ -39,11 +39,13 @@ class AvailableTickets {
 
     static async getAll(db: DB){
         if (!db.ready) throw new Error("Database not ready");
-        const res = await db.query(`SELECT * FROM AVAIL_TICKETS`)
+        const res = await db.query(`SELECT id FROM AVAIL_TICKETS`)
         const availableTickets = res.map(availableTicket => new AvailableTickets(db, availableTicket.id))
         for (const ticket of availableTickets) await ticket.init()
         return availableTickets;
     }
+
+    //Need to implement search by date and time
 
     getCategoryId(){
         if (!this.categoryId) throw new Error("Available Tickets not found");

@@ -33,7 +33,15 @@ class Email {
 
     static async getAll(db: DB) {
         if (!db.ready) throw new Error("Database not ready");
-        const res = await db.query(`SELECT * FROM EMAIL`);
+        const res = await db.query(`SELECT id FROM EMAIL`);
+        const emails = res.map(email => new Email(db, email.id));
+        for (const email of emails) await email.init();
+        return emails;
+    }
+
+    static async searchByEmail(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT id FROM EMAIL WHERE email LIKE "%${search}%"`)
         const emails = res.map(email => new Email(db, email.id));
         for (const email of emails) await email.init();
         return emails;

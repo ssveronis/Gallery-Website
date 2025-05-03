@@ -43,7 +43,31 @@ class WP_User {
 
     static async getAll(db: DB) {
         if (!db.ready) throw new Error("Database not ready");
-        const res = await db.query(`SELECT * FROM WP_USERS`);
+        const res = await db.query(`SELECT id FROM WP_USERS`);
+        const users = res.map(user => new WP_User(db, user.id));
+        for (const user of users) await user.init();
+        return users;
+    }
+
+    static async searchByLogin(db: DB, search:string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT id FROM WP_USERS WHERE user_login LIKE "%${search}%"`);
+        const users = res.map(user => new WP_User(db, user.id));
+        for (const user of users) await user.init();
+        return users;
+    }
+
+    static async searchByDisplayName(db: DB, search:string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT id FROM WP_USERS WHERE display_name LIKE "%${search}%"`);
+        const users = res.map(user => new WP_User(db, user.id));
+        for (const user of users) await user.init();
+        return users;
+    }
+
+    static async searchByEmail(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT WP_USERS.id FROM WP_USERS JOIN EMAIL ON WP_USERS.email_id = EMAIL.id WHERE EMAIL.email LIKE "%${search}%";`)
         const users = res.map(user => new WP_User(db, user.id));
         for (const user of users) await user.init();
         return users;

@@ -39,7 +39,39 @@ class Person {
 
     static async getAll(db: DB){
         if (!db.ready) throw new Error("Database not ready");
-        const res = await db.query(`SELECT * FROM PERSON`);
+        const res = await db.query(`SELECT id FROM PERSON`);
+        const persons = res.map(person => new Person(db, person.id))
+        for (const person of persons) await person.init()
+        return persons;
+    }
+
+    static async searchByFirstName(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT id FROM PERSON WHERE first_name LIKE "%${search}%"`)
+        const persons = res.map(person => new Person(db, person.id))
+        for (const person of persons) await person.init()
+        return persons;
+    }
+
+    static async searchByLastName(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT id FROM PERSON WHERE last_name LIKE "%${search}%"`)
+        const persons = res.map(person => new Person(db, person.id))
+        for (const person of persons) await person.init()
+        return persons;
+    }
+
+    static async searchByPhoneNumber(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT id FROM PERSON WHERE phone_number LIKE "%${search}%"`)
+        const persons = res.map(person => new Person(db, person.id))
+        for (const person of persons) await person.init()
+        return persons;
+    }
+
+    static async searchByEmail(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT PERSON.id FROM PERSON JOIN EMAIL ON PERSON.id = EMAIL.id WHERE EMAIL.email LIKE "%${search}%";`)
         const persons = res.map(person => new Person(db, person.id))
         for (const person of persons) await person.init()
         return persons;

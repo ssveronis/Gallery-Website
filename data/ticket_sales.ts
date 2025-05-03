@@ -40,7 +40,7 @@ class TicketSales {
 
     static async getAll(db: DB){
         if (!db.ready) throw new Error("Database not ready");
-        const res = await db.query("SELECT * FROM TICKET_SALES")
+        const res = await db.query("SELECT id FROM TICKET_SALES")
         const ticketSales = res.map(ticketSale => new TicketSales(db, ticketSale.id))
         for (const ticket of ticketSales) await ticket.init()
         return ticketSales;
@@ -51,6 +51,38 @@ class TicketSales {
         await db.query("INSERT INTO TICKET_SALES (regular_tickets, children_tickets, student_tickets, audioguides, accessibility, buyer_id, avail_id) VALUES (${regularTickets}, ${childrenTickets}, ${studentTickets}, ${audioguides}, ${accessibility}, ${person.getId()}, ${availableTickets.getId()})")
         const res = await db.query("SELECT LAST_INSERT_ID();")
         return new TicketSales(db, res[0].LAST_INSERT_ID());
+    }
+
+    static async searchByFirstName(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT TICKET_SALES.id FROM TICKET_SALES JOIN PERSON ON TICKET_SALES.buyer_id = PERSON.id WHERE PERSON.first_name LIKE "%${search}%";`)
+        const ticketSales = res.map(ticketSale => new TicketSales(db, ticketSale.id))
+        for (const ticket of ticketSales) await ticket.init()
+        return ticketSales;
+    }
+
+    static async searchByLastName(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT TICKET_SALES.id FROM TICKET_SALES JOIN PERSON ON TICKET_SALES.buyer_id = PERSON.id WHERE PERSON.last_name LIKE "%${search}%";`)
+        const ticketSales = res.map(ticketSale => new TicketSales(db, ticketSale.id))
+        for (const ticket of ticketSales) await ticket.init()
+        return ticketSales;
+    }
+
+    static async searchByPhoneNumber(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT TICKET_SALES.id FROM TICKET_SALES JOIN PERSON ON TICKET_SALES.buyer_id = PERSON.id WHERE PERSON.phone_number LIKE "%${search}%";`)
+        const ticketSales = res.map(ticketSale => new TicketSales(db, ticketSale.id))
+        for (const ticket of ticketSales) await ticket.init()
+        return ticketSales;
+    }
+
+    static async searchByCategoryName(db: DB, search: string){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT TICKET_SALES.id FROM TICKET_SALES JOIN AVAIL_TICKETS ON TICKET_SALES.avail_id = AVAIL_TICKETS.id JOIN TICKETS_CATEGORY ON AVAIL_TICKETS.id = TICKETS_CATEGORY.id WHERE TICKETS_CATEGORY.name LIKE "%${search}%";`)
+        const ticketSales = res.map(ticketSale => new TicketSales(db, ticketSale.id))
+        for (const ticket of ticketSales) await ticket.init()
+        return ticketSales;
     }
 
     getId(){
