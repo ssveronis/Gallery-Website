@@ -93,6 +93,7 @@ app.get('/tickets', async (req, res) => {
         scripts: [
             "/js/script.js",
             "/js/mobile_script.js",
+            "/js/tickets.js"
         ]
     });
 });

@@ -1,63 +1,41 @@
 <div class="ticket-form-section">
-    <form class="ticket-form">
-        <select name="event" required>
-            <option value="">Select Event / Venue</option>
-            <option value="permanent">Permanent Exhibition</option>
-            <option value="temporary">Temporary Exhibition</option>
-        </select>
+    <div class="exhibition-selection" id="exhibitionSelection">
+        <button class="exhibition-btn" data-type="permanent">
+            <span>Μόνιμη Έκθεση</span>
+        </button>
+        <button class="exhibition-btn" data-type="temporary">
+            <span>Προσωρινή Έκθεση</span>
+        </button>
+    </div>
 
-        <input type="date" name="date" required>
+    <div class="date-selection hidden" id="dateSelection">
+        <label for="date">Επιλέξτε ημερομηνία</label>
+        <input type="date" name="date" id="date" required>
+        <button type="button" class="next-btn" id="nextButton">Επόμενο</button>
+    </div>
 
-        <select name="time-slot" required>
-            <option value="">Select Time</option>
-            <option value="10:00">10:00 - 11:00</option>
-            <option value="11:00">11:00 - 12:00</option>
-            <option value="12:00">12:00 - 13:00</option>
-            <option value="13:00">13:00 - 14:00</option>
-            <option value="14:00">14:00 - 15:00</option>
-            <option value="15:00">15:00 - 16:00</option>
-            <option value="16:00">16:00 - 17:00</option>
-        </select>
-
-        <div class="ticket-counter-group">
-            <label for="adults">Adults</label>
-            <div class="counter">
-                <button type="button" class="decrement">−</button>
-                <input type="number" name="adults" id="adults" value="0" min="0" readonly>
-                <button type="button" class="increment">+</button>
-            </div>
+    <div class="ticket-counter-group hidden" id="ticketForm">
+        <label for="adults">Ενήλικες</label>
+        <div class="counter">
+        <button type="button" class="decrement">−</button>
+        <input type="number" name="adults" id="adults" value="0" min="0" readonly>
+        <button type="button" class="increment">+</button>
         </div>
 
-        <div class="ticket-counter-group">
-            <label for="children">Children</label>
-            <div class="counter">
-                <button type="button" class="decrement">−</button>
-                <input type="number" name="children" id="children" value="0" min="0" readonly>
-                <button type="button" class="increment">+</button>
-            </div>
+        <label for="children">Παιδιά</label>
+        <div class="counter">
+          <button type="button" class="decrement">−</button>
+          <input type="number" name="children" id="children" value="0" min="0" readonly>
+          <button type="button" class="increment">+</button>
         </div>
 
-        <div class="ticket-counter-group">
-            <label for="Student">Student</label>
-            <div class="counter">
-                <button type="button" class="decrement">−</button>
-                <input type="number" name="children" id="children" value="0" min="0" readonly>
-                <button type="button" class="increment">+</button>
-            </div>
+        <label for="students">Φοιτητές</label>  
+        <div class="counter">
+          <button type="button" class="decrement">−</button>
+          <input type="number" name="students" id="students" value="0" min="0" readonly>
+          <button type="button" class="increment">+</button>
         </div>
+    </div>
 
-
-        <select name="ticket-type">
-            <option value="">Select Ticket Type</option>
-            <option value="entry">Entry Ticket</option>
-            <option value="guided">Guided Tour Ticket</option>
-        </select>
-
-        <label>
-            <input type="checkbox" name="accessibility">
-            I require accessibility accommodations
-        </label>
-
-        <button type="submit" class="search_btn">Search</button>
-    </form>
 </div>
+
