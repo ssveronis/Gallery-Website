@@ -7,6 +7,7 @@ import DB from "./db.js";
 import Email from "./data/email.ts";
 import WP_User from "./data/wp_users.ts";
 import Person from "./data/person.ts";
+import TicketsCategory from "./data/tickets_category.ts";
 
 const db = new DB();
 const app = express();
