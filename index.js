@@ -4,6 +4,8 @@ import 'dotenv/config'
 import device from 'express-device';
 import {getNav} from "./helpers.js";
 import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User } from "./db.js";
+import fs from 'fs';
+import path from 'path';
 
 const db = new DB();
 const app = express();
@@ -135,6 +137,10 @@ app.get('/wp-admin/user-list', async (req, res) => {
 });
 
 app.get('/wp-admin/tickets', async (req, res) => {
+    
+    const data = fs.readFileSync("data/ticketData.json", 'utf8');
+    const ticketData = JSON.parse(data);
+
     res.render("ticketsCategory", {
         stylesheets: [
             "/css/style.css",
@@ -148,7 +154,9 @@ app.get('/wp-admin/tickets', async (req, res) => {
         scripts: [
             "/js/script.js",
             "/js/mobile_script.js",
-        ]
+            "/js/ticketsCategory.js"
+        ],
+        categories: ticketData.categories
     });
 });
 

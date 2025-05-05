@@ -1,33 +1,26 @@
 <div class="main_title">
-    Κατηγορίες εισηιτηρίων
+    Κατηγορίες εισιτηρίων
     <button class="btn"><span class="material-symbols-outlined">add</span>Νέα κατηγορία</button>
 </div>
 <hr>
 
 <div>
-    <div>
-        <div class="ticket_category">
-            <div>Κατηγορία Α</div>
-            <div><span class="material-symbols-outlined">chevron_right</span></div>
+    {{#each categories}}
+    <div class="ticket_category">
+        <div>{{this.name}}</div>
+        <div>
+            <button class="dropdown-btn">
+                <i class="fas fa-chevron-down"></i>
+            </button>
         </div>
-        <hr style="margin: 2rem">
     </div>
-    <div>
-        <div class="ticket_category">
-            <div>Κατηγορία Β</div>
-            <div><span class="material-symbols-outlined">chevron_right</span></div>
-        </div>
-        <hr style="margin: 2rem">
-    </div>
-    <div>
-        <div class="ticket_category">
-            <div>Κατηγορία Γ</div>
-            <div><span class="material-symbols-outlined">keyboard_arrow_down</span></div>
-        </div>
-        <div style="margin-left: 2rem">
-            <button class="btn" style="margin-bottom: 1.2rem"><span class="material-symbols-outlined">add</span>Νέα διαθεσιμότητα</button>
-            <table>
-                <thead>
+
+    <div class="dropdown-content" style="margin-left: 2rem; display: none;">
+        <button class="btn" style="margin-bottom: 1.2rem">
+            <span class="material-symbols-outlined">add</span>Νέα διαθεσιμότητα
+        </button>
+        <table>
+            <thead>
                 <tr>
                     <th>Ημέρα</th>
                     <th>Ώρες</th>
@@ -36,41 +29,35 @@
                     <th>Διαθέσιμα εισητήρια</th>
                     <th>Ενέργειες</th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
+                {{#each this.availabilities}}
                 <tr>
-                    <td>10/6/2025</td>
-                    <td>10:00 - 11:00</td>
-                    <td>50</td>
-                    <td>20</td>
-                    <td>30</td>
-                    <td>
-                        <button><span class="material-symbols-outlined">edit</span></button>
+                    <td>{{this.date}}</td>
+                    <td>{{this.time}}</td>
+                    <td>{{this.total}}</td>
+                    <td>{{this.sold}}</td>
+                    <td>{{this.available}}</td>
+                    <td class="actions-cell">
+                        <div class="action-wrapper">
+                            <button class="edit-action-btn">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                            <div class="action-menu hidden">
+                                <button class="action-delete">
+                                    <span class="material-symbols-outlined">delete</span>Διαγραφή
+                                </button>
+                                <button class="action-edit">
+                                    <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
+                                </button>
+                            </div>
+                        </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>10/6/2025</td>
-                    <td>10:00 - 11:00</td>
-                    <td>50</td>
-                    <td>20</td>
-                    <td>30</td>
-                    <td>
-                        <button><span class="material-symbols-outlined">edit</span></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>10/6/2025</td>
-                    <td>10:00 - 11:00</td>
-                    <td>50</td>
-                    <td>20</td>
-                    <td>30</td>
-                    <td>
-                        <button><span class="material-symbols-outlined">edit</span></button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <hr style="margin: 2rem">
+                {{/each}}
+            </tbody>
+        </table>
     </div>
+    <hr style="margin: 2rem">
+    {{/each}}
 </div>
