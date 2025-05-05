@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const ticketForm = document.getElementById("ticketForm");
     const searchBtn = document.getElementById("searchBtn");
 
+    const dateInput = document.getElementById('date');
+    const today = new Date().toISOString().split('T')[0]; 
+    dateInput.min = today;
+
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
             const type = btn.dataset.type;
@@ -43,4 +47,5 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
 });
