@@ -99,7 +99,7 @@
 
 .ticket-counter-group {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
     margin-top: 40px;
@@ -121,20 +121,22 @@
     min-width: 80px;
 }
 
-.ticket-counter-group first-row{
+
+.counter-block {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
 }
 
-.ticket-counter-group second-row{
+.type{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-}
+    justify-content: center;
+    align-items: center;
+    margin: 5px 10px;
 
+}
 .counter {
     display: flex;
     align-items: center;
@@ -168,7 +170,7 @@
     font-weight: bold;
 }
 
-.search {
+.searchBtn {
     background-color: #077187;
     color: white;
     border: none;
@@ -177,13 +179,12 @@
     cursor: pointer;
     font-size: 16px;
     max-width: 300px;
-    margin: 30px auto 0 auto;  
     display: block;          
     padding: 12px 24px;
     text-align: center;
 }
 
-.search_btn:hover {
+.searchBtn:hover {
     background-color: #055c66;
 }
 
@@ -197,5 +198,28 @@
 .hidden {
     display: none !important;
 }
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.back-btn, .next-btn, .back-btn-searvh, .searchBtn{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.back-btn{
+    background-color: #f0f7f5;
+    border: none;
+    cursor: pointer;
+}
+
+.back-btn-search{
+    background-color: #f0f7f5;
+    border: none;
+    cursor: pointer;
+}
+
 
 

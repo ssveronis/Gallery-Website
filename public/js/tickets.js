@@ -1,30 +1,55 @@
 document.addEventListener("DOMContentLoaded", () => {
     const buttons = document.querySelectorAll(".exhibition-btn");
-    const dateForm = document.getElementById("dateSelection");
-    const buttonContainer = document.getElementById("exhibitionSelection");
-    const selectedEventInput = document.getElementById("selectedEvent");
-    const nextButton = document.getElementById("nextButton");
+    const exhibitionSelection = document.getElementById("exhibitionSelection");
+    const dateSelection = document.getElementById("dateSelection");
     const ticketForm = document.getElementById("ticketForm");
     const searchBtn = document.getElementById("searchBtn");
+    const backButton = document.getElementById("backButton");
+    const nextButton = document.getElementById("nextButton");
+    const ticketFormButtons = document.getElementById("ticketFormButtons");
+    const backButtonSearch = document.getElementById("backButtonSearch");
+    const dateInput = document.getElementById('date');
+    const today = new Date().toISOString().split('T')[0]; 
+    dateInput.min = today;
 
+    
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
-            const type = btn.dataset.type;
-            //selectedEventInput.value = type;
-
-            buttonContainer.classList.add("hidden");
-            dateForm.classList.remove("hidden");
-            dateForm.classList.add("flex-container");
+            exhibitionSelection.classList.add("hidden");
+            dateSelection.classList.remove("hidden");
+            dateSelection.classList.add("flex-container");
         });
     });
 
     nextButton.addEventListener("click", () => {
-        dateForm.classList.add("hidden");
-        dateForm.classList.remove("flex-container");
+        if (!dateInput.value) {
+            alert("Παρακαλώ επιλέξτε ημερομηνία.");
+            return;
+        }
+
+        dateSelection.classList.add("hidden");
+        dateSelection.classList.remove("flex-container");
+
         ticketForm.classList.remove("hidden");
         ticketForm.classList.add("flex-container");
-        const selectedDate = document.querySelector('input[name="date"]:checked');
-        searchBtn.classList.remove("hidden");
+
+        ticketFormButtons.classList.remove("hidden");
+    });
+
+    
+    backButton.addEventListener("click", () => {
+        dateSelection.classList.add("hidden");
+        dateSelection.classList.remove("flex-container");
+
+        exhibitionSelection.classList.remove("hidden");
+    });
+
+    backButtonSearch.addEventListener("click", () => {
+        ticketForm.classList.add("hidden");
+        ticketForm.classList.remove("flex-container");
+
+        dateSelection.classList.remove("hidden");
+        dateSelection.classList.add("flex-container");
     });
 
     // Ticket counters
