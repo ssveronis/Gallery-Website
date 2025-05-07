@@ -29,10 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
             popup.classList.add("show");
             overlay.classList.add("show");
 
-            document.getElementById("closePopup").addEventListener("click", () => {
-                popup.classList.remove("show");
-                overlay.classList.remove("show");
-            });
         });
     });
 
