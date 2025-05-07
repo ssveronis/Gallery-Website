@@ -1,34 +1,76 @@
 <div class="main_title">
-Χρήστες
-<button><span class="material-symbols-outlined">add</span>Νέος χρήστης</button>
+    Χρήστες
+    <button><span class="material-symbols-outlined">add</span>Νέος χρήστης</button>
 </div>
 <table>
     <thead>
-    <tr>
-        <th>User ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Action</th>
-    </tr>
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>001</td>
-        <td>Alice Johnson</td>
-        <td>alice@example.com</td>
-        <td><button><span class="material-symbols-outlined">edit</span></button></td>
-    </tr>
-    <tr>
-        <td>002</td>
-        <td>Bob Smith</td>
-        <td>bob@example.com</td>
-        <td><button><span class="material-symbols-outlined">edit</span></button></td>
-    </tr>
-    <tr>
-        <td>003</td>
-        <td>Charlie Brown</td>
-        <td>charlie@example.com</td>
-        <td><button><span class="material-symbols-outlined">edit</span></button></td>
-    </tr>
+        <tr>
+            <td>001</td>
+            <td>Alice Johnson</td>
+            <td>alice@example.com</td>
+            <td class="actions-cell">
+                <div class="action-wrapper">
+                    <button class="edit-action-btn">
+                        <span class="material-symbols-outlined">edit</span>
+                    </button>
+                    <div class="action-menu hidden">
+                        <button class="action-delete">
+                            <span class="material-symbols-outlined">delete</span>Διαγραφή
+                        </button>
+                        <button class="action-edit">
+                            <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
+                        </button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>002</td>
+            <td>Bob Smith</td>
+            <td>bob@example.com</td>
+            <td class="actions-cell">
+                <div class="action-wrapper">
+                    <button class="edit-action-btn">
+                        <span class="material-symbols-outlined">edit</span>
+                    </button>
+                    <div class="action-menu hidden">
+                        <button class="action-delete">
+                            <span class="material-symbols-outlined">delete</span>Διαγραφή
+                        </button>
+                        <button class="action-edit">
+                            <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
+                        </button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>003</td>
+            <td>Charlie Brown</td>
+            <td>charlie@example.com</td>
+            <td class="actions-cell">
+                <div class="action-wrapper">
+                    <button class="edit-action-btn">
+                        <span class="material-symbols-outlined">edit</span>
+                    </button>
+                    <div class="action-menu hidden">
+                        <button class="action-delete">
+                            <span class="material-symbols-outlined">delete</span>Διαγραφή
+                        </button>
+                        <button class="action-edit">
+                            <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
+                        </button>
+                    </div>
+                </div>
+            </td>
+        </tr>
     </tbody>
 </table>

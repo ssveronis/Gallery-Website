@@ -110,6 +110,11 @@ body {
     padding-top: 90px;
 }
 
+.overlay a{
+    text-decoration: none;
+    color: white;
+}
+
 
 /* GPT animations*/
 .scroll-section {
