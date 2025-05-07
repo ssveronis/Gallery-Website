@@ -175,6 +175,7 @@ app.get('/wp-admin/sales', async (req, res) => {
         scripts: [
             "/js/script.js",
             "/js/mobile_script.js",
+            "/js/ticketSales.js"
         ]
     });
 });
