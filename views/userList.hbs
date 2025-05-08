@@ -12,65 +12,27 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>001</td>
-            <td>Alice Johnson</td>
-            <td>alice@example.com</td>
-            <td class="actions-cell">
-                <div class="action-wrapper">
-                    <button class="edit-action-btn">
-                        <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <div class="action-menu hidden">
-                        <button class="action-delete">
-                            <span class="material-symbols-outlined">delete</span>Διαγραφή
+        {{#each data}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.nicename}} ({{this.login}})</td>
+                <td>{{this.email}}</td>
+                <td class="actions-cell">
+                    <div class="action-wrapper">
+                        <button class="edit-action-btn">
+                            <span class="material-symbols-outlined">edit</span>
                         </button>
-                        <button class="action-edit">
-                            <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
-                        </button>
+                        <div class="action-menu hidden">
+                            <button class="action-delete">
+                                <span class="material-symbols-outlined">delete</span>Διαγραφή
+                            </button>
+                            <button class="action-edit">
+                                <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>002</td>
-            <td>Bob Smith</td>
-            <td>bob@example.com</td>
-            <td class="actions-cell">
-                <div class="action-wrapper">
-                    <button class="edit-action-btn">
-                        <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <div class="action-menu hidden">
-                        <button class="action-delete">
-                            <span class="material-symbols-outlined">delete</span>Διαγραφή
-                        </button>
-                        <button class="action-edit">
-                            <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
-                        </button>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>003</td>
-            <td>Charlie Brown</td>
-            <td>charlie@example.com</td>
-            <td class="actions-cell">
-                <div class="action-wrapper">
-                    <button class="edit-action-btn">
-                        <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <div class="action-menu hidden">
-                        <button class="action-delete">
-                            <span class="material-symbols-outlined">delete</span>Διαγραφή
-                        </button>
-                        <button class="action-edit">
-                            <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
-                        </button>
-                    </div>
-                </div>
-            </td>
-        </tr>
+                </td>
+            </tr>
+        {{/each}}
     </tbody>
 </table>

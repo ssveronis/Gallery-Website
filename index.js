@@ -119,6 +119,19 @@ app.get('/wp-admin', async (req, res) => {
 });
 
 app.get('/wp-admin/user-list', async (req, res) => {
+    const users = await WP_User.getAll(db)
+    let data = []
+
+    for (const user of users) {
+        let partData = {
+            "id": user.getId(),
+            "nicename": user.getDisplayName(),
+            "login": user.getLogin(),
+            "email": user.getEmail().getEmail()
+        }
+        data.push(partData)
+    }
+
     res.render("userList", {
         stylesheets: [
             "/css/style.css",
@@ -133,7 +146,8 @@ app.get('/wp-admin/user-list', async (req, res) => {
             "/js/script.js",
             "/js/mobile_script.js",
             "/js/userList.js"
-        ]
+        ],
+        data: data
     });
 });
 
