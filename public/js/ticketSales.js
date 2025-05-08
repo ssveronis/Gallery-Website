@@ -4,26 +4,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const popupContent = document.getElementById("popupContent");
 
     document.querySelectorAll("table button").forEach(button => {
-        button.addEventListener("click", () => {
+        button.addEventListener("click", async () => {
             const row = button.closest("tr");
             const cells = row.querySelectorAll("td");
 
             const ticketId = cells[0].textContent;
-            const name = cells[1].textContent;
-            const email = cells[2].textContent;
-            const ticketCount = cells[3].textContent;
+            const res = await fetch(`/api/sale/${ticketId}`);
+            const data = await res.json();
 
             popupContent.innerHTML = `
                 <h2>Λεπτομέρειες Εισιτηρίου</h2>
                 <p><strong>ID:</strong> ${ticketId}</p>
-                <p><strong>Όνομα:</strong> ${name}</p>
-                <p><strong>Ημερομηνία:</strong> 2023-10-15</p>
-                <p><strong>Ώρα:</strong> 10:30</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Αριθμός Εισιτηρίων:</strong> ${ticketCount}</p>
-                <p><strong>Tύπος Εισιτηρίου:</strong> Κανονικό (2)</p>
-                <p><strong>Tύπος Εισιτηρίου:</strong> Φοιτητικό (1)</p>
-                <p><strong>Τιμή:</strong> 25€</p>
+                <p><strong>Όνομα:</strong> ${data.name}</p>
+                <p><strong>Ημερομηνία:</strong> ${data.date}</p>
+                <p><strong>Email:</strong> ${data.email}</p>
+                <p><strong>Αριθμός Εισιτηρίων:</strong> ${data.toatl_tickets}</p>
+                <p><strong>Tύπος Εισιτηρίου:</strong> Κανονικό (${data.regular_tickets})</p>
+                <p><strong>Tύπος Εισιτηρίου:</strong> Παιδικό (${data.children_tickets})</p>
+                <p><strong>Tύπος Εισιτηρίου:</strong> Φοιτητικό (${data.student_tickets})</p>
+                <p><strong>Τιμή:</strong> ${data.total}€</p>
             `;
 
             popup.classList.add("show");

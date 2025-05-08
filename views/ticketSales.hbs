@@ -13,33 +13,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>001</td>
-        <td>ABC</td>
-        <td>something@example.com</td>
-        <td>3</td>
-        <td>
-            <button><span class="material-symbols-outlined">visibility</span></button>
-        </td>
-    </tr>
-    <tr>
-        <td>001</td>
-        <td>ABC</td>
-        <td>something@example.com</td>
-        <td>3</td>
-        <td>
-            <button><span class="material-symbols-outlined">visibility</span></button>
-        </td>
-    </tr>
-    <tr>
-        <td>001</td>
-        <td>ABC</td>
-        <td>something@example.com</td>
-        <td>3</td>
-        <td>
-            <button><span class="material-symbols-outlined">visibility</span></button>
-        </td>
-    </tr>
+    {{#each data}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.toatl_tickets}}</td>
+            <td>
+                <button><span class="material-symbols-outlined">visibility</span></button>
+            </td>
+        </tr>
+    {{/each}}
     </tbody>
 </table>
 

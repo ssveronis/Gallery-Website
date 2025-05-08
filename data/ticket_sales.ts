@@ -8,10 +8,12 @@ class TicketSales {
     private db: DB;
     private id: number;
 
+    private timestamp: number = null;
     private regularTickets: number = null;
     private childrenTickets: number = null;
     private studentTickets: number = null;
     private audioguides: number = null;
+    private total: number = null;
     private personId: number = null;
     private person: Person = null;
     private availableTicketsId: number = null;
@@ -26,10 +28,12 @@ class TicketSales {
     async init(){
         const res = await this.db.query(`SELECT * FROM TICKET_SALES WHERE id = '${this.id}'`)
         if (res.length === 0) throw new Error("Ticket Sales not found");
+        this.timestamp = res[0].timestamp;
         this.regularTickets = res[0].regular_tickets;
         this.childrenTickets = res[0].children_tickets;
         this.studentTickets = res[0].student_tickets;
         this.audioguides = res[0].audioguides;
+        this.total = res[0].total;
         this.personId = res[0].buyer_id;
         this.person = new Person(this.db, this.personId);
         await this.person.init();
@@ -90,6 +94,11 @@ class TicketSales {
         return this.id;
     }
 
+    getDate(){
+        if (!this.timestamp) throw new Error("Ticket Sales not found");
+        return this.timestamp;
+    }
+
     getRegularTickets(){
         if (!this.regularTickets) throw new Error("Ticket Sales not found");
         return this.regularTickets;
@@ -118,6 +127,11 @@ class TicketSales {
     getAudioguides(){
         if (!this.regularTickets) throw new Error("Ticket Sales not found");
         return this.audioguides;
+    }
+
+    getTotal(){
+        if (!this.regularTickets) throw new Error("Ticket Sales not found");
+        return this.total;
     }
 
     getAvailableTickets(){

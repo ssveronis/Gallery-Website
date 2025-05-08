@@ -185,6 +185,23 @@ app.get('/wp-admin/tickets', async (req, res) => {
 });
 
 app.get('/wp-admin/sales', async (req, res) => {
+    const sales = await TicketSales.getAll(db)
+    let data = []
+
+    for (const sale of sales) {
+        let partData = {
+            "id": sale.getId(),
+            "date": (new Date(sale.getDate())).toLocaleDateString(),
+            "toatl_tickets": sale.getRegularTickets() + sale.getChildrenTickets() + sale.getStudentTickets(),
+            "regular_tickets": sale.getRegularTickets(),
+            "children_tickets": sale.getChildrenTickets(),
+            "student_tickets": sale.getStudentTickets(),
+            "name": sale.getPerson().getFirstName() + " " + sale.getPerson().getLastName(),
+            "email": sale.getPerson().getEmail().getEmail(),
+        }
+        data.push(partData)
+    }
+
     res.render("ticketSales", {
         stylesheets: [
             "/css/style.css",
@@ -199,8 +216,26 @@ app.get('/wp-admin/sales', async (req, res) => {
             "/js/script.js",
             "/js/mobile_script.js",
             "/js/ticketSales.js"
-        ]
+        ],
+        data: data
     });
+});
+
+app.get('/api/sale/:id', async (req, res) => {
+    const sale = new TicketSales(db, req.params.id)
+    await sale.init()
+    let data = {
+        "id": sale.getId(),
+        "date": (new Date(sale.getDate())).toLocaleDateString(),
+        "toatl_tickets": sale.getRegularTickets() + sale.getChildrenTickets() + sale.getStudentTickets(),
+        "regular_tickets": sale.getRegularTickets(),
+        "children_tickets": sale.getChildrenTickets(),
+        "student_tickets": sale.getStudentTickets(),
+        "name": sale.getPerson().getFirstName() + " " + sale.getPerson().getLastName(),
+        "email": sale.getPerson().getEmail().getEmail(),
+        "total": sale.getTotal()
+    }
+    res.send(data)
 });
 
 export default app;
