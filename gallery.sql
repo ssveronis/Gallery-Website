@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Εξυπηρετητής: mariadb:3306
--- Χρόνος δημιουργίας: 07 Μάη 2025 στις 21:11:44
+-- Χρόνος δημιουργίας: 08 Μάη 2025 στις 19:01:47
 -- Έκδοση διακομιστή: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- Έκδοση PHP: 8.2.27
 
@@ -62,7 +62,8 @@ CREATE TABLE `EMAIL` (
 --
 
 INSERT INTO `EMAIL` (`id`, `email`, `newsletter`) VALUES
-(1, 'abc@example.com', 0);
+(1, 'abc@example.com', 0),
+(2, 'def@me.me', 0);
 
 -- --------------------------------------------------------
 
@@ -116,11 +117,13 @@ INSERT INTO `TICKETS_CATEGORY` (`id`, `name`, `regular_price`, `children_price`,
 
 CREATE TABLE `TICKET_SALES` (
   `id` int(11) NOT NULL,
+  `timestamp` datetime NOT NULL,
   `regular_tickets` int(11) NOT NULL DEFAULT 0,
   `children_tickets` int(11) NOT NULL DEFAULT 0,
   `student_tickets` int(11) NOT NULL DEFAULT 0,
   `audioguides` int(11) NOT NULL DEFAULT 0,
   `accessibility` tinyint(1) NOT NULL DEFAULT 0,
+  `total` float NOT NULL,
   `buyer_id` int(11) NOT NULL,
   `avail_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -129,9 +132,9 @@ CREATE TABLE `TICKET_SALES` (
 -- Άδειασμα δεδομένων του πίνακα `TICKET_SALES`
 --
 
-INSERT INTO `TICKET_SALES` (`id`, `regular_tickets`, `children_tickets`, `student_tickets`, `audioguides`, `accessibility`, `buyer_id`, `avail_id`) VALUES
-(1, 1, 0, 0, 1, 0, 1, 1),
-(2, 3, 0, 0, 1, 0, 1, 2);
+INSERT INTO `TICKET_SALES` (`id`, `timestamp`, `regular_tickets`, `children_tickets`, `student_tickets`, `audioguides`, `accessibility`, `total`, `buyer_id`, `avail_id`) VALUES
+(1, '2025-05-01 09:55:59', 1, 0, 0, 1, 0, 17, 1, 1),
+(2, '2025-05-02 09:56:10', 3, 0, 0, 1, 0, 43, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -170,7 +173,8 @@ CREATE TABLE `WP_USERS` (
 --
 
 INSERT INTO `WP_USERS` (`id`, `user_login`, `user_pass`, `display_name`, `email_id`) VALUES
-(1, 'test', 'test', 'test account', 1);
+(1, 'test', 'test', 'test account', 1),
+(3, 'newtest', 'test', 'new test account', 2);
 
 --
 -- Ευρετήρια για άχρηστους πίνακες
@@ -233,7 +237,7 @@ ALTER TABLE `AVAIL_TICKETS`
 -- AUTO_INCREMENT για πίνακα `EMAIL`
 --
 ALTER TABLE `EMAIL`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT για πίνακα `TICKETS_CATEGORY`
@@ -251,7 +255,7 @@ ALTER TABLE `TICKET_SALES`
 -- AUTO_INCREMENT για πίνακα `WP_USERS`
 --
 ALTER TABLE `WP_USERS`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 -- --------------------------------------------------------
 
@@ -260,7 +264,7 @@ ALTER TABLE `WP_USERS`
 --
 DROP TABLE IF EXISTS `view_ticket_sales_summary`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_ticket_sales_summary`  AS SELECT `AVAIL_TICKETS`.`category_id` AS `category_id`, `AVAIL_TICKETS`.`id` AS `id`, `AVAIL_TICKETS`.`date` AS `date`, `AVAIL_TICKETS`.`start_time` AS `start_time`, `AVAIL_TICKETS`.`end_time` AS `end_time`, `AVAIL_TICKETS`.`max_tickets` AS `max_tickets`, sum(`TICKET_SALES`.`regular_tickets`) AS `total_regular_tickets`, sum(`TICKET_SALES`.`children_tickets`) AS `total_children_tickets`, sum(`TICKET_SALES`.`student_tickets`) AS `total_student_tickets` FROM (`AVAIL_TICKETS` LEFT OUTER JOIN `TICKET_SALES` on(`TICKET_SALES`.`avail_id` = `AVAIL_TICKETS`.`id`)) GROUP BY `AVAIL_TICKETS`.`category_id`, `AVAIL_TICKETS`.`date`, `AVAIL_TICKETS`.`start_time`, `AVAIL_TICKETS`.`end_time`, `AVAIL_TICKETS`.`max_tickets` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_ticket_sales_summary`  AS SELECT `AVAIL_TICKETS`.`category_id` AS `category_id`, `AVAIL_TICKETS`.`id` AS `id`, `AVAIL_TICKETS`.`date` AS `date`, `AVAIL_TICKETS`.`start_time` AS `start_time`, `AVAIL_TICKETS`.`end_time` AS `end_time`, `AVAIL_TICKETS`.`max_tickets` AS `max_tickets`, sum(`TICKET_SALES`.`regular_tickets`) AS `total_regular_tickets`, sum(`TICKET_SALES`.`children_tickets`) AS `total_children_tickets`, sum(`TICKET_SALES`.`student_tickets`) AS `total_student_tickets` FROM (`AVAIL_TICKETS` left join `TICKET_SALES` on(`TICKET_SALES`.`avail_id` = `AVAIL_TICKETS`.`id`)) GROUP BY `AVAIL_TICKETS`.`category_id`, `AVAIL_TICKETS`.`date`, `AVAIL_TICKETS`.`start_time`, `AVAIL_TICKETS`.`end_time`, `AVAIL_TICKETS`.`max_tickets` ;
 
 --
 -- Περιορισμοί για άχρηστους πίνακες
