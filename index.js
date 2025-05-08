@@ -3,7 +3,7 @@ import { create } from 'express-handlebars';
 import 'dotenv/config'
 import device from 'express-device';
 import {getNav} from "./helpers.js";
-import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User } from "./db.js";
+import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary } from "./db.js";
 import fs from 'fs';
 import path from 'path';
 
@@ -137,9 +137,32 @@ app.get('/wp-admin/user-list', async (req, res) => {
 });
 
 app.get('/wp-admin/tickets', async (req, res) => {
-    
-    const data = fs.readFileSync("data/ticketData.json", 'utf8');
-    const ticketData = JSON.parse(data);
+
+    let data = []
+
+    const categories = await TicketsCategory.getAll(db)
+    for (const cat of categories) {
+        const summaries = await TicketSalesSummary.getAll(db, cat.getId())
+
+        var partData = {
+            "name": cat.getName(),
+            "id": cat.getId(),
+            "availabilities": []
+        }
+
+        for (const sum of summaries) {
+            partData["availabilities"].push({
+                "date": (new Date(sum.getDate())).toLocaleDateString(),
+                "start_time": sum.getStartTime(),
+                "end_time": sum.getEndTime(),
+                "max_tickets": sum.getMaxTickets(),
+                "sold_tickets": sum.getTotalSoldTickets(),
+                "available_tickets":  sum.getAvailableTickets()
+            })
+        }
+
+        data.push(partData)
+    }
 
     res.render("ticketsCategory", {
         stylesheets: [
@@ -156,7 +179,7 @@ app.get('/wp-admin/tickets', async (req, res) => {
             "/js/mobile_script.js",
             "/js/ticketsCategory.js"
         ],
-        categories: ticketData.categories
+        data: data
     });
 });
 

@@ -5,7 +5,7 @@
 <hr>
 
 <div>
-    {{#each categories}}
+    {{#each data}}
     <div class="ticket_category">
         <div>{{this.name}}</div>
         <div>
@@ -34,19 +34,22 @@
                 {{#each this.availabilities}}
                 <tr>
                     <td>{{this.date}}</td>
-                    <td>{{this.time}}</td>
-                    <td>{{this.total}}</td>
-                    <td>{{this.sold}}</td>
-                    <td>{{this.available}}</td>
+                    <td>{{this.start_time}} - {{this.end_time}}</td>
+                    <td>{{this.max_tickets}}</td>
+                    <td>{{this.sold_tickets}}</td>
+                    <td>{{this.available_tickets}}</td>
                     <td class="actions-cell">
                         <div class="action-wrapper">
                             <button class="edit-action-btn">
-                                <span class="material-symbols-outlined">edit</span>
+                                <span class="material-symbols-outlined">more_vert</span>
                             </button>
                             <div class="action-menu hidden">
-                                <button class="action-delete">
-                                    <span class="material-symbols-outlined">delete</span>Διαγραφή
-                                </button>
+                                {{#if this.sold_tickets}}
+                                {{else}}
+                                    <button class="action-delete">
+                                        <span class="material-symbols-outlined">delete</span>Διαγραφή
+                                    </button>
+                                {{/if}}
                                 <button class="action-edit">
                                     <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
                                 </button>

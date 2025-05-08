@@ -52,3 +52,4 @@ export { default as Person } from "./data/person.ts";
 export { default as TicketsCategory } from "./data/tickets_category.ts";
 export { default as AvailableTickets } from "./data/available_tickets.ts";
 export { default as TicketSales } from "./data/ticket_sales.ts";
+export { default as TicketSalesSummary } from "./data/view_ticket_sales_summary.ts";
