@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Εξυπηρετητής: mariadb:3306
--- Χρόνος δημιουργίας: 08 Μάη 2025 στις 19:01:47
+-- Χρόνος δημιουργίας: 09 Μάη 2025 στις 11:04:45
 -- Έκδοση διακομιστή: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- Έκδοση PHP: 8.2.27
 
@@ -122,7 +122,7 @@ CREATE TABLE `TICKET_SALES` (
   `children_tickets` int(11) NOT NULL DEFAULT 0,
   `student_tickets` int(11) NOT NULL DEFAULT 0,
   `audioguides` int(11) NOT NULL DEFAULT 0,
-  `accessibility` tinyint(1) NOT NULL DEFAULT 0,
+  `accessibility` bit(1) NOT NULL DEFAULT b'0',
   `total` float NOT NULL,
   `buyer_id` int(11) NOT NULL,
   `avail_id` int(11) NOT NULL
@@ -133,8 +133,8 @@ CREATE TABLE `TICKET_SALES` (
 --
 
 INSERT INTO `TICKET_SALES` (`id`, `timestamp`, `regular_tickets`, `children_tickets`, `student_tickets`, `audioguides`, `accessibility`, `total`, `buyer_id`, `avail_id`) VALUES
-(1, '2025-05-01 09:55:59', 1, 0, 0, 1, 0, 17, 1, 1),
-(2, '2025-05-02 09:56:10', 3, 0, 0, 1, 0, 43, 1, 2);
+(1, '2025-05-01 09:55:59', 1, 0, 0, 1, b'0', 17, 1, 1),
+(2, '2025-05-02 09:56:10', 3, 0, 0, 1, b'1', 43, 1, 2);
 
 -- --------------------------------------------------------
 

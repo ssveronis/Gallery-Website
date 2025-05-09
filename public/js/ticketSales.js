@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Tύπος Εισιτηρίου:</strong> Παιδικό (${data.children_tickets})</p>
                 <p><strong>Tύπος Εισιτηρίου:</strong> Φοιτητικό (${data.student_tickets})</p>
                 <p><strong>Τιμή:</strong> ${data.total}€</p>
+                <p><strong>AMEA:</strong> ${data.accessibility?"Ναι":"Όχι"}</p>
             `;
 
             popup.classList.add("show");

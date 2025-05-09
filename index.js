@@ -125,7 +125,7 @@ app.get('/wp-admin/user-list', async (req, res) => {
     for (const user of users) {
         let partData = {
             "id": user.getId(),
-            "nicename": user.getDisplayName(),
+            "displayName": user.getDisplayName(),
             "login": user.getLogin(),
             "email": user.getEmail().getEmail()
         }
@@ -247,6 +247,7 @@ app.get('/api/sale/:id', async (req, res) => {
         "student_tickets": sale.getStudentTickets(),
         "name": sale.getPerson().getFirstName() + " " + sale.getPerson().getLastName(),
         "email": sale.getPerson().getEmail().getEmail(),
+        "accessibility": sale.getAccessibility(),
         "total": sale.getTotal()
     }
     res.send(data)

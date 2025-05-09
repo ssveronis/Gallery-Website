@@ -14,6 +14,7 @@ class TicketSales {
     private studentTickets: number = null;
     private audioguides: number = null;
     private total: number = null;
+    private accessibility: boolean = null;
     private personId: number = null;
     private person: Person = null;
     private availableTicketsId: number = null;
@@ -34,6 +35,7 @@ class TicketSales {
         this.studentTickets = res[0].student_tickets;
         this.audioguides = res[0].audioguides;
         this.total = res[0].total;
+        this.accessibility = res[0].accessibility;
         this.personId = res[0].buyer_id;
         this.person = new Person(this.db, this.personId);
         await this.person.init();
@@ -132,6 +134,11 @@ class TicketSales {
     getTotal(){
         if (!this.regularTickets) throw new Error("Ticket Sales not found");
         return this.total;
+    }
+
+    getAccessibility(){
+        if (!this.regularTickets) throw new Error("Ticket Sales not found");
+        return this.accessibility
     }
 
     getAvailableTickets(){
