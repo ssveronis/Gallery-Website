@@ -35,11 +35,22 @@
 }
 
 .exhibition-btn[data-type="permanent"] {
-    background-image: url('public/img/image1.png');
+    background-image: url('../img/image1.png');
+    background-size: cover;
+    background-position: center;
 }
 
+
 .exhibition-btn[data-type="temporary"] {
-    background-image: url('public/img/image2.png');
+    background-image: url('../img/image2.png');
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.exhibition-selection span{
+    color: #055661;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .date-selection {

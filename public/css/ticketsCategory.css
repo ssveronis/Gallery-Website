@@ -144,13 +144,19 @@ tr{
 }
 
 .popup-content {
+    display: flex;
+    flex-direction: column;
     text-align: left;
 }
 
-.popup-content input[type="text"]{
+.popup-content input[type="text"], input[type="number"] {
     max-width: 90%;
+    width: 90%; 
+    padding: 10px; 
+    margin: 10px 0; 
+    border-radius: 8px; 
+    border: 1px solid #ccc;
 }
-
 
 .popup.show {
     bottom: 0;
@@ -177,4 +183,18 @@ tr{
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.checkBox{
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-content checkBox{
+    padding-bottom:20px
+}
+
+.popup-content button{
+    max-width: 90px;
+    margin-top:20px;
 }
