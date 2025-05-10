@@ -78,7 +78,6 @@
             <input type="checkbox" id="accessAmea" name="accessAmea"/>
             <a>Προσβάσιμο σε άτομα ειδικές ανάγκες</a>
         </div>
-        
         <button type="submit" class="btn">Προσθήκη</button>
     </form>
 </div>
@@ -103,5 +102,17 @@
             <button type="submit" class="btn">Αποθήκευση</button>
         </div>
     </form>
+</div>
 
+<!-- Popup for Editing Availability -->
+<div id="editAvailabilityPopup" class="popup">
+    <h2>Επεξεργασία Διαθεσιμότητας</h2>
+    <form id="editAvailabilityForm">
+        <label for="editAvailabilityTotal">Αριθμός Διαθέσιμων Εισιτηρίων</label>
+        <input type="number" id="editAvailabilityTotal" name="total" required min="1" placeholder="π.χ. 100">
+
+        <div class="popup-actions">
+            <button type="submit" class="btn">Αποθήκευση</button>
+        </div>
+    </form>
 </div>

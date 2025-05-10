@@ -5,10 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const openBtn = document.querySelector(".main_title .btn");
     const form = document.getElementById("newCategoryForm");
     const availabilityPopup = document.getElementById("availabilityPopup");
-    const openAvailabilityButtons = document.querySelectorAll(".dropdown-content .btn"); // adjust if needed
+    const openAvailabilityButtons = document.querySelectorAll(".dropdown-content .btn");
     const availabilityForm = document.getElementById("newAvailabilityForm");
-
-
+    const editAvailabilityPopup = document.getElementById("editAvailabilityPopup");
+    const editAvailabilityForm = document.getElementById("editAvailabilityForm");
+    
     dropdownButtons.forEach(button => {
         button.addEventListener("click", () => {
             const content = button.closest("div").parentElement.nextElementSibling;
@@ -47,10 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     overlay.addEventListener("click", () => {
         popup.classList.remove("show");
-        overlay.classList.remove("show");
         availabilityPopup.classList.remove("show");
+        editAvailabilityPopup.classList.remove("show");
         overlay.classList.remove("show");
     });
+
 
     //popup for new availability
     // Show availability popup
@@ -82,6 +84,23 @@ document.addEventListener("DOMContentLoaded", function () {
             availabilityForm.reset();
         }
     });
-    
+
+
+     
+});
+
+document.addEventListener("click", function (e) {
+    if (e.target.closest(".action-edit")) {
+        e.stopPropagation();
+
+        const button = e.target.closest(".action-edit");
+        const row = button.closest("tr");
+
+        const total = row.children[2].innerText;
+        document.getElementById("editAvailabilityTotal").value = total;
+
+        editAvailabilityPopup.classList.add("show");
+        overlay.classList.add("show");
+    }
 });
 
