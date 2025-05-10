@@ -127,7 +127,7 @@ tr{
     text-align: left;
 }
 
-.popup-content input[type="text"], input[type="email"] {
+.popup-content input[type="text"], input[type="email"], input[type="password"]{
     max-width: 90%;
     width: 90%; 
     padding: 10px; 
