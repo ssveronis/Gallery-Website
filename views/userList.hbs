@@ -1,6 +1,6 @@
 <div class="main_title">
     Χρήστες
-    <button><span class="material-symbols-outlined">add</span>Νέος χρήστης</button>
+    <button class="new-user"><span class="material-symbols-outlined">add</span>Νέος χρήστης</button>
 </div>
 <table>
     <thead>
@@ -38,9 +38,18 @@
 </table>
 
 <div id="overlay" class="overlay"></div>
-<div id="popup" class="popup">
+<div id="editPopup" class="popup">
     <form id="userEdit" class="popup-content">
         <h2>Επεξεργασία στοιχείων</h2>
+        <input type="text" id="username" name="username" placeholder="Όνομα Χρήστη" required />
+        <input type="email" id="userEmail" name="userEmail" placeholder="Email" required />
+        <button type="submit" class="btn">Αποθήκευση</button>
+    </form>
+</div>
+
+<div id="newUserPopup" class="popup">
+    <form id="newUser" class="popup-content">
+        <h2>Νέος χρήστης</h2>
         <input type="text" id="username" name="username" placeholder="Όνομα Χρήστη" required />
         <input type="email" id="userEmail" name="userEmail" placeholder="Email" required />
         <button type="submit" class="btn">Αποθήκευση</button>

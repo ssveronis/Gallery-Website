@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-
+    const popup = document.querySelector(".popup");
+    const overlay = document.querySelector(".overlay");
+    const newUserPopup = document.getElementById("newUserPopup");
+    
+    
     document.querySelectorAll(".edit-action-btn").forEach(button => {
         button.addEventListener("click", function (e) {
             e.stopPropagation();
@@ -16,16 +20,20 @@ document.addEventListener("DOMContentLoaded", function () {
     //popup for user edit
     document.querySelectorAll(".action-edit").forEach(button => {
         button.addEventListener("click", () => {
-            const popup = document.querySelector(".popup");
-            const overlay = document.querySelector(".overlay");
             popup.classList.add("show");
             overlay.classList.add("show");
         });
     });
-    
+
+    document.querySelector(".new-user").addEventListener("click", () => {
+        newUserPopup.classList.add("show");
+        overlay.classList.add("show");
+    });
+
     overlay.addEventListener("click", () => {
         popup.classList.remove("show");
         overlay.classList.remove("show");
+        newUserPopup.classList.remove("show");
     });
 
 });
