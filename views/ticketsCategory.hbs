@@ -9,6 +9,9 @@
     <div class="ticket_category">
         <div>{{this.name}}</div>
         <div>
+            <button class="edit-category-btn">
+                <span class="material-symbols-outlined">edit</span>
+            </button>
             <button class="dropdown-btn">
                 <i class="fas fa-chevron-down"></i>
             </button>
@@ -46,9 +49,9 @@
                             <div class="action-menu hidden">
                                 {{#if this.sold_tickets}}
                                 {{else}}
-                                    <button class="action-delete">
-                                        <span class="material-symbols-outlined">delete</span>Διαγραφή
-                                    </button>
+                                <button class="action-delete">
+                                    <span class="material-symbols-outlined">delete</span>Διαγραφή
+                                </button>
                                 {{/if}}
                                 <button class="action-edit">
                                     <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
@@ -71,11 +74,13 @@
         <h2>Νέα Κατηγορία</h2>
         <input type="text" id="categoryName" name="categoryName" placeholder="Όνομα κατηγορίας" required />
         <input type="number" id="normalPrice" name="normalPrice" placeholder="Τιμή κανονικού Εισιτηρίου (€)" required />
-        <input type="number" id="studentPrice" name="studentPrice" placeholder="Τιμή φοιτητικού Εισιτηρίου (€)" required />
-        <input type="number" id="childrenPrice" name="childrenPrice" placeholder="Τιμή παιδικού Εισιτηρίου (€)" required />
+        <input type="number" id="studentPrice" name="studentPrice" placeholder="Τιμή φοιτητικού Εισιτηρίου (€)"
+            required />
+        <input type="number" id="childrenPrice" name="childrenPrice" placeholder="Τιμή παιδικού Εισιτηρίου (€)"
+            required />
         <input type="number" id="audioguidePrice" name="audioguidePrice" placeholder="Τιμή audioguide (€)" required />
         <div class="checkbox">
-            <input type="checkbox" id="accessAmea" name="accessAmea"/>
+            <input type="checkbox" id="accessAmea" name="accessAmea" />
             <a>Προσβάσιμο σε άτομα ειδικές ανάγκες</a>
         </div>
         <button type="submit" class="btn">Προσθήκη</button>
