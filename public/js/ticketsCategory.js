@@ -103,9 +103,6 @@ document.addEventListener("click", function (e) {
         const button = e.target.closest(".action-edit");
         const row = button.closest("tr");
 
-        const total = row.children[2].innerText;
-        document.getElementById("editAvailabilityTotal").value = total;
-
         editAvailabilityPopup.classList.add("show");
         overlay.classList.add("show");
     }

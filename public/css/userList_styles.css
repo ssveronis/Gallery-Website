@@ -89,3 +89,81 @@ tr{
     justify-content: space-around;
 }
 
+/* popup styles */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 998;
+}
+
+.popup {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    padding: 2rem;
+    box-shadow: 0 -2px 20px rgba(0,0,0,0.2);
+    transition: bottom 0.4s ease-in-out;
+    z-index: 1001;
+    border-radius: 12px 12px 0 0;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.popup-content input[type="text"], input[type="email"] {
+    max-width: 90%;
+    width: 90%; 
+    padding: 10px; 
+    margin: 10px 0; 
+    border-radius: 8px; 
+    border: 1px solid #ccc;
+}
+
+.popup.show {
+    bottom: 0;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay.show{
+    display: block;
+}
+
+.btn{
+    background: #077187;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0.5rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    max-width: 110px;
+}
+
+.btn:hover{
+    background: #074f57;
+}
+
