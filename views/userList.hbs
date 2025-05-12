@@ -26,7 +26,7 @@
                             <button class="action-delete">
                                 <span class="material-symbols-outlined">delete</span>Διαγραφή
                             </button>
-                            <button class="action-edit">
+                            <button class="action-edit" data-id="{{this.id}}">
                                 <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
                             </button>
                         </div>
@@ -39,20 +39,21 @@
 
 <div id="overlay" class="overlay"></div>
 <div id="editPopup" class="popup">
-    <form id="userEdit" class="popup-content">
+    <form id="userEdit" class="popup-content" method="post" action="/api/editUser">
         <h2>Επεξεργασία στοιχείων</h2>
-        <input type="text" id="username" name="username" placeholder="Όνομα Χρήστη" required />
-        <input type="email" id="userEmail" name="userEmail" placeholder="Email" required />
+        <input id="userId" type="number" name="userId" value="0" style="display: none;">
+        <input id="editDisplayName" type="text" id="displayName" name="displayName" placeholder="Όνομα Εμφάνισης" required />
+        <input id="editEmail" type="email" id="userEmail" name="userEmail" placeholder="Email" required />
         <button type="submit" class="btn">Αποθήκευση</button>
     </form>
 </div>
 
 <div id="newUserPopup" class="popup">
-    <form id="newUser" class="popup-content">
+    <form id="newUser" class="popup-content" method="post" action="/api/newUser">
         <h2>Νέος χρήστης</h2>
         <input type="email" id="userEmail" name="userEmail" placeholder="Email" required />
-        <input type="text" id="username" name="username" placeholder="Όνομα Χρήστη" required />
-        <input type="password" id="userPassword" name="userPassword" placeholder="Κωδικός" required />
+        <input type="text" id="displayName" name="displayName" placeholder="Όνομα Εμφάνισης" required />
+        <input type="text" id="username" name="username" placeholder="Όνομα Σύνδεσης" required />
         <button type="submit" class="btn">Εγγραφή</button>
     </form>
 </div>

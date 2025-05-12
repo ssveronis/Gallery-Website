@@ -195,7 +195,7 @@ tr{
 }
 
 .popup-content button{
-    max-width: 90px;
+    max-width: fit-content;
     margin-top:20px;
 }
 

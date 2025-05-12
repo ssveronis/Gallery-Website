@@ -2,7 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const popup = document.querySelector(".popup");
     const overlay = document.querySelector(".overlay");
     const newUserPopup = document.getElementById("newUserPopup");
-    
+
+    const userId = document.getElementById("userId");
+    const editDisplayName = document.getElementById("editDisplayName");
+    const editEmail = document.getElementById("editEmail");
     
     document.querySelectorAll(".edit-action-btn").forEach(button => {
         button.addEventListener("click", function (e) {
@@ -19,7 +22,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //popup for user edit
     document.querySelectorAll(".action-edit").forEach(button => {
-        button.addEventListener("click", () => {
+        button.addEventListener("click",async (ev) => {
+            const id = ev.target.dataset.id
+
+            const res = await fetch(`/api/getUser/${id}`)
+            const data = await res.json()
+
+            userId.value = id;
+            editDisplayName.value = data.displayName;
+            editEmail.value = data.email;
+
             popup.classList.add("show");
             overlay.classList.add("show");
         });
