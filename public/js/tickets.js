@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const backButtonSearch = document.getElementById("backButtonSearch");
     const dateInput = document.getElementById('date');
     const today = new Date().toISOString().split('T')[0]; 
+    const ticketList = document.querySelector(".ticket-list");
+    const checkBox = document.querySelector(".checkbox");
+    const ticketCard = document.querySelector(".ticket-card");
+
     dateInput.min = today;
 
     
@@ -67,5 +71,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.value = parseInt(input.value) - 1;
             }
         });
+    });
+
+    searchBtn.addEventListener("click", async () => {
+
+        ticketList.classList.remove("hidden");
+        ticketList.classList.add("flex-container");
+        ticketForm.classList.add("hidden");
+    });
+
+    checkBox.addEventListener("click", () => {
+        ticketCard.classList.add("selected");
+    });
+
+    ticketCard.addEventListener("click", () => {
+        ticketCard.classList.add("selected");
     });
 });

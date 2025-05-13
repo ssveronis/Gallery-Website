@@ -232,5 +232,124 @@
     cursor: pointer;
 }
 
+.ticket-results {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px; 
+}
+
+
+.table-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    padding: 16px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 250;
+    border-bottom: 1px solid #000000;
+}
+
+.table-header > div{
+    margin: 0 8px;
+    display: flex;
+    align-items: center;
+    font-size: large;
+    font-weight: 300;
+}
+
+.ticket-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0b818e;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 14px;
+}
+
+.ticket-card:hover {
+    background-color: #074f57;
+    cursor: pointer;
+}
+
+.ticket-card > div{
+    margin: 0 8px;
+    display: flex;
+    align-items: center;
+}
+
+.time-info {
+    gap: 8px;
+}
+
+
+.time-info .time-range {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.time-start,
+.time-end {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.arrow {
+    font-size: 1.2rem;
+}
+
+.duration,
+.number-of-tickets {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+}
+
+.price strong {
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.selected{
+    background-color: #074f57;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: rgb(17, 55, 62); 
+  cursor: pointer;
+}
+
+/* Optional: make the table full width and responsive */
+@media (max-width: 768px) {
+    .ticket-results thead {
+        display: none;
+    }
+
+    .ticket-results tbody td {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+    }
+
+    .ticket-results tbody .ticket-card {
+        display: block;
+        margin-bottom: 16px;
+    }
+}
+
+
+
+
+
+
 
 
