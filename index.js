@@ -372,4 +372,26 @@ app.post('/api/editUser', async (req, res) => {
     res.redirect(303,'/wp-admin/user-list')
 })
 
+app.delete('/api/deleteUser/:id', async (req, res) => {
+    const user = new WP_User(
+        db,
+        req.params.id
+    )
+    await user.init()
+    await user.delete()
+    res.sendStatus(204)
+})
+
+app.post('/api/registerNewsletter', async (req, res) => {
+    let email = new Email(db, req.body.email);
+    try {
+        await email.init()
+        await email.updateNewsletter(true)
+    } catch (e) {
+        email = await Email.create(db, req.body.email, true)
+        await email.init()
+    }
+    res.redirect(303,req.body.path)
+})
+
 export default app;

@@ -23,7 +23,7 @@
                             <span class="material-symbols-outlined">edit</span>
                         </button>
                         <div class="action-menu hidden">
-                            <button class="action-delete">
+                            <button class="action-delete" onclick="fetch('/api/deleteUser/{{this.id}}', {'method':'DELETE'}).then(()=>{document.location.reload()})">
                                 <span class="material-symbols-outlined">delete</span>Διαγραφή
                             </button>
                             <button class="action-edit" data-id="{{this.id}}">
