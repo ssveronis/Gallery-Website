@@ -1,4 +1,4 @@
-.ticket-form-section{
+.ticket-form-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,11 +35,22 @@
 }
 
 .exhibition-btn[data-type="permanent"] {
-    background-image: url('public/img/image1.png');
+    background-image: url('../img/image1.png');
+    background-size: cover;
+    background-position: center;
 }
 
+
 .exhibition-btn[data-type="temporary"] {
-    background-image: url('public/img/image2.png');
+    background-image: url('../img/image2.png');
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.exhibition-selection span {
+    color: #055661;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .date-selection {
@@ -51,10 +62,10 @@
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     text-align: center;
-    max-width: 500px;  
-    margin-left: auto;    
+    max-width: 500px;
+    margin-left: auto;
     margin-right: auto;
-    width: 100%;         
+    width: 100%;
 }
 
 .date-selection label {
@@ -129,7 +140,7 @@
     flex: 1;
 }
 
-.type{
+.type {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -137,6 +148,7 @@
     margin: 5px 10px;
 
 }
+
 .counter {
     display: flex;
     align-items: center;
@@ -179,7 +191,7 @@
     cursor: pointer;
     font-size: 16px;
     max-width: 300px;
-    display: block;          
+    display: block;
     padding: 12px 24px;
     text-align: center;
 }
@@ -199,26 +211,80 @@
     display: none !important;
 }
 
-.buttons{
+.buttons {
     display: flex;
     flex-direction: row;
 }
 
-.back-btn, .next-btn, .back-btn-searvh, .searchBtn{
+.back-btn,
+.next-btn,
+.back-btn-searvh,
+.searchBtn {
     margin-left: 20px;
     margin-right: 20px;
 }
 
-.back-btn{
+.back-btn {
     background-color: #f0f7f5;
     border: none;
     cursor: pointer;
 }
 
-.back-btn-search{
+.back-btn-search {
     background-color: #f0f7f5;
     border: none;
     cursor: pointer;
+}
+
+.tickets-table {
+    padding-top: 20px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.tickets-table th {
+    background-color: #077187;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.tickets-table td {
+    background-color: #f0f0f0;
+    padding: 12px;
+}
+
+.tickets-table tr th:first-child,
+.tickets-table tr td:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.tickets-table tr th:last-child,
+.tickets-table tr td:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.tickets-table tr th,
+.tickets-table tr td {
+    border: none;
+}
+
+.ticket-card:hover td {
+    background-color: gray;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ticket-card:hover td {
+    background-color: lightgray !important;
+    cursor: pointer;
+}
+
+.ticket-card.selected td {
+    background-color: darkgray !important;
 }
 
 

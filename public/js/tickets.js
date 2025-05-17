@@ -9,10 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const ticketFormButtons = document.getElementById("ticketFormButtons");
     const backButtonSearch = document.getElementById("backButtonSearch");
     const dateInput = document.getElementById('date');
-    const today = new Date().toISOString().split('T')[0]; 
+    const today = new Date().toISOString().split('T')[0];
+    const ticketList = document.querySelector(".ticket-list");
+    const checkBox = document.querySelector(".checkbox");
+    const ticketCards = document.querySelectorAll('.ticket-card');
+
     dateInput.min = today;
 
-    
+
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
             exhibitionSelection.classList.add("hidden");
@@ -36,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ticketFormButtons.classList.remove("hidden");
     });
 
-    
+
     backButton.addEventListener("click", () => {
         dateSelection.classList.add("hidden");
         dateSelection.classList.remove("flex-container");
@@ -68,4 +72,20 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    searchBtn.addEventListener("click", async () => {
+
+        ticketList.classList.remove("hidden");
+        ticketList.classList.add("flex-container");
+        ticketForm.classList.add("hidden");
+    });
+
+    //ticket selection
+    ticketCards.forEach(card => {
+        card.addEventListener('click', function () {
+            this.classList.toggle('selected');
+            void this.offsetWidth;
+        });
+    });
+    
 });

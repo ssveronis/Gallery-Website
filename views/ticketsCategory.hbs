@@ -9,6 +9,9 @@
     <div class="ticket_category">
         <div>{{this.name}}</div>
         <div>
+            <button class="edit-category-btn" data-category-id="{{this.id}}">
+                <span class="material-symbols-outlined" data-category-id="{{this.id}}">edit</span>
+            </button>
             <button class="dropdown-btn">
                 <i class="fas fa-chevron-down"></i>
             </button>
@@ -16,8 +19,8 @@
     </div>
 
     <div class="dropdown-content" style="margin-left: 2rem; display: none;">
-        <button class="btn" style="margin-bottom: 1.2rem">
-            <span class="material-symbols-outlined">add</span>Νέα διαθεσιμότητα
+        <button class="btn" style="margin-bottom: 1.2rem" data-category-id="{{this.id}}">
+            <span class="material-symbols-outlined" data-category-id="{{this.id}}">add</span>Νέα διαθεσιμότητα
         </button>
         <table>
             <thead>
@@ -46,11 +49,11 @@
                             <div class="action-menu hidden">
                                 {{#if this.sold_tickets}}
                                 {{else}}
-                                    <button class="action-delete">
-                                        <span class="material-symbols-outlined">delete</span>Διαγραφή
-                                    </button>
+                                <button class="action-delete" onclick="fetch('/api/deleteTicketAvailability/{{this.id}}', {'method':'DELETE'}).then(()=>{document.location.reload()})">
+                                    <span class="material-symbols-outlined">delete</span>Διαγραφή
+                                </button>
                                 {{/if}}
-                                <button class="action-edit">
+                                <button class="action-edit" data-available-id="{{this.id}}">
                                     <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
                                 </button>
                             </div>
@@ -67,18 +70,30 @@
 
 <div id="overlay" class="overlay"></div>
 <div id="popup" class="popup">
-    <form id="newCategoryForm" class="popup-content">
+    <form id="newCategoryForm" class="popup-content" method="post" action="/api/newTicketsCategory">
         <h2>Νέα Κατηγορία</h2>
-        <input type="text" id="categoryName" name="categoryName" placeholder="Category Name" required
-            style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc;" />
-        <button type="submit" class="btn">Προσθήκη</button>
+        <input type="number" name="newCategoryId" value="0" style="display: none">
+        <input type="text" id="categoryName" name="categoryName" placeholder="Όνομα κατηγορίας" required />
+        <input type="number" id="normalPrice" name="normalPrice" placeholder="Τιμή κανονικού Εισιτηρίου (€)" required />
+        <input type="number" id="studentPrice" name="studentPrice" placeholder="Τιμή φοιτητικού Εισιτηρίου (€)"
+            required />
+        <input type="number" id="childrenPrice" name="childrenPrice" placeholder="Τιμή παιδικού Εισιτηρίου (€)"
+            required />
+        <input type="number" id="audioguidePrice" name="audioguidePrice" placeholder="Τιμή audioguide (€)" required />
+        <div class="checkbox">
+            <input type="checkbox" id="accessAmea" name="accessAmea"/>
+            <a>Προσβάσιμο σε άτομα ειδικές ανάγκες</a>
+        </div>
+        <button id="newCategorySubmit" type="submit" class="btn">Προσθήκη</button>
     </form>
 </div>
 
 <!-- Popup for New Availability -->
 <div id="availabilityPopup" class="popup">
     <h2>Νέα Διαθεσιμότητα</h2>
-    <form id="newAvailabilityForm">
+    <form id="newAvailabilityForm" method="post" action="/api/newTicketAvailability">
+        <input type="number" name="newTicketAvailId" value="0" style="display: none">
+
         <label for="availabilityDate">Ημερομηνία</label>
         <input type="date" id="availabilityDate" name="date" required>
 
@@ -95,5 +110,18 @@
             <button type="submit" class="btn">Αποθήκευση</button>
         </div>
     </form>
+</div>
 
+<!-- Popup for Editing Availability -->
+<div id="editAvailabilityPopup" class="popup">
+    <h2>Επεξεργασία Διαθεσιμότητας</h2>
+    <form id="editAvailabilityForm" method="post" action="/api/editTicketAvailability">
+        <input type="number" name="editTicketAvailId" value="0" style="display: none">
+        <label for="editAvailabilityTotal">Αριθμός Διαθέσιμων Εισιτηρίων</label>
+        <input type="number" id="editAvailabilityTotal" name="total" required min="1" placeholder="π.χ. 100">
+
+        <div class="popup-actions">
+            <button type="submit" class="btn">Αποθήκευση</button>
+        </div>
+    </form>
 </div>

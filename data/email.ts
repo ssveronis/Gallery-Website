@@ -57,6 +57,13 @@ class Email {
         return this.email;
     }
 
+    async updateEmail(email: string){
+        if (!this.id) throw new Error("Email not found");
+        await this.db.query(`UPDATE EMAIL SET email = '${email}' WHERE id = ${this.id}`);
+        this.emailORid = this.id
+        await this.init();
+    }
+
     getNewsletter(){
         if (!this.id) throw new Error("Email not found");
         return this.newsletter;

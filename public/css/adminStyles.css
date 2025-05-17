@@ -1,4 +1,4 @@
-.menu button{
+.menu button, .mobile-nav span, .mobile-nav .exit-btn{
     background: transparent;
     border: none;
     cursor: pointer;
