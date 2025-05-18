@@ -124,6 +124,7 @@ app.get('/wp-admin', async (req, res) => {
         scripts: [
             "/js/script.js",
             "/js/mobile_script.js",
+            "/js/login.js"
         ]
     });
 });

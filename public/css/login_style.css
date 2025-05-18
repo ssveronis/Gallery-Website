@@ -1,44 +1,79 @@
-.login-form-section{
-    background-color: #D87A52;
+.login-container {
+    background-color: #d9734d; /* same as your current background */
     padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    margin: 40px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: end;
-    width: 50vw;
+    border-radius: 25px;
+    width: 400px;
+    margin: 100px auto;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    color: white;
+    font-family: sans-serif;
 }
 
-.login-form-section input {
-    width: -webkit-fill-available;
-    height: 2rem;
-    margin: 0.5rem;
-    padding: 0 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 12px;
+.login-container h2 {
+    margin-bottom: 30px;
+    font-size: 2em;
 }
 
-.login-form-section button {
-    background-color: #077187;
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group .icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 1.1em;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border-radius: 15px;
+    border: none;
+    font-size: 1em;
+    outline: none;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #007a8a;
     color: white;
     border: none;
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 25px;
     cursor: pointer;
-    font-size: 16px;
+    font-weight: bold;
     margin-top: 10px;
+    font-size: 1em;
 }
 
-.login-form-section button:hover {
-    background-color: #055c66;
+button[type="submit"]:hover {
+    background-color: #005f6b;
 }
 
-.login-form-section span {
-    align-self: center;
-    font-size: 2rem;
-    color: white;
-    margin-bottom: 1rem;
+.forgot-password {
+    margin-top: 15px;
+}
+
+.forgot-password a {
+    color: #ffffff;
+    font-size: 0.9em;
+    text-decoration: underline;
+}
+
+.toggle-password {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999;
+    font-size: 1.1em;
+    padding: 0;
 }

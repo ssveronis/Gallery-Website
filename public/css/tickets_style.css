@@ -322,6 +322,7 @@
     margin-right: 40px;
     margin-top: 30px;
     font-size: 18px;
+    cursor: pointer;
 }
 
 .buy-btn button:hover {
