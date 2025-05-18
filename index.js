@@ -44,6 +44,22 @@ app.get('/', async (req, res) => {
     });
 });
 
+app.get('/checkout', async (req, res) => {
+    res.render("checkout", {
+        stylesheets: [
+            "/css/style.css",
+            "/css/checkout.css",
+            "https://unpkg.com/aos@2.3.4/dist/aos.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
+        scripts: [
+            "/js/script.js",
+            "/js/mobile_script.js",
+            "/js/checkout.js"
+        ]
+    });
+});
+
 app.get('/gallery', async (req, res) => {
     res.render("gallery", {
         stylesheets: [

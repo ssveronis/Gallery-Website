@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     dateInput.min = today;
 
+    //buy button redirect
+    buyBtn.addEventListener('click', function () {
+        window.location.href = '/checkout';
+    });
+
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
             id = btn.dataset.id;
@@ -124,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
             void this.offsetWidth;
         });
     });
-    
+
 });
 
 function formatTimeDifference(startTime, endTime) {
