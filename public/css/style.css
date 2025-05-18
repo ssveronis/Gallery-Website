@@ -376,7 +376,9 @@ body {
     background: #055661;
 }
 
-
+.footer-margin {
+    flex-grow: 1;
+}
 
 
 

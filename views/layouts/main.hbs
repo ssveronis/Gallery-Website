@@ -18,10 +18,11 @@
 
 
 </head>
-<body>
+<body style="display: flex; flex-direction: column;">
 {{> (getNav path)}}
 <div class="main_content"></div>
 {{{ body }}}
+<div class="footer-margin"></div>
 {{> footer}}
 
 {{#each scripts}}
