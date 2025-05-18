@@ -3,7 +3,7 @@ import { create } from 'express-handlebars';
 import 'dotenv/config'
 import device from 'express-device';
 import {getNav} from "./helpers.js";
-import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary } from "./db.js";
+import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, getAvailTicketSearch } from "./db.js";
 import bodyParser from "body-parser";
 import fs from 'fs';
 import path from 'path';
@@ -91,6 +91,11 @@ app.get('/contact', async (req, res) => {
 });
 
 app.get('/tickets', async (req, res) => {
+    const categories = await TicketsCategory.getAllWithAvail(db)
+    let data = categories.map(cat => ({
+        'name': cat.name,
+        "id": cat.id
+    }))
     res.render("tickets", {
         stylesheets: [
             "/css/style.css",
@@ -103,7 +108,8 @@ app.get('/tickets', async (req, res) => {
             "/js/tickets.js",
             "/js/mobile_script.js",
             "/js/tickets.js"
-        ]
+        ],
+        data: data
     });
 });
 
@@ -239,6 +245,18 @@ app.get('/wp-admin/sales', async (req, res) => {
         data: data
     });
 });
+
+app.get('/wp-admin/emails', async (req, res) => {
+    const emails = await Email.getAll(db)
+    let data = emails.map(email => email.getNewsletter()?email.getEmail():null)
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="emails.csv"');
+    res.write('Email Address\r\n')
+    data.forEach(email => {
+        if (email != null) res.write(email + '\r\n')
+    })
+    res.end()
+})
 
 app.get('/api/sale/:id', async (req, res) => {
     const sale = new TicketSales(db, req.params.id)
@@ -392,6 +410,18 @@ app.post('/api/registerNewsletter', async (req, res) => {
         await email.init()
     }
     res.redirect(303,req.body.path)
+})
+
+app.post('/api/tickets', async (req, res) => {
+    res.send(await getAvailTicketSearch(
+        db,
+        req.body.categoryId,
+        req.body.date,
+        parseInt(req.body.regular),
+        parseInt(req.body.children),
+        parseInt(req.body.student),
+        parseInt(req.body.audioguide)
+    ))
 })
 
 export default app;

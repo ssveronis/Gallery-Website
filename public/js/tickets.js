@@ -12,13 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const today = new Date().toISOString().split('T')[0];
     const ticketList = document.querySelector(".ticket-list");
     const checkBox = document.querySelector(".checkbox");
+    const ticketTable = document.querySelector(".tickets-table");
     const ticketCards = document.querySelectorAll('.ticket-card');
+
+    let id = null;
 
     dateInput.min = today;
 
-
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
+            id = btn.dataset.id;
             exhibitionSelection.classList.add("hidden");
             dateSelection.classList.remove("hidden");
             dateSelection.classList.add("flex-container");
@@ -74,7 +77,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     searchBtn.addEventListener("click", async () => {
-
+        fetch('/api/tickets', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                categoryId: id,
+                date: dateInput.value,
+                regular: document.getElementById("adults").value,
+                children: document.getElementById("children").value,
+                student: document.getElementById("students").value,
+                audioguide: document.getElementById("audioguides").value
+            })
+        }).then(async res => {
+            const data = await res.json();
+            console.log(data[0]);
+            data.forEach(ticket => {
+                ticketTable.innerHTML += `
+                    <tr class="ticket-card" data-id="${ticket.id}">
+                        <td>${ticket.name}</td>
+                        <td>${ticket.start_time} - ${ticket.end_time}</td>
+                        <td>⏱️ ${formatTimeDifference(ticket.start_time, ticket.end_time)}</td>
+                        <td>👤 ${ticket.total_tickets}</td>
+                        <td><strong>${ticket.total_price} €</strong></td>
+                    </tr>
+                `;
+            })
+        })
         ticketList.classList.remove("hidden");
         ticketList.classList.add("flex-container");
         ticketForm.classList.add("hidden");
@@ -89,3 +119,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
 });
+
+function formatTimeDifference(startTime, endTime) {
+    // Parse the time strings into Date objects
+    const [startHours, startMinutes, startSeconds] = startTime.split(':').map(Number);
+    const [endHours, endMinutes, endSeconds] = endTime.split(':').map(Number);
+
+    // Create Date objects (same arbitrary date)
+    const start = new Date(0, 0, 0, startHours, startMinutes, startSeconds);
+    const end = new Date(0, 0, 0, endHours, endMinutes, endSeconds);
+
+    // Handle cases where end time is the next day
+    if (end < start) {
+        end.setDate(end.getDate() + 1);
+    }
+
+    // Calculate difference in milliseconds
+    const diff = end - start;
+
+    // Convert milliseconds to hours and minutes
+    const totalMinutes = Math.floor(diff / 60000);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    // Format with leading zero for minutes if needed
+    const formatted = `${hours} ώ ${minutes.toString().padStart(2, '0')} λ`;
+    return formatted;
+}

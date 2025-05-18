@@ -26,8 +26,8 @@ class TicketSalesSummary {
         this.startTime = res[0].start_time;
         this.endTime = res[0].end_time;
         this.maxTickets = res[0].max_tickets;
-        this.totalSoldTickets = res[0].total_sold_tickets;
-        this.availableTickets = res[0].available_tickets;
+        this.totalSoldTickets = res[0].total_sold_tickets===null?0:res[0].total_sold_tickets;
+        this.availableTickets = res[0].available_tickets===null?this.maxTickets:res[0].available_tickets;
     }
 
     static async getAll(db: DB, category_id?: number) {

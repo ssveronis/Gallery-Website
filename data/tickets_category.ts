@@ -47,6 +47,14 @@ class TicketsCategory {
         return categories
     }
 
+    static async getAllWithAvail(db: DB){
+        if (!db.ready) throw new Error("Database not ready");
+        const res = await db.query(`SELECT * FROM TICKETS_CATEGORY WHERE EXISTS (SELECT 1 FROM view_ticket_sales_summary WHERE TICKETS_CATEGORY.id = view_ticket_sales_summary.category_id AND view_ticket_sales_summary.date > CURRENT_DATE() OR (view_ticket_sales_summary.date = CURRENT_DATE() AND view_ticket_sales_summary.start_time > CURRENT_TIME()) AND view_ticket_sales_summary.max_tickets > (view_ticket_sales_summary.total_regular_tickets + view_ticket_sales_summary.total_children_tickets + view_ticket_sales_summary.total_student_tickets));`);
+        const categories = res.map(category => new TicketsCategory(db, category.id))
+        for (const category of categories) await category.init()
+        return categories
+    }
+
     static async searchByName(db: DB, search: string){
         if (!db.ready) throw new Error("Database not ready");
         const res = await db.query(`SELECT id FROM TICKETS_CATEGORY WHERE name LIKE "%${search}%";`);
