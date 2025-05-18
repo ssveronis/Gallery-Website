@@ -236,39 +236,61 @@
     cursor: pointer;
 }
 
+.ticket-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 40px;           
+    padding-left: 40px;  
+    padding-right: 40px;
+}
+
 .tickets-table {
     padding-top: 20px;
-    width: 100%;
+    width: 75%;
     border-collapse: separate;
     border-spacing: 0 8px;
 }
 
-.tickets-table th {
+.tickets-details{
+    padding-top: 20px;
+    width: 25%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.tickets-table th, .tickets-details th {
     background-color: #077187;
     color: white;
     padding: 12px;
     text-align: left;
 }
 
-.tickets-table td {
+.tickets-table td, .tickets-details td {
     background-color: #f0f0f0;
     padding: 12px;
 }
 
 .tickets-table tr th:first-child,
-.tickets-table tr td:first-child {
+.tickets-table tr td:first-child, 
+.tickets-details tr th:first-child,
+.tickets-details tr td:first-child {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
 
 .tickets-table tr th:last-child,
-.tickets-table tr td:last-child {
+.tickets-table tr td:last-child,
+.tickets-details tr th:last-child,
+.tickets-details tr td:last-child {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
 
 .tickets-table tr th,
-.tickets-table tr td {
+.tickets-table tr td,
+.tickets-details tr th,
+.tickets-details tr td {
     border: none;
 }
 
@@ -287,5 +309,21 @@
     background-color: darkgray !important;
 }
 
+.buy-btn button{
+    display: flex;
+    justify-content: center;
+    max-width: 200px;
+    border: none;
+    border-radius: 25px;
+    background-color: #077187;
+    color: white;
+    padding: 12px 24px;
+    margin-left: auto;
+    margin-right: 40px;
+    margin-top: 30px;
+    font-size: 18px;
+}
 
-
+.buy-btn button:hover {
+    background-color: #055661;
+}

@@ -77,19 +77,30 @@
                 <i class="fas fa-chevron-left"></i>
                 Πίσω
             </button>
-            <button type="submit" class="searchBtn" id="searchBtn">Search</button>
+            <button type="submit" class="searchBtn" id="searchBtn">Αναζήτηση</button>
         </div>
     </div>
-</div>
 
-<div class="ticket-list hidden" id="ticketList">
-    <table class="tickets-table">
-        <tr>
-            <th>Κατηγορία</th>
-            <th>Ώρα Εισόδου</th>
-            <th>Διάρκεια</th>
-            <th>Αριθμός Εισιτηρίων</th>
-            <th>Τιμή</th>
-        </tr>
-    </table>
+    <div class="ticket-list hidden" id="ticketList">
+        <table class="tickets-details">
+            <tr>
+                <th>Αριθμός Εισιτηρίων</th>
+                <th>Σύνολο</th>
+            </tr>
+        </table>
+
+
+        <table class="tickets-table">
+            <tr>
+                <th>Κατηγορία</th>
+                <th>Ώρα Εισόδου</th>
+                <th>Διάρκεια</th>
+            </tr>
+        </table>
+    </div>
+
+    <div class="buy-btn hidden">
+        <button type="button" id="buyBtn"><strong>Αγορά</strong></button>
+    </div>
+
 </div>

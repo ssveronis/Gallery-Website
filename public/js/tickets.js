@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const checkBox = document.querySelector(".checkbox");
     const ticketTable = document.querySelector(".tickets-table");
     const ticketCards = document.querySelectorAll('.ticket-card');
+    const ticketDetails = document.querySelector('.tickets-details');
+    const buyBtn = document.querySelector('.buy-btn');
 
     let id = null;
 
@@ -99,6 +101,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <td>${ticket.name}</td>
                         <td>${ticket.start_time} - ${ticket.end_time}</td>
                         <td>⏱️ ${formatTimeDifference(ticket.start_time, ticket.end_time)}</td>
+                    </tr>
+                `;
+                ticketDetails.innerHTML += `
+                    <tr>
                         <td>👤 ${ticket.total_tickets}</td>
                         <td><strong>${ticket.total_price} €</strong></td>
                     </tr>
@@ -108,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ticketList.classList.remove("hidden");
         ticketList.classList.add("flex-container");
         ticketForm.classList.add("hidden");
+        buyBtn.classList.remove("hidden");
     });
 
     //ticket selection
