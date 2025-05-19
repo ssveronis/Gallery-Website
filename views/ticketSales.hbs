@@ -31,6 +31,8 @@
         <thead>
             <tr>
                 <th>Ticket ID</th>
+                <th>Ημερομηνία</th>
+                {{!-- <th>Ώρα</th> --}}
                 <th>Όνομα</th>
                 <th>Email</th>
                 <th>Αρ. Εισιτηρίων</th>
@@ -41,6 +43,8 @@
             {{#each data}}
             <tr>
                 <td>{{this.id}}</td>
+                <td>{{this.date}}</td>
+                {{!-- <td>{{this.time}}</td> --}}
                 <td>{{this.name}}</td>
                 <td>{{this.email}}</td>
                 <td>{{this.toatl_tickets}}</td>
