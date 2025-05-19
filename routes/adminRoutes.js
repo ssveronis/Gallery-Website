@@ -102,8 +102,19 @@ router.get('/wp-admin/tickets', async (req, res) => {
 });
 
 router.get('/wp-admin/sales', async (req, res) => {
+    const categories = await TicketsCategory.getAll(db)
     const sales = await TicketSales.getAll(db)
     let data = []
+    let catData = []
+
+    for (const cat of categories) {
+        var partData = {
+            "name": cat.getName(),
+            "id": cat.getId(),
+            "availabilities": []
+        }
+        catData.push(partData)
+    }
 
     for (const sale of sales) {
         let partData = {
@@ -134,7 +145,7 @@ router.get('/wp-admin/sales', async (req, res) => {
             "/js/mobile_script.js",
             "/js/ticketSales.js"
         ],
-        data: data
+        data: data, categories: catData
     });
 });
 

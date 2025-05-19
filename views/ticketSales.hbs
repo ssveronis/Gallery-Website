@@ -2,30 +2,57 @@
     Πωλήσεις Εισιτηρίων
 </div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Ticket ID</th>
-        <th>Όνομα</th>
-        <th>Email</th>
-        <th>Αρ. Εισιτηρίων</th>
-        <th>Ενέργεις</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{#each data}}
-        <tr>
-            <td>{{this.id}}</td>
-            <td>{{this.name}}</td>
-            <td>{{this.email}}</td>
-            <td>{{this.toatl_tickets}}</td>
-            <td>
-                <button><span class="material-symbols-outlined">visibility</span></button>
-            </td>
-        </tr>
-    {{/each}}
-    </tbody>
-</table>
+<div class="filter-container">
+    <div class="search-pill">
+        <input type="text" id="searchInput" placeholder="Όνομα, Email ή Ticket ID" value="{{searchQuery}}">
+        <button id="searchButton"><i class="fas fa-search"></i></button>
+    </div>
+
+    <div class="filters">
+        <label for="date">Επιλέξτε ημερομηνία:</label>
+        <input type="date" id="date" name="date" value="{{currentDate}}">
+        <label for="time">Ώρα:</label>
+        <input type="time" id="time" name="time" value="{{currentTime}}">
+        <div class="category-filter">
+            <select id="categorySelect" name="category">
+                <option>Όλες οι κατηγορίες</option>
+                {{#each categories}}
+                <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <button id="filterButton">Φίλτρο</button>
+    </div>
+</div>
+
+
+<div class="ticket-sales">
+    <table>
+        <thead>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Όνομα</th>
+                <th>Email</th>
+                <th>Αρ. Εισιτηρίων</th>
+                <th>Ενέργεις</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.toatl_tickets}}</td>
+                <td>
+                    <button><span class="material-symbols-outlined">visibility</span></button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
 
 <div id="overlay" class="overlay"></div>
 <div id="popup" class="popup">
