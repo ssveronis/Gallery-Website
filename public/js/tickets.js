@@ -162,3 +162,4 @@ function formatTimeDifference(startTime, endTime) {
     const formatted = `${hours} ώ ${minutes.toString().padStart(2, '0')} λ`;
     return formatted;
 }
+

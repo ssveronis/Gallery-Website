@@ -1,0 +1,66 @@
+/* Ευχαριστούμε για την αγορά - Thank You Page Styles */
+.purchase-thankyou-container {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e2f0e9;
+    padding: 40px 0;
+}
+
+.purchase-thankyou-content {
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 2px 16px rgba(7,113,135,0.10);
+    padding: 48px 36px 38px 36px;
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+}
+
+.thankyou-logo {
+    scale: 1;
+    margin-bottom: 18px;
+}
+
+.purchase-thankyou-content h2 {
+    color: #055661;
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.purchase-thankyou-content p {
+    color: #055661;
+    font-size: 1.15em;
+    margin-bottom: 28px;
+    line-height: 1.5;
+}
+
+.thankyou-home-btn {
+    display: inline-block;
+    background: #077187;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 32px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.thankyou-home-btn:hover {
+    background: #055661;
+}
+
+@media (max-width: 500px) {
+    .purchase-thankyou-content {
+        padding: 28px 8px 18px 8px;
+        max-width: 98vw;
+    }
+    .thankyou-logo {
+        width: 60px;
+    }
+}

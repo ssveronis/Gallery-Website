@@ -86,6 +86,23 @@ router.post('/buy', async (req, res) => {
     res.sendStatus(204)
 })
 
+router.get('/buy', async (req, res) => {
+    res.render("buy", {
+        stylesheets: [
+            "/css/style.css",
+            "/css/checkout.css",
+            "/css/buy.css",
+            "https://unpkg.com/aos@2.3.4/dist/aos.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
+        scripts: [
+            "/js/script.js",
+            "/js/mobile_script.js",
+            "/js/checkout.js"
+        ],
+    });
+});
+
 router.get('/gallery', async (req, res) => {
     res.render("gallery", {
         stylesheets: [
