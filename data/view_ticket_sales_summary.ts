@@ -1,4 +1,6 @@
 import DB from "../db.js";
+// @ts-ignore
+import TicketsCategory from "./tickets_category.ts";
 
 class TicketSalesSummary {
     private db: DB;
@@ -51,6 +53,10 @@ class TicketSalesSummary {
 
     getCategoryId(){
         return this.category_id;
+    }
+
+    getCategory(){
+        return new TicketsCategory(this.db, this.category_id);
     }
 
     getDate(){

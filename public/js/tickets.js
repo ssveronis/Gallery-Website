@@ -15,16 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const ticketTable = document.querySelector(".tickets-table");
     const ticketCards = document.querySelectorAll('.ticket-card');
     const ticketDetails = document.querySelector('.tickets-details');
-    const buyBtn = document.querySelector('.buy-btn');
 
     let id = null;
 
     dateInput.min = today;
-
-    //buy button redirect
-    buyBtn.addEventListener('click', function () {
-        window.location.href = '/checkout';
-    });
 
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -99,19 +93,30 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         }).then(async res => {
             const data = await res.json();
-            console.log(data[0]);
+            ticketDetails.innerHTML += `
+                    <tr>
+                        <td>👤 ${data[0].total_tickets}</td>
+                        <td><strong>${data[0].total_price} €</strong></td>
+                    </tr>
+                `;
             data.forEach(ticket => {
                 ticketTable.innerHTML += `
                     <tr class="ticket-card" data-id="${ticket.id}">
                         <td>${ticket.name}</td>
                         <td>${ticket.start_time} - ${ticket.end_time}</td>
                         <td>⏱️ ${formatTimeDifference(ticket.start_time, ticket.end_time)}</td>
-                    </tr>
-                `;
-                ticketDetails.innerHTML += `
-                    <tr>
-                        <td>👤 ${ticket.total_tickets}</td>
-                        <td><strong>${ticket.total_price} €</strong></td>
+                        <td>
+                            <form method="post" action="/checkout">
+                                <input type="hidden" name="ticket" value="${ticket.id}">
+                                <input type="hidden" name="categoryId" value="${id}">
+                                <input type="hidden" name="date" value="${dateInput.value}">
+                                <input type="hidden" name="regular" value="${document.getElementById("adults").value}">
+                                <input type="hidden" name="children" value="${document.getElementById("children").value}">
+                                <input type="hidden" name="student" value="${document.getElementById("students").value}">
+                                <input type="hidden" name="audioguide" value="${document.getElementById("audioguides").value}">
+                                <div class="buy-btn"><button type="submit" id="buyBtn"><strong>Αγορά</strong></button></div>
+                            </form>
+                        </td>
                     </tr>
                 `;
             })
@@ -119,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ticketList.classList.remove("hidden");
         ticketList.classList.add("flex-container");
         ticketForm.classList.add("hidden");
-        buyBtn.classList.remove("hidden");
     });
 
     //ticket selection

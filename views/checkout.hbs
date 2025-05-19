@@ -1,27 +1,73 @@
 
 <div class="checkout-container">
-    <h2>Στοιχεία Πληρωμής</h2>
-    <form class="checkout-form">
-        <div class="form-group">
-            <label for="name">Όνομα</label>
-            <input type="text" id="name" name="name" required>
+    <div>
+        <h2>Στοιχεία Αγοράς</h2>
+        <div>
+            <div>
+                <div>
+                    <div>Ημερομηνία</div>
+                    <div>{{data.date}}</div>
+                </div>
+                <div>
+                    <div>Ώρα εισόδου</div>
+                    <div>{{times.start}}-{{times.end}}</div>
+                </div>
+                <div>
+                    <div>Κανονικά εισιτήρια</div>
+                    <div>{{data.regular}}</div>
+                </div>
+                <div>
+                    <div>Παιδικά εισιτήρια</div>
+                    <div>{{data.children}}</div>
+                </div>
+                <div>
+                    <div>Φοιτητικά εισιτήρια</div>
+                    <div>{{data.student}}</div>
+                </div>
+                <div>
+                    <div>Audioguides</div>
+                    <div>{{data.audioguide}}</div>
+                </div>
+                <div>
+                    <div>Σύνολο</div>
+                    <div>{{total}}</div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="surname">Επώνυμο</label>
-            <input type="text" id="surname" name="surname" required>
-        </div>
-        <div class="form-group">
-            <label for="phone">Τηλέφωνο</label>
-            <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}">
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-checkbox">
-            <input type="checkbox" id="amea" name="amea">
-            <label for="amea">Ανάγκη για διευκολύνσεις προσβασιμότητας (ΑμεΑ)</label>
-        </div>
-        <button type="submit" class="checkout-btn">Ολοκλήρωση</button>
-    </form>
+    </div>
+    <div>
+        <h2>Στοιχεία Πληρωμής</h2>
+        <form class="checkout-form" method="post" action="/buy">
+            <div class="form-group">
+                <label for="name">Όνομα</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="surname">Επώνυμο</label>
+                <input type="text" id="surname" name="surname" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Τηλέφωνο</label>
+                <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-checkbox">
+                <input type="checkbox" id="amea" name="amea">
+                <label for="amea">Ανάγκη για διευκολύνσεις προσβασιμότητας (ΑμεΑ)</label>
+            </div>
+
+            <input type="hidden" name="ticket" value="{{data.ticket}}">
+            <input type="hidden" name="categoryId" value="{{data.categoryId}}">
+            <input type="hidden" name="date" value="{{data.date}}">
+            <input type="hidden" name="regular" value="{{data.regular}}">
+            <input type="hidden" name="children" value="{{data.children}}">
+            <input type="hidden" name="student" value="{{data.student}}">
+            <input type="hidden" name="audioguide" value="{{data.audioguide}}">
+
+            <button type="submit" class="checkout-btn">Ολοκλήρωση</button>
+        </form>
+    </div>
 </div>

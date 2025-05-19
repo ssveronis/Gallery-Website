@@ -9,7 +9,6 @@ class Person {
     private personId: number = null;
     private personFirstName: string = null;
     private personLastName: string = null;
-    private personPhoneCountryCode: number = null;
     private personPhoneNumber: number = null;
     private personEmail: Email = null;
 
@@ -25,15 +24,14 @@ class Person {
         this.personId = res[0].id;
         this.personFirstName = res[0].first_name;
         this.personLastName = res[0].last_name;
-        this.personPhoneCountryCode = res[0].phone_country;
         this.personPhoneNumber = res[0].phone_number;
         this.personEmail = new Email(this.db, this.personId);
         await this.personEmail.init();
     }
 
-    static async create(db: DB, first_name: string, last_name: string, phone_country: number, phone_number: number, email: Email) {
+    static async create(db: DB, first_name: string, last_name: string, phone_number: number, email: Email) {
         if (!db.ready) throw new Error("Database not ready");
-        await db.query(`INSERT INTO PERSON (first_name, last_name, phone_country, phone_number, email_id) VALUES (?, ?, ?, ?, ?)`, [`${first_name}`, `${last_name}`, `${phone_country}`, `${phone_number}`, `${email.getId()}`]);
+        await db.query(`INSERT INTO PERSON (first_name, last_name, phone_number, id) VALUES (?, ?, ?, ?)`, [`${first_name}`, `${last_name}`, phone_number, `${email.getId()}`]);
         return new Person(db, email.getId());
     }
 
@@ -96,17 +94,6 @@ class Person {
     async updateLastName(lastName: string){
         if (!this.personId) throw new Error("Person not found");
         this.db.query(`UPDATE PERSON SET last_name = ? WHERE id = ?`, [`${lastName}`, this.personId]);
-        await this.init();
-    }
-
-    getPhoneCountryCode(){
-        if (!this.personId) throw new Error("Person not found");
-        return this.personPhoneCountryCode;
-    }
-
-    async updatePhoneCountryCode(phoneCountryCode: number){
-        if (!this.personId) throw new Error("Person not found");
-        this.db.query(`UPDATE PERSON SET phone_country = ? WHERE id = ?`, [`${phoneCountryCode}`, this.personId]);
         await this.init();
     }
 

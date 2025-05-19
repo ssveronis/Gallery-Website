@@ -52,11 +52,11 @@ class TicketSales {
         return ticketSales;
     }
 
-    static async create(db: DB, regularTickets: number, childrenTickets: number, studentTickets: number, audioguides: number, accessibility: number, person: Person, availableTickets: AvailableTickets){
+    static async create(db: DB, regularTickets: number, childrenTickets: number, studentTickets: number, audioguides: number, accessibility: number, total: number, person: Person, availableTickets: AvailableTickets){
         if (!db.ready) throw new Error("Database not ready");
-        await db.query("INSERT INTO TICKET_SALES (regular_tickets, children_tickets, student_tickets, audioguides, accessibility, buyer_id, avail_id) VALUES (?, ?, ?, ?, ?, ?, ?)", [regularTickets, childrenTickets, studentTickets, audioguides, accessibility, person.getId(), availableTickets.getId()])
+        await db.query("INSERT INTO TICKET_SALES (regular_tickets, children_tickets, student_tickets, audioguides, accessibility, total, buyer_id, avail_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [regularTickets, childrenTickets, studentTickets, audioguides, accessibility, total, person.getId(), availableTickets.getId()])
         const res = await db.query("SELECT LAST_INSERT_ID();")
-        return new TicketSales(db, res[0].LAST_INSERT_ID());
+        return new TicketSales(db, (res[0])['LAST_INSERT_ID()']);
     }
 
     static async searchByFirstName(db: DB, search: string){

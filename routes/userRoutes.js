@@ -18,7 +18,12 @@ router.get('/', async (req, res) => {
     });
 });
 
-router.get('/checkout', async (req, res) => {
+router.post('/checkout', async (req, res) => {
+    const salesSummary = new TicketSalesSummary(db, req.body.ticket)
+    await salesSummary.init()
+    if (parseInt(salesSummary.getTotalSoldTickets()) + parseInt(req.body.regular) + parseInt(req.body.children) + parseInt(req.body.student) > salesSummary.getMaxTickets()) {res.sendStatus(500); return;}
+    const category = await salesSummary.getCategory();
+    await category.init()
     res.render("checkout", {
         stylesheets: [
             "/css/style.css",
@@ -30,9 +35,56 @@ router.get('/checkout', async (req, res) => {
             "/js/script.js",
             "/js/mobile_script.js",
             "/js/checkout.js"
-        ]
+        ],
+        data: req.body,
+        times: {
+            start: salesSummary.getStartTime(),
+            end: salesSummary.getEndTime()
+        },
+        total: category.getRegularPrice()*parseInt(req.body.regular)+category.getChildrenPrice()*parseInt(req.body.children)+category.getStudentPrice()*parseInt(req.body.student)+category.getAudioguidePrice()*req.body.audioguide
     });
 });
+
+router.post('/buy', async (req, res) => {
+    const people = await Person.searchByEmail(db, req.body.email)
+    let person = null;
+    people.forEach(p => {
+        if (p.getFirstName() === req.body.name && p.getLastName() === req.body.surname) {
+            person = p;
+        }
+    })
+    if (!person) {
+        let email = null;
+        try {
+            email = await new Email(db, req.body.email);
+            await email.init()
+        } catch (err) {
+            email = await Email.create(db, req.body.email);
+            await email.init()
+        }
+        person = await Person.create(
+            db, req.body.name, req.body.surname, req.body.phone, email
+        )
+        await person.init()
+    }
+    const availableTickets = new AvailableTickets(db, req.body.ticket);
+    await availableTickets.init()
+    const category = await availableTickets.getCategory();
+    await category.init()
+    const sale = await TicketSales.create(
+        db,
+        req.body.regular,
+        req.body.children,
+        req.body.student,
+        req.body.audioguide,
+        (req.body.amea === 'on'),
+        category.getRegularPrice()*parseInt(req.body.regular)+category.getChildrenPrice()*parseInt(req.body.children)+category.getStudentPrice()*parseInt(req.body.student)+category.getAudioguidePrice()*req.body.audioguide,
+        person,
+        availableTickets
+    )
+    await sale.init()
+    res.sendStatus(204)
+})
 
 router.get('/gallery', async (req, res) => {
     res.render("gallery", {
