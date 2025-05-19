@@ -1,37 +1,35 @@
 
 <div class="checkout-container">
-    <div>
+    <div class="purchase-summary">
         <h2>Στοιχεία Αγοράς</h2>
-        <div>
-            <div>
-                <div>
-                    <div>Ημερομηνία</div>
-                    <div>{{data.date}}</div>
-                </div>
-                <div>
-                    <div>Ώρα εισόδου</div>
-                    <div>{{times.start}}-{{times.end}}</div>
-                </div>
-                <div>
-                    <div>Κανονικά εισιτήρια</div>
-                    <div>{{data.regular}}</div>
-                </div>
-                <div>
-                    <div>Παιδικά εισιτήρια</div>
-                    <div>{{data.children}}</div>
-                </div>
-                <div>
-                    <div>Φοιτητικά εισιτήρια</div>
-                    <div>{{data.student}}</div>
-                </div>
-                <div>
-                    <div>Audioguides</div>
-                    <div>{{data.audioguide}}</div>
-                </div>
-                <div>
-                    <div>Σύνολο</div>
-                    <div>{{total}}</div>
-                </div>
+        <div class="summary-table">
+            <div class="summary-row">
+                <span class="summary-label">Ημερομηνία</span>
+                <span class="summary-value">{{data.date}}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Ώρα εισόδου</span>
+                <span class="summary-value">{{times.start}}-{{times.end}}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Κανονικά εισιτήρια</span>
+                <span class="summary-value">{{data.regular}}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Παιδικά εισιτήρια</span>
+                <span class="summary-value">{{data.children}}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Φοιτητικά εισιτήρια</span>
+                <span class="summary-value">{{data.student}}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Audioguides</span>
+                <span class="summary-value">{{data.audioguide}}</span>
+            </div>
+            <div class="summary-row summary-total">
+                <span class="summary-label">Σύνολο</span>
+                <span class="summary-value">{{total}} €</span>
             </div>
         </div>
     </div>
