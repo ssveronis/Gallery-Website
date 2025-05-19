@@ -43,3 +43,4 @@ import adminApiRoutes from "./routes/apiAdmin.js";
 app.use(adminApiRoutes);
 
 export default app;
+export { db };

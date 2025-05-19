@@ -1,5 +1,6 @@
-import {Email, TicketSales, TicketSalesSummary, TicketsCategory, WP_User} from "../db.js";
+import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, getAvailTicketSearch } from "../db.js";
 import express from 'express';
+import {db} from "../index.js";
 
 const router = express.Router();
 

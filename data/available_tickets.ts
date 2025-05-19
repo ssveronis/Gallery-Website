@@ -20,7 +20,7 @@ class AvailableTickets {
     }
 
     async init(){
-        const res = await this.db.query(`SELECT * FROM AVAIL_TICKETS WHERE id = '${this.id}'`)
+        const res = await this.db.query(`SELECT * FROM AVAIL_TICKETS WHERE id = ?`, [`${this.id}`])
         if (res.length === 0) throw new Error("Available Tickets not found");
         this.categoryId = res[0].category_id;
         this.date = res[0].date;
@@ -33,7 +33,7 @@ class AvailableTickets {
 
     static async create(db: DB, date, startTime, endTime, maxTickets, category: TicketsCategory) {
         if (!db.ready) throw new Error("Database not ready");
-        await db.query(`INSERT INTO AVAIL_TICKETS (category_id, date, start_time, end_time, max_tickets) VALUES ('${category.getId()}', '${date}', '${startTime}', '${endTime}', '${maxTickets}')`);
+        await db.query(`INSERT INTO AVAIL_TICKETS (category_id, date, start_time, end_time, max_tickets) VALUES (?, ?, ?, ?, ?)`, [`${category.getId()}`, `${date}`, `${startTime}`, `${endTime}`, `${maxTickets}`]);
         return new AvailableTickets(db, category.getId());
     }
 
@@ -46,6 +46,11 @@ class AvailableTickets {
     }
 
     //Need to implement search by date and time
+
+    getId(){
+        if (!this.categoryId) throw new Error("Available Tickets not found");
+        return this.id;
+    }
 
     getCategoryId(){
         if (!this.categoryId) throw new Error("Available Tickets not found");
@@ -79,13 +84,13 @@ class AvailableTickets {
 
     async updateMaxTickets(maxTickets: number){
         if (!this.categoryId) throw new Error("Available Tickets not found");
-        await this.db.query(`UPDATE AVAIL_TICKETS SET max_tickets = '${maxTickets}' WHERE id = ${this.id}`);
+        await this.db.query(`UPDATE AVAIL_TICKETS SET max_tickets = ? WHERE id = ?`, [`${maxTickets}`, this.id]);
         await this.init()
     }
 
     delete(){
         if (!this.categoryId) throw new Error("Available Tickets not found");
-        this.db.query(`DELETE FROM AVAIL_TICKETS WHERE id = ${this.id}`);
+        this.db.query(`DELETE FROM AVAIL_TICKETS WHERE id = ?`, [this.id]);
     }
 }
 

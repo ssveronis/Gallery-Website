@@ -19,7 +19,7 @@ class TicketSalesSummary {
     }
 
     async init() {
-        const res = await this.db.query(`SELECT id, category_id, date, start_time, end_time, max_tickets, SUM(total_regular_tickets + total_children_tickets + total_student_tickets) AS total_sold_tickets, max_tickets - SUM(total_regular_tickets + total_children_tickets + total_student_tickets) AS available_tickets FROM view_ticket_sales_summary WHERE id = ${this.id};`)
+        const res = await this.db.query(`SELECT id, category_id, date, start_time, end_time, max_tickets, SUM(total_regular_tickets + total_children_tickets + total_student_tickets) AS total_sold_tickets, max_tickets - SUM(total_regular_tickets + total_children_tickets + total_student_tickets) AS available_tickets FROM view_ticket_sales_summary WHERE id = ?;`, [this.id])
         if (res.length === 0) throw new Error("Ticket Sales not found");
         this.category_id = res[0].category_id;
         this.date = res[0].date;

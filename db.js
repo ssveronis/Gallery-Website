@@ -34,8 +34,8 @@ class DB {
         this.ready = true;
     }
 
-    async query(query){
-        return await this.db.query(query);
+    async query(query, params = []){
+        return await this.db.query(query, params);
     }
 
     async close(){
