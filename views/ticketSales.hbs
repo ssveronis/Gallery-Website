@@ -31,8 +31,9 @@
         <thead>
             <tr>
                 <th>Ticket ID</th>
-                <th>Ημερομηνία</th>
-                {{!-- <th>Ώρα</th> --}}
+                <th>Ημερομηνία εισιτηρίου</th>
+                <th>Ώρα</th>
+                <th>Κατηγορία</th>
                 <th>Όνομα</th>
                 <th>Email</th>
                 <th>Αρ. Εισιτηρίων</th>
@@ -44,7 +45,8 @@
             <tr>
                 <td>{{this.id}}</td>
                 <td>{{this.date}}</td>
-                {{!-- <td>{{this.time}}</td> --}}
+                <td>{{this.time}}</td>
+                <td>{{this.category}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.email}}</td>
                 <td>{{this.toatl_tickets}}</td>

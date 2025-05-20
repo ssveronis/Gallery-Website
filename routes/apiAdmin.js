@@ -7,17 +7,26 @@ const router = express.Router();
 router.get('/api/sale/:id', async (req, res) => {
     const sale = new TicketSales(db, req.params.id)
     await sale.init()
+    const salesSummary = new TicketSalesSummary(db, sale.getAvailableTickets().getId())
+    await salesSummary.init()
     let data = {
         "id": sale.getId(),
-        "date": (new Date(sale.getDate())).toLocaleDateString(),
+        "buy_date": (new Date(sale.getDate())).toLocaleDateString(),
         "toatl_tickets": sale.getRegularTickets() + sale.getChildrenTickets() + sale.getStudentTickets(),
         "regular_tickets": sale.getRegularTickets(),
         "children_tickets": sale.getChildrenTickets(),
         "student_tickets": sale.getStudentTickets(),
+        "audioguides": sale.getAudioguides(),
         "name": sale.getPerson().getFirstName() + " " + sale.getPerson().getLastName(),
         "email": sale.getPerson().getEmail().getEmail(),
         "accessibility": sale.getAccessibility(),
-        "total": sale.getTotal()
+        "total": sale.getTotal(),
+        "category": sale.getAvailableTickets().getCategory().getName(),
+        "time": `${sale.getAvailableTickets().getStartTime()} - ${sale.getAvailableTickets().getEndTime()}`,
+        "date": (new Date(sale.getAvailableTickets().getDate())).toLocaleDateString(),
+        "max_tickets": sale.getAvailableTickets().getMaxTickets(),
+        "available_tickets": salesSummary.getAvailableTickets(),
+        "sold_tickets": salesSummary.getTotalSoldTickets()
     }
     res.send(data)
 });

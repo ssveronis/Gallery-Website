@@ -161,6 +161,7 @@ tr{
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.2);
+    max-width: 100%;
     opacity: 0;
     visibility: hidden;
     transition: 0.3s ease;
@@ -172,8 +173,7 @@ tr{
     bottom: -100%;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%;
-    max-width: 400px;
+    width: max-content;
     background: #fff;
     padding: 20px;
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
@@ -189,6 +189,12 @@ tr{
 
 .popup-content {
     text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.popup-content div {
+    margin: 0px 2rem;
 }
 
 .popup.show {

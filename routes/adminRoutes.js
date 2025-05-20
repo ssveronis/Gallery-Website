@@ -119,7 +119,9 @@ router.get('/admin/sales', async (req, res) => {
     for (const sale of sales) {
         let partData = {
             "id": sale.getId(),
-            "date": (new Date(sale.getDate())).toLocaleDateString(),
+            "date": (new Date(sale.getAvailableTickets().getDate())).toLocaleDateString(),
+            "time": `${sale.getAvailableTickets().getStartTime()} - ${sale.getAvailableTickets().getEndTime()}`,
+            "category": sale.getAvailableTickets().getCategory().getName(),
             "toatl_tickets": sale.getRegularTickets() + sale.getChildrenTickets() + sale.getStudentTickets(),
             "regular_tickets": sale.getRegularTickets(),
             "children_tickets": sale.getChildrenTickets(),
