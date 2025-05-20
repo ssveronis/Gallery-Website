@@ -44,7 +44,7 @@ router.post('/api/newTicketsCategory', async (req, res) => {
             ((req.body.accessAmea!=null)?1:0),
         )
     }
-    res.redirect(303,'/wp-admin/tickets')
+    res.redirect(303,'/admin/tickets')
 })
 
 router.get('/api/ticketCategory/:id', async (req, res) => {
@@ -73,14 +73,14 @@ router.post('/api/newTicketAvailability', async (req, res) => {
         req.body.total,
         category
     )
-    res.redirect(303,'/wp-admin/tickets')
+    res.redirect(303,'/admin/tickets')
 })
 
 router.post('/api/editTicketAvailability', async (req, res) => {
     const availability = new AvailableTickets(db, req.body.editTicketAvailId);
     await availability.init()
     availability.updateMaxTickets(req.body.total);
-    res.redirect(303,'/wp-admin/tickets')
+    res.redirect(303,'/admin/tickets')
 })
 
 router.delete('/api/deleteTicketAvailability/:id', async (req, res) => {
@@ -108,7 +108,7 @@ router.post('/api/newUser', async (req, res) => {
         req.body.displayName,
         email
     )
-    res.redirect(303,'/wp-admin/user-list')
+    res.redirect(303,'/admin/user-list')
 })
 
 router.get('/api/getUser/:id', async (req, res) => {
@@ -133,7 +133,7 @@ router.post('/api/editUser', async (req, res) => {
     await user.init()
     user.updateDisplayName(req.body.displayName)
     user.getEmail().updateEmail(req.body.userEmail)
-    res.redirect(303,'/wp-admin/user-list')
+    res.redirect(303,'/admin/user-list')
 })
 
 router.delete('/api/deleteUser/:id', async (req, res) => {

@@ -7,5 +7,5 @@ document.getElementById('codeBtn').addEventListener('click', function() {
 });
 
 document.getElementById('resetBtn').addEventListener('click', function() {
-    window.location.href = '/wp-admin';
+    window.location.href = '/admin';
 });

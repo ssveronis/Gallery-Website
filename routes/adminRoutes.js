@@ -4,7 +4,7 @@ import {db} from "../index.js";
 
 const router = express.Router();
 
-router.get('/wp-admin', async (req, res) => {
+router.get('/admin', async (req, res) => {
     res.render("login", {
         stylesheets: [
             "/css/style.css",
@@ -20,7 +20,7 @@ router.get('/wp-admin', async (req, res) => {
     });
 });
 
-router.get('/wp-admin/user-list', async (req, res) => {
+router.get('/admin/user-list', async (req, res) => {
     const users = await WP_User.getAll(db)
     let data = []
 
@@ -53,7 +53,7 @@ router.get('/wp-admin/user-list', async (req, res) => {
     });
 });
 
-router.get('/wp-admin/tickets', async (req, res) => {
+router.get('/admin/tickets', async (req, res) => {
 
     let data = []
 
@@ -101,7 +101,7 @@ router.get('/wp-admin/tickets', async (req, res) => {
     });
 });
 
-router.get('/wp-admin/sales', async (req, res) => {
+router.get('/admin/sales', async (req, res) => {
     const categories = await TicketsCategory.getAll(db)
     const sales = await TicketSales.getAll(db)
     let data = []
@@ -149,7 +149,7 @@ router.get('/wp-admin/sales', async (req, res) => {
     });
 });
 
-router.get('/wp-admin/emails', async (req, res) => {
+router.get('/admin/emails', async (req, res) => {
     const emails = await Email.getAll(db)
     let data = emails.map(email => email.getNewsletter()?email.getEmail():null)
     res.setHeader('Content-Type', 'text/csv');

@@ -83,10 +83,6 @@ router.post('/buy', async (req, res) => {
         availableTickets
     )
     await sale.init()
-    res.sendStatus(204)
-})
-
-router.get('/buy', async (req, res) => {
     res.render("buy", {
         stylesheets: [
             "/css/style.css",
@@ -101,7 +97,7 @@ router.get('/buy', async (req, res) => {
             "/js/checkout.js"
         ],
     });
-});
+})
 
 router.get('/gallery', async (req, res) => {
     res.render("gallery", {
