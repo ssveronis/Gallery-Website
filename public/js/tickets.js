@@ -154,7 +154,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const dec = counter.querySelector(".decrement");
 
         inc.addEventListener("click", () => {
-            input.value = parseInt(input.value) + 1;
+            // Special logic for audioguides
+            if (input.id === "audioguides") {
+                const totalTickets =
+                    parseInt(document.getElementById("adults").value) +
+                    parseInt(document.getElementById("children").value) +
+                    parseInt(document.getElementById("students").value);
+                if (parseInt(input.value) < totalTickets) {
+                    input.value = parseInt(input.value) + 1;
+                }
+            } else {
+                input.value = parseInt(input.value) + 1;
+            }
         });
 
         dec.addEventListener("click", () => {
@@ -162,6 +173,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.value = parseInt(input.value) - 1;
             }
         });
+
+        // Prevent manual input over max for audioguides
+        if (input.id === "audioguides") {
+            input.addEventListener('input', () => {
+                const totalTickets =
+                    parseInt(document.getElementById("adults").value) +
+                    parseInt(document.getElementById("children").value) +
+                    parseInt(document.getElementById("students").value);
+                if (parseInt(input.value) > totalTickets) {
+                    input.value = totalTickets;
+                }
+                if (parseInt(input.value) < 0 || isNaN(parseInt(input.value))) {
+                    input.value = 0;
+                }
+            });
+        }
     });
 
     searchBtn.addEventListener("click", async () => {
