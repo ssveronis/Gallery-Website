@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-
+    <link rel="icon" href="/img/favicon.png" type="image/x-icon">
     {{#each stylesheets}}
-        <link rel="stylesheet" href="{{this}}" />
+    <link rel="stylesheet" href="{{this}}" />
     {{/each}}
 
     <meta property="og:title" content="{{ogtitle}}">
@@ -18,26 +19,28 @@
 
 
 </head>
+
 <body style="display: flex; flex-direction: column;">
-{{> (getNav path)}}
-<div class="main_content"></div>
-{{{ body }}}
-<div class="footer-margin"></div>
-{{> footer}}
+    {{> (getNav path)}}
+    <div class="main_content"></div>
+    {{{ body }}}
+    <div class="footer-margin"></div>
+    {{> footer}}
 
-{{#each scripts}}
+    {{#each scripts}}
     <script src="{{this}}" type="module"></script>
-{{/each}}
-<script src="https://kit.fontawesome.com/1505bebe8c.js" crossorigin="anonymous"></script>
+    {{/each}}
+    <script src="https://kit.fontawesome.com/1505bebe8c.js" crossorigin="anonymous"></script>
 
-<!-- AOS Script (animations) -->
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-    AOS.init({
-        duration: 1000,
-        once: true,
-        easing: 'ease-in-out',
-    });
-</script>
+    <!-- AOS Script (animations) -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-in-out',
+        });
+    </script>
 </body>
+
 </html>

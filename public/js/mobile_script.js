@@ -1,6 +1,8 @@
-document.querySelector('.mobile-tickets_btn').addEventListener('click', function () {
-  window.location.href = '/tickets';
-});
+try {
+  document.querySelector('.mobile-tickets_btn').addEventListener('click', function () {
+    window.location.href = '/tickets';
+  });
+} catch (e) {}
 
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {

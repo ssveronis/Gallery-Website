@@ -1,6 +1,8 @@
 import DB from "../db.js";
 // @ts-ignore
 import Email from "./email.ts";
+// @ts-ignore
+import argon2 from "argon2";
 
 class WP_User {
     private db: DB;
@@ -36,7 +38,7 @@ class WP_User {
 
     static async create(db: DB, login: string, password: string, displayName: string, email: Email) {
         if (!db.ready) throw new Error("Database not ready");
-        // Add logic to hash the password
+        password = await WP_User.hashPasswd(password);
         await db.query(`INSERT INTO WP_USERS (user_login, user_pass, display_name, email_id) VALUES (?, ?, ?, ?)`, [`${login}`, `${password}`, `${displayName}`, `${email.getId()}`]);
         return new WP_User(db, login);
     }
@@ -90,7 +92,7 @@ class WP_User {
 
     async updatePassword(password: string){
         if (!this.id) throw new Error("Email not found");
-        // Add logic to hash the password
+        password = await WP_User.hashPasswd(password);
         await this.db.query(`UPDATE WP_USERS SET user_pass = ? WHERE id = ?`, [`${password}`, this.id]);
         this.idORuserLogin = this.id
         await this.init();
@@ -108,6 +110,14 @@ class WP_User {
         await this.init();
     }
 
+    async isPasswdValid(userInput: string){
+        try {
+            return await argon2.verify(this.getPassword(), userInput)
+        } catch (e) {
+            return false
+        }
+    }
+
     getEmailId(){
         if (!this.id) throw new Error("Email not found");
         return this.userEmailId;
@@ -116,6 +126,12 @@ class WP_User {
     getEmail(){
         if (!this.id) throw new Error("Email not found");
         return this.userEmail;
+    }
+
+    private static async hashPasswd(password: string){
+        return await argon2.hash(password, {
+            timeCost: 10
+        });
     }
 
     delete(){
