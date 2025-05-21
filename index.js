@@ -5,8 +5,7 @@ import device from 'express-device';
 import {getNav} from "./helpers.js";
 import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, getAvailTicketSearch } from "./db.js";
 import bodyParser from "body-parser";
-import fs from 'fs';
-import path from 'path';
+import * as loginController from "./controller/loginController.mjs";
 
 const db = new DB();
 const app = express();
@@ -16,6 +15,8 @@ const hbs = create({ extname: '.hbs',
         getNav: getNav,
     }
 });
+
+app.use(sessionMiddleware);
 
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
@@ -36,10 +37,12 @@ app.use(userRoutes);
 import userApiRoutes from  "./routes/apiUser.js";
 app.use(userApiRoutes);
 
+app.use(loginController.checkAuthenticated);
 import adminRoutes from "./routes/adminRoutes.js";
 app.use(adminRoutes);
 
 import adminApiRoutes from "./routes/apiAdmin.js";
+import sessionMiddleware from './session-setup.mjs';
 app.use(adminApiRoutes);
 
 export default app;
