@@ -37,7 +37,7 @@ app.use(userRoutes);
 import userApiRoutes from  "./routes/apiUser.js";
 app.use(userApiRoutes);
 
-app.use(loginController.checkAuthenticated);
+// app.use(loginController.checkAuthenticated);
 
 import adminRoutes from "./routes/adminRoutes.js";
 app.use(adminRoutes);

@@ -5,6 +5,7 @@ import {db} from "../index.js";
 const router = express.Router();
 
 router.get('/admin', async (req, res) => {
+    res.locals.title = "Admin";
     res.render("login", {
         stylesheets: [
             "/css/style.css",
@@ -21,6 +22,7 @@ router.get('/admin', async (req, res) => {
 });
 
 router.get('/admin/user-list', async (req, res) => {
+    res.locals.title = "Users";
     const users = await WP_User.getAll(db)
     let data = []
 
@@ -54,7 +56,7 @@ router.get('/admin/user-list', async (req, res) => {
 });
 
 router.get('/admin/tickets', async (req, res) => {
-
+    res.locals.title = "Tickets";
     let data = []
 
     const categories = await TicketsCategory.getAll(db)
@@ -102,7 +104,8 @@ router.get('/admin/tickets', async (req, res) => {
 });
 
 router.get('/admin/sales', async (req, res) => {
-    const categories = await TicketsCategory.getAll(db)
+    res.locals.title = "Sales";
+    const categories = await TicketsCategory.getAll(db);
     let catData = []
 
     for (const cat of categories) {

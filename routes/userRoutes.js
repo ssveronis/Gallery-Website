@@ -6,6 +6,7 @@ import crypto from "crypto";
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+    res.locals.title = "Αρχική";
     res.render("root", {
         stylesheets: [
             "/css/style.css",
@@ -47,6 +48,7 @@ router.post('/checkout', async (req, res) => {
 });
 
 router.post('/buy', async (req, res) => {
+    res.locals.title = "Ευχαριστούμε!";
     const people = await Person.searchByEmail(db, req.body.email)
     let person = null;
     people.forEach(p => {
@@ -101,6 +103,7 @@ router.post('/buy', async (req, res) => {
 })
 
 router.get('/gallery', async (req, res) => {
+    res.locals.title = "Έκθεση";
     res.render("gallery", {
         stylesheets: [
             "/css/style.css",
@@ -117,6 +120,7 @@ router.get('/gallery', async (req, res) => {
 });
 
 router.get('/about', async (req, res) => {
+    res.locals.title = "Σχετικά";
     res.render("about", {
         stylesheets: [
             "/css/style.css",
@@ -132,6 +136,7 @@ router.get('/about', async (req, res) => {
 });
 
 router.get('/contact', async (req, res) => {
+    res.locals.title = "Επικοινωνία";
     res.render("contact", {
         stylesheets: [
             "/css/style.css",
@@ -147,6 +152,7 @@ router.get('/contact', async (req, res) => {
 });
 
 router.get('/tickets', async (req, res) => {
+    res.locals.title = "Εισιτήρια";
     const categories = await TicketsCategory.getAllWithAvail(db)
     let data = categories.map(cat => ({
         'name': cat.name,
@@ -170,6 +176,7 @@ router.get('/tickets', async (req, res) => {
 });
 
 router.get('/password-reset', async (req, res) => {
+    res.locals.title = "Αλλαγή Κωδικού";
     res.render("passwordReset", {
         stylesheets: [
             "/css/style.css",
@@ -249,6 +256,7 @@ router.post('/newPassword', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
+    res.locals.title = "Σύνδεση";
     const user = new WP_User(db, req.body.username)
     try {
         await user.init()
