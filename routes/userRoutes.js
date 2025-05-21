@@ -2,6 +2,7 @@ import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_U
 import express from 'express';
 import {db} from "../index.js";
 import crypto from "crypto";
+import {sendMailBuy, sendMailResetPasswd} from "../controller/mailer.js";
 
 const router = express.Router();
 
@@ -86,6 +87,7 @@ router.post('/buy', async (req, res) => {
         availableTickets
     )
     await sale.init()
+    await sendMailBuy(process.env.DOMAIN, sale)
     res.render("buy", {
         stylesheets: [
             "/css/style.css",
@@ -208,6 +210,7 @@ router.post('/password-reset', async (req, res) => {
     await user.init()
     const token = crypto.randomBytes(100).toString('hex').slice(0, 100);
     await PasswdForgotTokens.create(db, token, user)
+    await sendMailResetPasswd(`${process.env.DOMAIN}:${process.env.PORT}`, user.getEmail().getEmail(), token)
     res.redirect(303, '/admin')
 })
 

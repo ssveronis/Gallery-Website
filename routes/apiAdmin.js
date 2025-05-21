@@ -1,6 +1,8 @@
 import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, getAvailTicketSearch } from "../db.js";
 import express from 'express';
 import {db} from "../index.js";
+import crypto from "crypto";
+import {sendMailRegister} from "../controller/mailer.js";
 
 const router = express.Router();
 
@@ -132,13 +134,15 @@ router.post('/api/newUser', async (req, res) => {
         )
         await email.init()
     }
-    const user = WP_User.create(
+    const user = await WP_User.create(
         db,
         req.body.username,
-        '0',
+        crypto.randomBytes(100).toString('hex').slice(0, 100),
         req.body.displayName,
         email
     )
+    await user.init()
+    await sendMailRegister(process.env.DOMAIN, user.getEmail().getEmail())
     res.redirect(303,'/admin/user-list')
 })
 

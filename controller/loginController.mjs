@@ -1,71 +1,29 @@
 import argon2d from 'argon2';
-import {WP_User} from "../db.js";
-
-export let showLogInForm = function (req, res) {
-   res.render('login-password', { model: process.env.MODEL });
-};
-
-export let showRegisterForm = function (req, res) {
-   res.render('register-password', {});
-};
-
-export let doRegister = async function (req, res) {
-   try {
-      const registrationResult = await userModel.registerUser(req.body.username, req.body.password);
-      if (registrationResult?.message) {
-         res.render('register-password', { message: registrationResult.message });
-      } else {
-         res.render('login-password', { model: process.env.MODEL });
-      }
-   } catch (error) {
-      throw error;
-   }
-};
-
-export let doLogin = async function (req, res) {
-   //Ελέγχει αν το username και το password είναι σωστά και εκτελεί την
-   //συνάρτηση επιστροφής authenticated
-
-   const user = await new WP_User(req.body.username);
-   if (user == undefined || !user.password || !user.id) {
-      res.render('login-password', { message: 'Δε βρέθηκε αυτός ο χρήστης' });
-   } else {
-      const match = await argon2d.verify(user.password, req.body.password ?? "");
-      if (match) {
-         //Θέτουμε τη μεταβλητή συνεδρίας "loggedUserId"
-         req.session.loggedUserId = user.id;
-         //Αν έχει τιμή η μεταβλητή req.session.originalUrl, αλλιώς όρισέ τη σε "/"
-         // res.redirect("/");
-         const redirectTo = req.session.originalUrl || '/tasks';
-
-         res.redirect(redirectTo);
-      } else {
-         res.render('login-password', { message: 'Ο κωδικός πρόσβασης είναι λάθος' });
-      }
-   }
-};
-
-export let doLogout = (req, res) => {
-   //Σημειώνουμε πως ο χρήστης δεν είναι πια συνδεδεμένος
-   req.session.destroy();
-   res.redirect('/');
-};
+import DB, {WP_User} from "../db.js";
+import {db} from "../index.js";
 
 //Τη χρησιμοποιούμε για να ανακατευθύνουμε στη σελίδα /login όλα τα αιτήματα από μη συνδεδεμένους χρήστες
-export let checkAuthenticated = function (req, res, next) {
+export let checkAuthenticated = async function (req, res, next) {
    //Αν η μεταβλητή συνεδρίας έχει τεθεί, τότε ο χρήστης είναι συνεδεμένος
    if (req.session.loggedUserId) {
-      console.log('user is authenticated', req.originalUrl);
+      try {
+         const user = new WP_User(db, req.session.loggedUserId);
+         await user.init();
+      } catch (e) {
+         console.log(e)
+         res.redirect('/admin');
+         return;
+      }
       //Καλεί τον επόμενο χειριστή (handler) του αιτήματος
+      if (req.originalUrl === '/admin/' || req.originalUrl === '/admin') res.redirect('/admin/sales');
       next();
    } else {
       //Ο χρήστης δεν έχει ταυτοποιηθεί, αν απλά ζητάει το /login ή το register δίνουμε τον
       //έλεγχο στο επόμενο middleware που έχει οριστεί στον router
-      if (req.originalUrl === '/admin' || req.originalUrl === '/register') {
+      if (req.originalUrl === '/admin') {
          next();
       } else {
          //Στείλε το χρήστη στη "/login"
-         console.log('not authenticated, redirecting to /admin');
          res.redirect('/admin');
       }
    }

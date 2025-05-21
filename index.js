@@ -2,7 +2,7 @@ import express, {raw} from 'express';
 import { create } from 'express-handlebars';
 import 'dotenv/config'
 import device from 'express-device';
-import {getNav} from "./helpers.js";
+import {getNav, isEq} from "./helpers.js";
 import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, PasswdForgotTokens, getAvailTicketSearch } from "./db.js";
 import bodyParser from "body-parser";
 import * as loginController from "./controller/loginController.mjs";
@@ -13,6 +13,7 @@ const port = process.env.PORT;
 const hbs = create({ extname: '.hbs',
     helpers: {
         getNav: getNav,
+        isEq: isEq
     }
 });
 

@@ -31,7 +31,8 @@ router.get('/admin/user-list', async (req, res) => {
             "id": user.getId(),
             "displayName": user.getDisplayName(),
             "login": user.getLogin(),
-            "email": user.getEmail().getEmail()
+            "email": user.getEmail().getEmail(),
+            "displayDelete": (user.getId() !== req.session.loggedUserId)
         }
         data.push(partData)
     }
