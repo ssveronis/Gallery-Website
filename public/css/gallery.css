@@ -37,7 +37,7 @@
 
 .gallery-item img {
     width: 100%;
-    height: auto;
+    height: 200px;
     object-fit: cover;
     display: block;
 }

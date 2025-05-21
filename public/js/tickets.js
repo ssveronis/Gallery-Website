@@ -23,13 +23,85 @@ document.addEventListener("DOMContentLoaded", () => {
     const steps = document.querySelectorAll('.ticket-steps-bar .step');
     function setStepActive(stepIdx) {
         steps.forEach((step, idx) => {
-            if (idx === stepIdx) {
+            step.classList.remove('step-active', 'step-completed');
+            if (idx < stepIdx) {
+                step.classList.add('step-completed');
+            } else if (idx === stepIdx) {
                 step.classList.add('step-active');
-            } else {
-                step.classList.remove('step-active');
             }
         });
     }
+
+    steps.forEach((step, idx) => {
+        step.style.cursor = 'pointer';
+        step.addEventListener('click', () => {
+            // Only allow going back to completed steps or next to the immediate next step
+            const currentStep = Array.from(steps).findIndex(s => s.classList.contains('step-active'));
+            if (idx < currentStep) {
+                // Go back to previous step
+                if (idx === 0) {
+                    // Back to exhibition selection
+                    exhibitionSelection.classList.remove("hidden");
+                    dateSelection.classList.add("hidden");
+                    dateSelection.classList.remove("flex-container");
+                    ticketForm.classList.add("hidden");
+                    ticketForm.classList.remove("flex-container");
+                    ticketList.classList.add("hidden");
+                    setStepActive(0);
+                } else if (idx === 1) {
+                    // Back to date selection
+                    exhibitionSelection.classList.add("hidden");
+                    dateSelection.classList.remove("hidden");
+                    dateSelection.classList.add("flex-container");
+                    ticketForm.classList.add("hidden");
+                    ticketForm.classList.remove("flex-container");
+                    ticketList.classList.add("hidden");
+                    setStepActive(1);
+                } else if (idx === 2) {
+                    // Back to ticket form
+                    exhibitionSelection.classList.add("hidden");
+                    dateSelection.classList.add("hidden");
+                    dateSelection.classList.remove("flex-container");
+                    ticketForm.classList.remove("hidden");
+                    ticketForm.classList.add("flex-container");
+                    ticketList.classList.add("hidden");
+                    setStepActive(2);
+                }
+            } else if (idx === currentStep + 1) {
+                // Allow going to the next step if the current step is valid
+                if (currentStep === 0) {
+                    // Go to date selection if a category is selected
+                    if (id) {
+                        exhibitionSelection.classList.add("hidden");
+                        dateSelection.classList.remove("hidden");
+                        dateSelection.classList.add("flex-container");
+                        setStepActive(1);
+                    } else {
+                        alert("Παρακαλώ επιλέξτε κατηγορία.");
+                    }
+                } else if (currentStep === 1) {
+                    // Go to ticket form if date is selected
+                    if (dateInput.value) {
+                        dateSelection.classList.add("hidden");
+                        dateSelection.classList.remove("flex-container");
+                        ticketForm.classList.remove("hidden");
+                        ticketForm.classList.add("flex-container");
+                        ticketFormButtons.classList.remove("hidden");
+                        setStepActive(2);
+                    } else {
+                        alert("Παρακαλώ επιλέξτε ημερομηνία.");
+                    }
+                } else if (currentStep === 2) {
+                    // Go to availability if at least one ticket is selected
+                    if (document.getElementById("adults").value == 0 && document.getElementById("children").value == 0 && document.getElementById("students").value == 0 && document.getElementById("audioguides").value == 0) {
+                        alert("Παρακαλώ επιλέξτε τουλάχιστον ένα εισιτήριο.");
+                        return;
+                    }
+                    searchBtn.click();
+                }
+            }
+        });
+    });
 
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -37,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
             exhibitionSelection.classList.add("hidden");
             dateSelection.classList.remove("hidden");
             dateSelection.classList.add("flex-container");
-            setStepActive(1); 
+            setStepActive(1);
         });
     });
 
@@ -63,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dateSelection.classList.remove("flex-container");
 
         exhibitionSelection.classList.remove("hidden");
-        setStepActive(0); 
+        setStepActive(0);
     });
 
     backButtonSearch.addEventListener("click", () => {
@@ -72,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         dateSelection.classList.remove("hidden");
         dateSelection.classList.add("flex-container");
-        setStepActive(1); 
+        setStepActive(1);
     });
 
     // Ticket counters
@@ -93,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     searchBtn.addEventListener("click", async () => {
-        if(document.getElementById("adults").value == 0 && document.getElementById("children").value == 0 && document.getElementById("students").value == 0 && document.getElementById("audioguides").value == 0) {
+        if (document.getElementById("adults").value == 0 && document.getElementById("children").value == 0 && document.getElementById("students").value == 0 && document.getElementById("audioguides").value == 0) {
             alert("Παρακαλώ επιλέξτε τουλάχιστον ένα εισιτήριο.");
             return;
         }

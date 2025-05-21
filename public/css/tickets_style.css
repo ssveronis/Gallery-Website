@@ -15,12 +15,22 @@
     gap: 12px;
 }
 
+.step-completed .step-circle {
+    background: #077187;
+    color: #fff;
+    border: 2px solid #077187;
+}
+.step-completed .step-label {
+    color: #077187;
+    font-weight: 600;
+}
+
 .step-circle {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border: none;
-    background: #077187;
+    background: #a4bcc0;
     color: #fff;
     display: flex;
     align-items: center;
@@ -28,6 +38,7 @@
     font-size: 1.2em;
     font-weight: bold;
     transition: background 0.2s, color 0.2s, border 0.2s;
+    border: 2px solid #077187;
 }
 
 .step-label {
@@ -35,7 +46,6 @@
     font-size: 1.1em;
     font-weight: 500;
     letter-spacing: 1px;
-    /* min-width: 120px; */
     text-align: left;
 }
 
