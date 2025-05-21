@@ -5,6 +5,7 @@ import {db} from "../index.js";
 const router = express.Router();
 
 router.get('/admin', async (req, res) => {
+    res.locals.title = "Admin";
     res.render("login", {
         stylesheets: [
             "/css/style.css",
@@ -21,6 +22,7 @@ router.get('/admin', async (req, res) => {
 });
 
 router.get('/admin/user-list', async (req, res) => {
+    res.locals.title = "Users";
     const users = await WP_User.getAll(db)
     let data = []
 
@@ -29,7 +31,8 @@ router.get('/admin/user-list', async (req, res) => {
             "id": user.getId(),
             "displayName": user.getDisplayName(),
             "login": user.getLogin(),
-            "email": user.getEmail().getEmail()
+            "email": user.getEmail().getEmail(),
+            "displayDelete": (user.getId() !== req.session.loggedUserId)
         }
         data.push(partData)
     }
@@ -45,7 +48,7 @@ router.get('/admin/user-list', async (req, res) => {
             "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         ],
         scripts: [
-            "/js/script.js",
+            
             "/js/mobile_script.js",
             "/js/userList.js"
         ],
@@ -54,7 +57,7 @@ router.get('/admin/user-list', async (req, res) => {
 });
 
 router.get('/admin/tickets', async (req, res) => {
-
+    res.locals.title = "Tickets";
     let data = []
 
     const categories = await TicketsCategory.getAll(db)
@@ -93,7 +96,7 @@ router.get('/admin/tickets', async (req, res) => {
             "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         ],
         scripts: [
-            "/js/script.js",
+            
             "/js/mobile_script.js",
             "/js/ticketsCategory.js"
         ],
@@ -102,7 +105,8 @@ router.get('/admin/tickets', async (req, res) => {
 });
 
 router.get('/admin/sales', async (req, res) => {
-    const categories = await TicketsCategory.getAll(db)
+    res.locals.title = "Sales";
+    const categories = await TicketsCategory.getAll(db);
     let catData = []
 
     for (const cat of categories) {
@@ -125,7 +129,7 @@ router.get('/admin/sales', async (req, res) => {
             "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         ],
         scripts: [
-            "/js/script.js",
+            
             "/js/mobile_script.js",
             "/js/ticketSales.js"
         ],
@@ -145,22 +149,9 @@ router.get('/admin/emails', async (req, res) => {
     res.end()
 })
 
-router.get('/password-reset', async (req, res) => {
-    res.render("passwordReset", {
-        stylesheets: [
-            "/css/style.css",
-            "/css/login_style.css",
-            "/css/passwordReset.css",
-            "https://unpkg.com/aos@2.3.4/dist/aos.css",
-            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
-            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
-        scripts: [
-            "/js/script.js",
-            "/js/mobile_script.js",
-            "/js/login.js",
-            "/js/passwordReset.js"
-        ]
-    });
-});
+router.get('/logout', async (req, res) => {
+    req.session.loggedUserId = null;
+    res.redirect(303, '/')
+})
 
 export default router;

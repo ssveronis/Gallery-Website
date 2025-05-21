@@ -53,4 +53,5 @@ export { default as TicketsCategory } from "./data/tickets_category.ts";
 export { default as AvailableTickets } from "./data/available_tickets.ts";
 export { default as TicketSales } from "./data/ticket_sales.ts";
 export { default as TicketSalesSummary } from "./data/view_ticket_sales_summary.ts";
+export { default as PasswdForgotTokens } from  "./data/passwd_forgot_tokens.ts"
 export { getAvailTicketSearch } from "./data/avail_ticket_search.ts";

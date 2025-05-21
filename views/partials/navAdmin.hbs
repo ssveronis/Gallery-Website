@@ -4,12 +4,6 @@
     </div>
 
     <div class="menu">
-        <div class="search_bar">
-            <input type="text" placeholder="Αναζήτηση">
-            <button class="search_btn">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
         <nav>
             <ul class="nav_links">
                 <li><a href="/admin/user-list">Χρήστες</a></li>
@@ -18,7 +12,7 @@
                 <li><a href="/admin/emails" target="_blank">E-mail newsletter</a></li>
             </ul>
         </nav>
-        <button><span class="material-symbols-outlined">logout</span></button>
+        <a href="/logout"><button><span class="material-symbols-outlined">logout</span></button></a>
     </div>
 
     <div class="mobile-menu">
@@ -26,22 +20,15 @@
             <i class="fas fa-bars"></i>
         </button>
         <div class="mobile-nav">
-            <div class="mobile-search_bar">
-                <input type="text" placeholder="Αναζήτηση">
-                <button class="mobile-search_btn">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
             <nav>
                 <ul class="mobile-nav_links">
                     <li><a href="/admin/user-list">Χρήστες</a></li>
                     <li><a href="/admin/tickets">Διαχείρηση Εισιτηρίων</a></li>
                     <li><a href="/admin/sales">Πωλήσεις Εισιτηρίων</a></li>
                     <li><a href="/admin/emails" target="_blank">E-mail newsletter</a></li>
-                    <button class="exit-btn"><span class="material-symbols-outlined">logout</span></button>
+                    <a href="/logout"><button class="exit-btn"><span class="material-symbols-outlined">logout</span></button></a>
                 </ul>
             </nav>
-            <button class="mobile-tickets_btn">Αγορά Εισιτηρίου</button>
         </div>
     </div>
 </div>

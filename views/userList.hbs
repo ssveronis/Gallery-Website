@@ -5,10 +5,10 @@
 <table>
     <thead>
         <tr>
-            <th>User ID</th>
-            <th>Name</th>
+            <th>Id Χρήστη</th>
+            <th>Όνομα</th>
             <th>Email</th>
-            <th>Action</th>
+            <th>Ενέργεια</th>
         </tr>
     </thead>
     <tbody>
@@ -23,9 +23,11 @@
                             <span class="material-symbols-outlined">edit</span>
                         </button>
                         <div class="action-menu hidden">
+                            {{#if this.displayDelete}}
                             <button class="action-delete" onclick="fetch('/api/deleteUser/{{this.id}}', {'method':'DELETE'}).then(()=>{document.location.reload()})">
                                 <span class="material-symbols-outlined">delete</span>Διαγραφή
                             </button>
+                            {{/if}}
                             <button class="action-edit" data-id="{{this.id}}">
                                 <span class="material-symbols-outlined">edit_square</span>Επεξεργασία
                             </button>

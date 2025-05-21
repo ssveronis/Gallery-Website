@@ -118,7 +118,6 @@ body {
     color: white;
 }
 
-
 /* GPT animations*/
 .scroll-section {
     height: 100vh;
@@ -286,7 +285,7 @@ body {
     transform: translateY(0);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1077px) {
     .menu {
         display: none;
     }
@@ -300,7 +299,7 @@ body {
     }
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1077px) {
     .mobile-menu {
         display: none !important;
     }

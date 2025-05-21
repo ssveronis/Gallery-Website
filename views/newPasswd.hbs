@@ -1,0 +1,12 @@
+<div class="step2">
+    <h2>Επαναφορά Κωδικού</h2>
+    <form action="/newPassword" method="POST" class="password-reset-form">
+        <input type="hidden" id="reset-code" name="token" value="{{token}}" required>
+        <input type="password" id="new-password" name="new_password" placeholder="Νέος Κωδικός" required>
+        <input type="password" id="new-password" name="new_password_repeat" placeholder="Επιβεβαίωση Κωδικού" required>
+        <button type="submit" id="resetBtn">Επαναφορά Κωδικού</button>
+    </form>
+    <div class="back-to-login">
+        <a href="/admin">Πίσω στη σύνδεση</a>
+    </div>
+</div>
