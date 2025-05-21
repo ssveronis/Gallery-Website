@@ -1,3 +1,74 @@
+/* --- Steps Bar --- */
+.ticket-steps-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    padding: 32px 0 24px 0;
+    margin-bottom: 10px;
+    gap: 0;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #077187;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.step-label {
+    color: #077187;
+    font-size: 1.1em;
+    font-weight: 500;
+    letter-spacing: 1px;
+    /* min-width: 120px; */
+    text-align: left;
+}
+
+.step-line {
+    width: 60px;
+    height: 2px;
+    background: #077187;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+.step-active .step-circle {
+    background: #fff;
+    color: #077187;
+    border: 2px solid #077187;
+}
+.step-active .step-label {
+    color: #077187;
+    font-weight: 700;
+}
+
+@media (max-width: 700px) {
+    .ticket-steps-bar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 18px 0 10px 0;
+    }
+    .step-line {
+        width: 2px;
+        height: 32px;
+        margin: 0;
+    }
+}
 .ticket-form-section {
     display: flex;
     flex-direction: column;

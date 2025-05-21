@@ -20,12 +20,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     dateInput.min = today;
 
+    const steps = document.querySelectorAll('.ticket-steps-bar .step');
+    function setStepActive(stepIdx) {
+        steps.forEach((step, idx) => {
+            if (idx === stepIdx) {
+                step.classList.add('step-active');
+            } else {
+                step.classList.remove('step-active');
+            }
+        });
+    }
+
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
             id = btn.dataset.id;
             exhibitionSelection.classList.add("hidden");
             dateSelection.classList.remove("hidden");
             dateSelection.classList.add("flex-container");
+            setStepActive(1); 
         });
     });
 
@@ -42,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ticketForm.classList.add("flex-container");
 
         ticketFormButtons.classList.remove("hidden");
+        setStepActive(2);
     });
 
 
@@ -50,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dateSelection.classList.remove("flex-container");
 
         exhibitionSelection.classList.remove("hidden");
+        setStepActive(0); 
     });
 
     backButtonSearch.addEventListener("click", () => {
@@ -58,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         dateSelection.classList.remove("hidden");
         dateSelection.classList.add("flex-container");
+        setStepActive(1); 
     });
 
     // Ticket counters
@@ -124,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ticketList.classList.remove("hidden");
         ticketList.classList.add("flex-container");
         ticketForm.classList.add("hidden");
+        setStepActive(3);
     });
 
     //ticket selection
