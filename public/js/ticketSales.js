@@ -1,7 +1,41 @@
-document.addEventListener("DOMContentLoaded", () => {
+import TicketSale from '/js/ticketSaleClass.js'
+
+document.addEventListener("DOMContentLoaded", async () => {
     const popup = document.getElementById("popup");
     const overlay = document.getElementById("overlay");
     const popupContent = document.getElementById("popupContent");
+    const table = document.querySelector("tbody");
+
+    const searchInput = document.getElementById("searchInput");
+    const searchButton = document.getElementById("searchButton");
+    const date = document.getElementById("date");
+    const time = document.getElementById("time");
+    const categorySelect = document.getElementById("categorySelect");
+    const filterButton = document.getElementById("filterButton");
+
+    const res = await fetch(`/api/sales/`);
+    const data = await res.json();
+
+    let tickets = []
+
+    data.forEach((item) => {
+        const sale = new TicketSale(item)
+        tickets.push(sale);
+        table.innerHTML += `
+        <tr>
+                <td>${sale.id}</td>
+                <td>${sale.date}</td>
+                <td>${sale.start_time} - ${sale.end_time}</td>
+                <td>${sale.category}</td>
+                <td>${sale.name}</td>
+                <td>${sale.email}</td>
+                <td>${sale.total_tickets}</td>
+                <td>
+                    <button><span class="material-symbols-outlined">visibility</span></button>
+                </td>
+            </tr>
+        `
+    })
 
     document.querySelectorAll("table button").forEach(button => {
         button.addEventListener("click", async () => {
@@ -11,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const ticketId = cells[0].textContent;
             const res = await fetch(`/api/sale/${ticketId}`);
             const data = await res.json();
-            console.log(data);
 
             popupContent.innerHTML = `
                 <div>
@@ -49,4 +82,18 @@ document.addEventListener("DOMContentLoaded", () => {
         popup.classList.remove("show");
         overlay.classList.remove("show");
     });
+
+    const onFilterApply = function (event) {
+        const rows = document.querySelectorAll("tbody tr");
+        tickets.forEach((ticket, index) => {
+            if (ticket.shouldDisplay(searchInput.value, date.value, time.value, categorySelect.value)) {
+                rows[index].classList.remove("hidden");
+            } else {
+                rows[index].classList.add("hidden");
+            }
+        })
+    }
+
+    searchButton.addEventListener("click", onFilterApply);
+    filterButton.addEventListener("click", onFilterApply);
 });

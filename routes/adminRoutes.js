@@ -103,8 +103,6 @@ router.get('/admin/tickets', async (req, res) => {
 
 router.get('/admin/sales', async (req, res) => {
     const categories = await TicketsCategory.getAll(db)
-    const sales = await TicketSales.getAll(db)
-    let data = []
     let catData = []
 
     for (const cat of categories) {
@@ -114,22 +112,6 @@ router.get('/admin/sales', async (req, res) => {
             "availabilities": []
         }
         catData.push(partData)
-    }
-
-    for (const sale of sales) {
-        let partData = {
-            "id": sale.getId(),
-            "date": (new Date(sale.getAvailableTickets().getDate())).toLocaleDateString(),
-            "time": `${sale.getAvailableTickets().getStartTime()} - ${sale.getAvailableTickets().getEndTime()}`,
-            "category": sale.getAvailableTickets().getCategory().getName(),
-            "toatl_tickets": sale.getRegularTickets() + sale.getChildrenTickets() + sale.getStudentTickets(),
-            "regular_tickets": sale.getRegularTickets(),
-            "children_tickets": sale.getChildrenTickets(),
-            "student_tickets": sale.getStudentTickets(),
-            "name": sale.getPerson().getFirstName() + " " + sale.getPerson().getLastName(),
-            "email": sale.getPerson().getEmail().getEmail(),
-        }
-        data.push(partData)
     }
 
     res.render("ticketSales", {
@@ -147,7 +129,7 @@ router.get('/admin/sales', async (req, res) => {
             "/js/mobile_script.js",
             "/js/ticketSales.js"
         ],
-        data: data, categories: catData
+        categories: catData
     });
 });
 

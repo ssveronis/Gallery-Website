@@ -4,6 +4,28 @@ import {db} from "../index.js";
 
 const router = express.Router();
 
+router.get('/api/sales/', async (req, res) => {
+    const sales = await TicketSales.getAll(db)
+    let data = []
+    for (const sale of sales) {
+        let partData = {
+            "id": sale.getId(),
+            "date": (new Date(sale.getAvailableTickets().getDate())).toLocaleDateString(),
+            "start_time": sale.getAvailableTickets().getStartTime(),
+            "end_time": sale.getAvailableTickets().getEndTime(),
+            "category": sale.getAvailableTickets().getCategory().getName(),
+            "total_tickets": sale.getRegularTickets() + sale.getChildrenTickets() + sale.getStudentTickets(),
+            "regular_tickets": sale.getRegularTickets(),
+            "children_tickets": sale.getChildrenTickets(),
+            "student_tickets": sale.getStudentTickets(),
+            "name": sale.getPerson().getFirstName() + " " + sale.getPerson().getLastName(),
+            "email": sale.getPerson().getEmail().getEmail(),
+        }
+        data.push(partData)
+    }
+    res.send(data)
+})
+
 router.get('/api/sale/:id', async (req, res) => {
     const sale = new TicketSales(db, req.params.id)
     await sale.init()
