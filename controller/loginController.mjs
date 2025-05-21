@@ -1,4 +1,5 @@
 import argon2d from 'argon2';
+import {WP_User} from "../db.js";
 
 export let showLogInForm = function (req, res) {
    res.render('login-password', { model: process.env.MODEL });
@@ -25,7 +26,7 @@ export let doLogin = async function (req, res) {
    //Ελέγχει αν το username και το password είναι σωστά και εκτελεί την
    //συνάρτηση επιστροφής authenticated
 
-   const user = await userModel.getUserByUsername(req.body.username);
+   const user = await new WP_User(req.body.username);
    if (user == undefined || !user.password || !user.id) {
       res.render('login-password', { message: 'Δε βρέθηκε αυτός ο χρήστης' });
    } else {

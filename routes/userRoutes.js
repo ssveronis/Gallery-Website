@@ -248,4 +248,19 @@ router.post('/newPassword', async (req, res) => {
     res.redirect(303, '/admin')
 })
 
+router.post('/login', async (req, res) => {
+    console.log(req.body)
+    const user = new WP_User(db, req.body.username)
+    try {
+        await user.init()
+        if (user.getPassword() === req.body.passwd) {
+            req.session.loggedUserId = user.getId();
+        } else throw new Error();
+    } catch (err) {
+        res.redirect('/admin')
+        return
+    }
+    res.redirect('/admin/sales')
+})
+
 export default router;

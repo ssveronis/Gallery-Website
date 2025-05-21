@@ -13,7 +13,7 @@ router.get('/admin', async (req, res) => {
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
         scripts: [
-            "/js/script.js",
+            
             "/js/mobile_script.js",
             "/js/login.js"
         ]
@@ -45,7 +45,7 @@ router.get('/admin/user-list', async (req, res) => {
             "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         ],
         scripts: [
-            "/js/script.js",
+            
             "/js/mobile_script.js",
             "/js/userList.js"
         ],
@@ -93,7 +93,7 @@ router.get('/admin/tickets', async (req, res) => {
             "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         ],
         scripts: [
-            "/js/script.js",
+            
             "/js/mobile_script.js",
             "/js/ticketsCategory.js"
         ],
@@ -125,7 +125,7 @@ router.get('/admin/sales', async (req, res) => {
             "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         ],
         scripts: [
-            "/js/script.js",
+            
             "/js/mobile_script.js",
             "/js/ticketSales.js"
         ],
@@ -143,6 +143,11 @@ router.get('/admin/emails', async (req, res) => {
         if (email != null) res.write(email + '\r\n')
     })
     res.end()
+})
+
+router.get('/logout', async (req, res) => {
+    req.session.loggedUserId = null;
+    res.redirect(303, '/')
 })
 
 export default router;
