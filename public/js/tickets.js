@@ -93,6 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     searchBtn.addEventListener("click", async () => {
+        if(document.getElementById("adults").value == 0 && document.getElementById("children").value == 0 && document.getElementById("students").value == 0 && document.getElementById("audioguides").value == 0) {
+            alert("Παρακαλώ επιλέξτε τουλάχιστον ένα εισιτήριο.");
+            return;
+        }
         fetch('/api/tickets', {
             method: 'POST',
             headers: {
