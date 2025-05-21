@@ -14,7 +14,7 @@ router.get('/admin', async (req, res) => {
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
         scripts: [
-            
+            "/js/script.js",
             "/js/mobile_script.js",
             "/js/login.js"
         ]
