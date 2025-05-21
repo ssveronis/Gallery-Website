@@ -1,6 +1,7 @@
-import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, getAvailTicketSearch } from "../db.js";
+import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, PasswdForgotTokens, getAvailTicketSearch } from "../db.js";
 import express from 'express';
 import {db} from "../index.js";
+import crypto from "crypto";
 
 const router = express.Router();
 
@@ -167,5 +168,84 @@ router.get('/tickets', async (req, res) => {
         data: data
     });
 });
+
+router.get('/password-reset', async (req, res) => {
+    res.render("passwordReset", {
+        stylesheets: [
+            "/css/style.css",
+            "/css/login_style.css",
+            "/css/passwordReset.css",
+            "https://unpkg.com/aos@2.3.4/dist/aos.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
+        scripts: [
+            "/js/script.js",
+            "/js/mobile_script.js",
+            "/js/login.js"
+        ]
+    });
+});
+
+router.post('/password-reset', async (req, res) => {
+    let user = null;
+    const userByLogin = await WP_User.searchByLogin(db, req.body.identifier)
+    if (userByLogin.length !== 1) {
+        const userByEmail = await WP_User.searchByEmail(db, req.body.identifier)
+        if(userByEmail.length !== 1) {
+            res.redirect(303, '/admin')
+            return
+        }
+        user = userByEmail[0]
+    }
+    user = userByLogin[0]
+    await user.init()
+    const token = crypto.randomBytes(100).toString('hex').slice(0, 100);
+    await PasswdForgotTokens.create(db, token, user)
+    res.redirect(303, '/admin')
+})
+
+router.get('/password-reset/:token', async (req, res) => {
+    const token = req.params.token
+    const tokenObj = await new PasswdForgotTokens(db, token)
+    try {
+        await tokenObj.init()
+        if (Date.now()-Date.parse(tokenObj.getTimestamp())>300000+3*60*60*1000) throw new Error();
+    } catch (err) {
+        res.redirect(303, '/admin')
+        return
+    }
+    res.render("newPasswd", {
+        stylesheets: [
+            "/css/style.css",
+            "/css/login_style.css",
+            "/css/passwordReset.css",
+            "https://unpkg.com/aos@2.3.4/dist/aos.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
+        scripts: [
+            "/js/script.js",
+            "/js/mobile_script.js",
+            "/js/login.js"
+        ],
+        token: tokenObj.getToken(),
+    })
+})
+
+router.post('/newPassword', async (req, res) => {
+    const token = req.body.token
+    const tokenObj = await new PasswdForgotTokens(db, token)
+    try {
+        await tokenObj.init()
+        if (Date.now()-Date.parse(tokenObj.getTimestamp())>300000+3*60*60*1000) throw new Error();
+    } catch (err) {
+        res.redirect(303, '/admin')
+        return
+    }
+    const user = await tokenObj.getUser()
+    if(req.body["new_password"] === req.body["new_password_repeat"])
+    await user.updatePassword(req.body.new_password)
+    await tokenObj.delete()
+    res.redirect(303, '/admin')
+})
 
 export default router;

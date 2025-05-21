@@ -145,22 +145,4 @@ router.get('/admin/emails', async (req, res) => {
     res.end()
 })
 
-router.get('/password-reset', async (req, res) => {
-    res.render("passwordReset", {
-        stylesheets: [
-            "/css/style.css",
-            "/css/login_style.css",
-            "/css/passwordReset.css",
-            "https://unpkg.com/aos@2.3.4/dist/aos.css",
-            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
-            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
-        scripts: [
-            "/js/script.js",
-            "/js/mobile_script.js",
-            "/js/login.js",
-            "/js/passwordReset.js"
-        ]
-    });
-});
-
 export default router;

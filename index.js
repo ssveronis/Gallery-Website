@@ -3,7 +3,7 @@ import { create } from 'express-handlebars';
 import 'dotenv/config'
 import device from 'express-device';
 import {getNav} from "./helpers.js";
-import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, getAvailTicketSearch } from "./db.js";
+import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, PasswdForgotTokens, getAvailTicketSearch } from "./db.js";
 import bodyParser from "body-parser";
 import * as loginController from "./controller/loginController.mjs";
 
@@ -38,6 +38,7 @@ import userApiRoutes from  "./routes/apiUser.js";
 app.use(userApiRoutes);
 
 app.use(loginController.checkAuthenticated);
+
 import adminRoutes from "./routes/adminRoutes.js";
 app.use(adminRoutes);
 
