@@ -11,16 +11,22 @@ export default class PasswdForgotTokens {
     private timestamp: Date = null;
     private user: WP_User = null;
 
-    constructor(db: DB, token:string) {
+    private tokenOrId: string|number = null;
+
+    constructor(db: DB, token:string);
+    constructor(db: DB, user:number);
+
+    constructor(db: DB, tokenOrId:string|number) {
         this.db = db;
         if (!this.db.ready) throw new Error("Database not ready");
-        this.token = token
+        this.tokenOrId = tokenOrId
     }
 
     async init(){
-        const res = await this.db.query(`SELECT * FROM PASSWD_FORGOT_TOKENS WHERE token = ?`, [`${this.token}`])
+        const res = await this.db.query(`SELECT * FROM PASSWD_FORGOT_TOKENS WHERE token = ? OR id = ?`, [`${this.tokenOrId}`, `${this.tokenOrId}`])
         if (res.length === 0) throw new Error("Passwd Forgot Token not found");
         this.id = res[0].id;
+        this.token = res[0].token;
         this.timestamp = new Date(res[0].timestamp);
         this.user = new WP_User(this.db, this.id);
         await this.user.init();
@@ -54,6 +60,6 @@ export default class PasswdForgotTokens {
 
     async delete(){
         if (!this.id) throw new Error("Passwd Forgot Token not found");
-        this.db.query(`DELETE FROM PASSWD_FORGOT_TOKENS WHERE token = ?`, [this.token]);
+        await this.db.query(`DELETE FROM PASSWD_FORGOT_TOKENS WHERE token = ?`, [this.token]);
     }
 }

@@ -44,6 +44,7 @@ router.post('/checkout', async (req, res) => {
             start: salesSummary.getStartTime(),
             end: salesSummary.getEndTime()
         },
+        showAmea: category.getCanAccAMEA(),
         total: category.getRegularPrice()*parseInt(req.body.regular)+category.getChildrenPrice()*parseInt(req.body.children)+category.getStudentPrice()*parseInt(req.body.student)+category.getAudioguidePrice()*req.body.audioguide
     });
 });
@@ -52,11 +53,12 @@ router.post('/buy', async (req, res) => {
     res.locals.title = "Ευχαριστούμε!";
     const people = await Person.searchByEmail(db, req.body.email)
     let person = null;
-    people.forEach(p => {
-        if (p.getFirstName() === req.body.name && p.getLastName() === req.body.surname) {
-            person = p;
-        }
-    })
+    if(people.length>0){
+        await people[0].updateFirstName(req.body.name)
+        await people[0].updateLastName(req.body.surname)
+        await people[0].updatePhoneNumber(req.body.phone)
+        person = people[0];
+    }
     if (!person) {
         let email = null;
         try {
@@ -201,16 +203,22 @@ router.post('/password-reset', async (req, res) => {
     if (userByLogin.length !== 1) {
         const userByEmail = await WP_User.searchByEmail(db, req.body.identifier)
         if(userByEmail.length !== 1) {
+            req.flash("success", "Αν ο λογαριασμός υπάρχει, στείλαμε email ανάκτησης κωδικού")
             res.redirect(303, '/admin')
             return
         }
         user = userByEmail[0]
-    }
-    user = userByLogin[0]
+    } else user = userByLogin[0]
     await user.init()
     const token = crypto.randomBytes(100).toString('hex').slice(0, 100);
+    try{
+        const t = new PasswdForgotTokens(db, user.getId());
+        await t.init()
+        await t.delete()
+    } catch (error) { }
     await PasswdForgotTokens.create(db, token, user)
     await sendMailResetPasswd(`${process.env.DOMAIN}:${process.env.PORT}`, user.getEmail().getEmail(), token)
+    req.flash("success", "Αν ο λογαριασμός υπάρχει, στείλαμε email ανάκτησης κωδικού")
     res.redirect(303, '/admin')
 })
 
@@ -255,6 +263,7 @@ router.post('/newPassword', async (req, res) => {
     if(req.body["new_password"] === req.body["new_password_repeat"])
     await user.updatePassword(req.body.new_password)
     await tokenObj.delete()
+    req.flash("success", "Η αλλαγή κωδικού πραγματοποιήθηκε.")
     res.redirect(303, '/admin')
 })
 
@@ -267,6 +276,7 @@ router.post('/login', async (req, res) => {
             req.session.loggedUserId = user.getId();
         } else throw new Error();
     } catch (err) {
+        req.flash('error', 'Λάθος στοιχεία σύνδεσης');
         res.redirect('/admin')
         return
     }

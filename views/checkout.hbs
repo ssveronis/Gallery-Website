@@ -52,10 +52,12 @@
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
             </div>
-            <div class="form-checkbox">
-                <input type="checkbox" id="amea" name="amea">
-                <label for="amea">Ανάγκη για διευκολύνσεις προσβασιμότητας (ΑμεΑ)</label>
-            </div>
+            {{#if showAmea}}
+                <div class="form-checkbox">
+                    <input type="checkbox" id="amea" name="amea">
+                    <label for="amea">Ανάγκη για διευκολύνσεις προσβασιμότητας (ΑμεΑ)</label>
+                </div>
+            {{/if}}
 
             <input type="hidden" name="ticket" value="{{data.ticket}}">
             <input type="hidden" name="categoryId" value="{{data.categoryId}}">

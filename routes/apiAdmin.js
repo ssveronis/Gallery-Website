@@ -56,8 +56,8 @@ router.get('/api/sale/:id', async (req, res) => {
 });
 
 router.post('/api/newTicketsCategory', async (req, res) => {
-    if (req.body.categoryId) {
-        const category = new TicketsCategory(db, req.body.categoryId);
+    if (req.body.newCategoryId) {
+        const category = new TicketsCategory(db, req.body.newCategoryId);
         await category.init()
         if (req.body.categoryName != category.getName()) category.updateName(req.body.categoryName)
         if (req.body.normalPrice != category.getRegularPrice()) category.updateRegularPrice(req.body.normalPrice)
@@ -112,7 +112,9 @@ router.post('/api/newTicketAvailability', async (req, res) => {
 router.post('/api/editTicketAvailability', async (req, res) => {
     const availability = new AvailableTickets(db, req.body.editTicketAvailId);
     await availability.init()
-    availability.updateMaxTickets(req.body.total);
+    const salesSum = new TicketSalesSummary(db, req.body.editTicketAvailId);
+    await salesSum.init()
+    if (salesSum.getTotalSoldTickets() <= req.body.total) availability.updateMaxTickets(req.body.total); else req.flash("error", "Μη αποδεκτή τιμή")
     res.redirect(303,'/admin/tickets')
 })
 

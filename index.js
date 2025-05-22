@@ -6,6 +6,7 @@ import {getNav, isEq} from "./helpers.js";
 import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, PasswdForgotTokens, getAvailTicketSearch } from "./db.js";
 import bodyParser from "body-parser";
 import * as loginController from "./controller/loginController.mjs";
+import flash from 'connect-flash'
 
 const db = new DB();
 const app = express();
@@ -25,6 +26,7 @@ app.use(express.static('public'))
 
 app.use(bodyParser.urlencoded())
 app.use(bodyParser.json())
+app.use(flash())
 
 app.use((req, res, next) => {
     res.locals.device = device.capture(req);
@@ -38,7 +40,7 @@ app.use(userRoutes);
 import userApiRoutes from  "./routes/apiUser.js";
 app.use(userApiRoutes);
 
-// app.use(loginController.checkAuthenticated);
+app.use(loginController.checkAuthenticated);
 
 import adminRoutes from "./routes/adminRoutes.js";
 app.use(adminRoutes);

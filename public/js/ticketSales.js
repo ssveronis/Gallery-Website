@@ -95,5 +95,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     searchButton.addEventListener("click", onFilterApply);
+    searchInput.addEventListener('keypress', (e)=>{if (e.key === 'Enter') onFilterApply(e)})
     filterButton.addEventListener("click", onFilterApply);
 });

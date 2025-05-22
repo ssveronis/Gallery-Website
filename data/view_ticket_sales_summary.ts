@@ -35,9 +35,9 @@ class TicketSalesSummary {
     static async getAll(db: DB, category_id?: number) {
         if (!db.ready) throw new Error("Database not ready");
 
-        let query = `SELECT id FROM view_ticket_sales_summary`;
+        let query = `SELECT id FROM view_ticket_sales_summary WHERE date >= CURRENT_DATE - INTERVAL 7 DAY`;
         if (category_id !== undefined) {
-            query += ` WHERE category_id = ${category_id} ORDER BY date DESC, start_time DESC`;
+            query += ` AND category_id = ${category_id} ORDER BY date DESC, start_time DESC`;
         }
 
         const res = await db.query(query);

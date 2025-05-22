@@ -46,7 +46,7 @@ class TicketSales {
 
     static async getAll(db: DB){
         if (!db.ready) throw new Error("Database not ready");
-        const res = await db.query("SELECT id FROM TICKET_SALES")
+        const res = await db.query("SELECT TICKET_SALES.id FROM TICKET_SALES JOIN AVAIL_TICKETS ON AVAIL_TICKETS.id = TICKET_SALES.avail_id ORDER BY AVAIL_TICKETS.date DESC, AVAIL_TICKETS.start_time DESC;")
         const ticketSales = res.map(ticketSale => new TicketSales(db, ticketSale.id))
         for (const ticket of ticketSales) await ticket.init()
         return ticketSales;

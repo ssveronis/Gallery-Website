@@ -28,7 +28,7 @@ class DB {
             "compress": true,
             "connectTimeout": 500,
             "socketTimeout": 0,
-            "queryTimeout": 100
+            "queryTimeout": 200
         })
 
         this.ready = true;

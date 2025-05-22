@@ -17,7 +17,9 @@ router.get('/admin', async (req, res) => {
             "/js/script.js",
             "/js/mobile_script.js",
             "/js/login.js"
-        ]
+        ],
+        error: req.flash('error'),
+        success: req.flash('success'),
     });
 });
 
@@ -100,7 +102,8 @@ router.get('/admin/tickets', async (req, res) => {
             "/js/mobile_script.js",
             "/js/ticketsCategory.js"
         ],
-        data: data
+        data: data,
+        error: req.flash("error")
     });
 });
 

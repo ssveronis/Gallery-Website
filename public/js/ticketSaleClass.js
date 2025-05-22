@@ -16,7 +16,7 @@ export default class TicketSale {
 
     shouldDisplay(search, date, time, category) {
         if (date.length > 0) date = new Date(date).toLocaleDateString()
-        console.log(search.length, date, time.length, category);
+        console.log(time);
         let show = 0b0000
         if(search.length > 0){
             const searchLower = search.toLowerCase();
@@ -32,6 +32,7 @@ export default class TicketSale {
             if(this.date == date) show |= 0b0100;
         } else show |= 0b0100;
         if(time.length > 0){
+            time = time + ":00";
             if(this.start_time <= time && this.end_time >= time) show |= 0b0010;
         } else show |= 0b0010;
         if(category == "Όλες οι κατηγορίες") show |= 0b0001;

@@ -3,7 +3,9 @@
     <button class="btn"><span class="material-symbols-outlined">add</span>Νέα κατηγορία</button>
 </div>
 <hr>
-
+<div style="color: red; font-weight: bold;">
+    {{error}}
+</div>
 <div>
     {{#each data}}
     <div class="ticket_category">
@@ -71,7 +73,7 @@
 <div id="overlay" class="overlay"></div>
 <div id="popup" class="popup">
     <form id="newCategoryForm" class="popup-content" method="post" action="/api/newTicketsCategory">
-        <h2>Νέα Κατηγορία</h2>
+        <h2 id="availabilityName">Νέα Κατηγορία</h2>
         <input type="number" name="newCategoryId" value="0" style="display: none">
         <input type="text" id="categoryName" name="categoryName" placeholder="Όνομα κατηγορίας" required />
         <input type="number" id="normalPrice" name="normalPrice" placeholder="Τιμή κανονικού Εισιτηρίου (€)" required />

@@ -1,3 +1,4 @@
+{{#if data}}
 <div class="ticket-steps-bar">
     <div class="step step-active">
         <div class="step-circle">1</div>
@@ -19,13 +20,19 @@
         <div class="step-label">Διαθεσιμότητα</div>
     </div>
 </div>
+{{/if}}
+
 <div class="ticket-form-section">
     <div class="exhibition-selection" id="exhibitionSelection">
-        {{#each data}}
-        <button class="exhibition-btn" data-type="permanent" data-id="{{this.id}}">
-            <span>{{this.name}}</span>
-        </button>
-        {{/each}}
+        {{#if data}}
+            {{#each data}}
+            <button class="exhibition-btn" data-type="permanent" data-id="{{this.id}}">
+                <span>{{this.name}}</span>
+            </button>
+            {{/each}}
+        {{else}}
+            Δεν υπάρχουν διαθέσιμα εισιτήρια.
+        {{/if}}
     </div>
 
     <div class="date-selection hidden" id="dateSelection">

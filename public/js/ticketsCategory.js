@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const editAvailabilityPopup = document.getElementById("editAvailabilityPopup");
     const editAvailabilityForm = document.getElementById("editAvailabilityForm");
 
+    const availabilityName = document.getElementById("availabilityName");
     const newCategoryId = document.getElementsByName("newCategoryId")[0]
     const categoryName = document.getElementsByName("categoryName")[0]
     const regularPrice = document.getElementsByName("normalPrice")[0]
@@ -20,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const newCategorySubmit = document.getElementById("newCategorySubmit");
 
     const newTicketAvailId = document.getElementsByName("newTicketAvailId")[0]
+
+    document.getElementById("availabilityDate").min = new Date().toISOString().split('T')[0];
 
     dropdownButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -53,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //popup for new category
     openBtn.addEventListener("click", () => {
+        availabilityName.innerText = "Νέα Κατηγορία"
         newCategoryId.value = null;
         categoryName.value = null;
         regularPrice.value = null;
@@ -80,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const res = await fetch('/api/ticketCategory/' + id)
             const data = await res.json()
 
+            availabilityName.innerText = "Επεξεργασία Κατηγορίας"
             newCategoryId.value = data.id;
             categoryName.value = data.name;
             regularPrice.value = data.regularPrice;
@@ -106,10 +111,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Close availability popup
-    closeAvailabilityBtn.addEventListener("click", () => {
-        availabilityPopup.classList.remove("show");
-        overlay.classList.remove("show");
-    });
+    // closeAvailabilityBtn.addEventListener("click", () => {
+    //     availabilityPopup.classList.remove("show");
+    //     overlay.classList.remove("show");
+    // });
 
     availabilityForm.addEventListener("submit", (e) => {
         e.preventDefault();

@@ -1,4 +1,9 @@
 <div class="login-container">
+    {{#if success}}
+        <div style="color: green; font-weight: bold">
+            {{success}}
+        </div>
+    {{/if}}
     <h2>Σύνδεση</h2>
     <form method="post" action="/login">
         <div class="input-group">
@@ -12,6 +17,11 @@
                 <i class="fas fa-eye" id="togglePasswordIcon"></i>
             </button>
         </div>
+        {{#if error}}
+            <div style="color: red; font-weight: bold">
+                {{error}}
+            </div>
+        {{/if}}
         <button type="submit">Σύνδεση</button>
         <div class="forgot-password">
             <a href="/password-reset">Ξεχάσατε τον κωδικό;</a>

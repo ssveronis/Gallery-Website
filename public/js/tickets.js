@@ -211,12 +211,18 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         }).then(async res => {
             const data = await res.json();
+            ticketDetails.innerHTML = '<tr> <th>Αριθμός Εισιτηρίων</th> <th>Σύνολο</th> </tr>';
+            ticketTable.innerHTML = '<tr> <th>Κατηγορία</th> <th>Ώρα Εισόδου</th> <th>Διάρκεια</th> <th></th> </tr>';
+            if (data.length === 0) {
+                ticketTable.innerHTML += '<tr class="ticket-card"><td>Δεν υπάρχουν διαθέσιμα εισιτήρια.</td><td></td><td></td><td></td></tr>';
+            }
             ticketDetails.innerHTML += `
                     <tr>
                         <td>👤 ${data[0].total_tickets}</td>
                         <td><strong>${data[0].total_price} €</strong></td>
                     </tr>
                 `;
+            console.log(data);
             data.forEach(ticket => {
                 ticketTable.innerHTML += `
                     <tr class="ticket-card" data-id="${ticket.id}">
