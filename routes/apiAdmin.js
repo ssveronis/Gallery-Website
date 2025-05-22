@@ -29,10 +29,17 @@ router.get('/api/sales/', async (req, res) => {
 })
 
 router.get('/api/sale/:id', async (req, res) => {
-    const sale = new TicketSales(db, req.params.id)
-    await sale.init()
-    const salesSummary = new TicketSalesSummary(db, sale.getAvailableTickets().getId())
-    await salesSummary.init()
+    let sale;
+    let salesSummary;
+    try {
+        sale = new TicketSales(db, req.params.id)
+        await sale.init()
+        salesSummary = new TicketSalesSummary(db, sale.getAvailableTickets().getId())
+        await salesSummary.init()
+    } catch (e) {
+        res.redirect("/logout")
+        return
+    }
     let data = {
         "id": sale.getId(),
         "buy_date": (new Date(sale.getDate())).toLocaleDateString(),
@@ -81,8 +88,14 @@ router.post('/api/newTicketsCategory', async (req, res) => {
 })
 
 router.get('/api/ticketCategory/:id', async (req, res) => {
-    const category = new TicketsCategory(db, req.params.id)
-    await category.init()
+    let category;
+    try {
+        category = new TicketsCategory(db, req.params.id)
+        await category.init()
+    } catch (e) {
+        res.redirect("/logout")
+        return
+    }
     let data = {
         "id": category.getId(),
         "name": category.getName(),
@@ -96,32 +109,57 @@ router.get('/api/ticketCategory/:id', async (req, res) => {
 })
 
 router.post('/api/newTicketAvailability', async (req, res) => {
-    const category = new TicketsCategory(db, req.body.newTicketAvailId);
-    await category.init()
-    const availability = AvailableTickets.create(
-        db,
-        req.body.date,
-        req.body.startTime,
-        req.body.endTime,
-        req.body.total,
-        category
-    )
+    let category
+    try {
+        category = new TicketsCategory(db, req.body.newTicketAvailId);
+        await category.init()
+        let today = new Date().toISOString().split('T')[0]
+        if (!(req.body.date >= today) || !(req.body.endTime > req.body.startTime)) throw new Error()
+        const availability = await AvailableTickets.create(
+            db,
+            req.body.date,
+            req.body.startTime,
+            req.body.endTime,
+            req.body.total,
+            category
+        )
+    } catch (e) {
+        console.log(e)
+        res.redirect("/logout")
+        return
+    }
     res.redirect(303,'/admin/tickets')
 })
 
 router.post('/api/editTicketAvailability', async (req, res) => {
-    const availability = new AvailableTickets(db, req.body.editTicketAvailId);
-    await availability.init()
-    const salesSum = new TicketSalesSummary(db, req.body.editTicketAvailId);
-    await salesSum.init()
+    let availability
+    let salesSum
+    try {
+        availability = new AvailableTickets(db, req.body.editTicketAvailId);
+        await availability.init()
+        salesSum = new TicketSalesSummary(db, req.body.editTicketAvailId);
+        await salesSum.init()
+    } catch (e) {
+        res.redirect("/logout")
+        return
+    }
     if (salesSum.getTotalSoldTickets() <= req.body.total) availability.updateMaxTickets(req.body.total); else req.flash("error", "Μη αποδεκτή τιμή")
     res.redirect(303,'/admin/tickets')
 })
 
 router.delete('/api/deleteTicketAvailability/:id', async (req, res) => {
-    const availability = new AvailableTickets(db, req.params.id);
-    await availability.init()
-    availability.delete()
+    let availability
+    let salesSum
+    try {
+        availability = new AvailableTickets(db, req.params.id);
+        await availability.init()
+        salesSum = new TicketSalesSummary(db, req.params.id);
+        await salesSum.init()
+    } catch (e) {
+        res.redirect("/logout")
+        return
+    }
+    if (salesSum.getTotalSoldTickets() === 0) availability.delete()
     res.sendStatus(204)
 })
 
@@ -136,24 +174,36 @@ router.post('/api/newUser', async (req, res) => {
         )
         await email.init()
     }
-    const user = await WP_User.create(
-        db,
-        req.body.username,
-        crypto.randomBytes(100).toString('hex').slice(0, 100),
-        req.body.displayName,
-        email
-    )
-    await user.init()
-    await sendMailRegister(process.env.DOMAIN, user.getEmail().getEmail())
+
+    try {
+        const user = await WP_User.create(
+            db,
+            req.body.username,
+            crypto.randomBytes(100).toString('hex').slice(0, 100),
+            req.body.displayName,
+            email
+        )
+        await user.init()
+        await sendMailRegister(process.env.DOMAIN, user.getEmail().getEmail())
+    } catch (e) {
+        req.flash("error", e.message)
+    }
+
     res.redirect(303,'/admin/user-list')
 })
 
 router.get('/api/getUser/:id', async (req, res) => {
-    const user = new WP_User(
-        db,
-        req.params.id
-    )
-    await user.init()
+    let user
+    try {
+        user = new WP_User(
+            db,
+            req.params.id
+        )
+        await user.init()
+    } catch (e) {
+        res.redirect("/logout")
+        return
+    }
     const data = {
         "id": user.getId(),
         "displayName": user.getDisplayName(),
@@ -163,23 +213,32 @@ router.get('/api/getUser/:id', async (req, res) => {
 })
 
 router.post('/api/editUser', async (req, res) => {
-    const user = new WP_User(
-        db,
-        req.body.userId,
-    )
-    await user.init()
-    user.updateDisplayName(req.body.displayName)
-    user.getEmail().updateEmail(req.body.userEmail)
+    try {
+        const user = new WP_User(
+            db,
+            req.body.userId,
+        )
+        await user.init()
+        await user.updateDisplayName(req.body.displayName)
+        await user.getEmail().updateEmail(req.body.userEmail)
+    } catch (e) {
+        req.flash("error", e.message)
+    }
     res.redirect(303,'/admin/user-list')
 })
 
 router.delete('/api/deleteUser/:id', async (req, res) => {
-    const user = new WP_User(
-        db,
-        req.params.id
-    )
-    await user.init()
-    await user.delete()
+    try {
+        const user = new WP_User(
+            db,
+            req.params.id
+        )
+        await user.init()
+        await user.delete()
+    } catch (e) {
+        res.redirect("/logout")
+        return
+    }
     res.sendStatus(204)
 })
 

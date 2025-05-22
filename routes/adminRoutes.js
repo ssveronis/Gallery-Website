@@ -54,7 +54,8 @@ router.get('/admin/user-list', async (req, res) => {
             "/js/mobile_script.js",
             "/js/userList.js"
         ],
-        data: data
+        data: data,
+        error: req.flash('error')
     });
 });
 

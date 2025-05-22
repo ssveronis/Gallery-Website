@@ -22,11 +22,18 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/checkout', async (req, res) => {
-    const salesSummary = new TicketSalesSummary(db, req.body.ticket)
-    await salesSummary.init()
-    if (parseInt(salesSummary.getTotalSoldTickets()) + parseInt(req.body.regular) + parseInt(req.body.children) + parseInt(req.body.student) > salesSummary.getMaxTickets()) {res.sendStatus(500); return;}
-    const category = await salesSummary.getCategory();
-    await category.init()
+    let salesSummary
+    let category
+    try {
+        salesSummary = new TicketSalesSummary(db, req.body.ticket)
+        await salesSummary.init()
+        if (parseInt(salesSummary.getTotalSoldTickets()) + parseInt(req.body.regular) + parseInt(req.body.children) + parseInt(req.body.student) > salesSummary.getMaxTickets()) {res.sendStatus(500); return;}
+        category = await salesSummary.getCategory();
+        await category.init()
+    } catch (err) {
+        res.redirect('/')
+        return;
+    }
     res.render("checkout", {
         stylesheets: [
             "/css/style.css",
@@ -51,59 +58,63 @@ router.post('/checkout', async (req, res) => {
 
 router.post('/buy', async (req, res) => {
     res.locals.title = "Ευχαριστούμε!";
-    const people = await Person.searchByEmail(db, req.body.email)
-    let person = null;
-    if(people.length>0){
-        await people[0].updateFirstName(req.body.name)
-        await people[0].updateLastName(req.body.surname)
-        await people[0].updatePhoneNumber(req.body.phone)
-        person = people[0];
-    }
-    if (!person) {
-        let email = null;
-        try {
-            email = await new Email(db, req.body.email);
-            await email.init()
-        } catch (err) {
-            email = await Email.create(db, req.body.email);
-            await email.init()
+    try {
+        const people = await Person.searchByEmail(db, req.body.email)
+        let person = null;
+        if(people.length>0){
+            await people[0].updateFirstName(req.body.name)
+            await people[0].updateLastName(req.body.surname)
+            await people[0].updatePhoneNumber(req.body.phone)
+            person = people[0];
         }
-        person = await Person.create(
-            db, req.body.name, req.body.surname, req.body.phone, email
+        if (!person) {
+            let email = null;
+            try {
+                email = await new Email(db, req.body.email);
+                await email.init()
+            } catch (err) {
+                email = await Email.create(db, req.body.email);
+                await email.init()
+            }
+            person = await Person.create(
+                db, req.body.name, req.body.surname, req.body.phone, email
+            )
+            await person.init()
+        }
+        const availableTickets = new AvailableTickets(db, req.body.ticket);
+        await availableTickets.init()
+        const category = await availableTickets.getCategory();
+        await category.init()
+        const sale = await TicketSales.create(
+            db,
+            req.body.regular,
+            req.body.children,
+            req.body.student,
+            req.body.audioguide,
+            (req.body.amea === 'on'),
+            category.getRegularPrice()*parseInt(req.body.regular)+category.getChildrenPrice()*parseInt(req.body.children)+category.getStudentPrice()*parseInt(req.body.student)+category.getAudioguidePrice()*req.body.audioguide,
+            person,
+            availableTickets
         )
-        await person.init()
+        await sale.init()
+        await sendMailBuy(process.env.DOMAIN, sale)
+        res.render("buy", {
+            stylesheets: [
+                "/css/style.css",
+                "/css/checkout.css",
+                "/css/buy.css",
+                "https://unpkg.com/aos@2.3.4/dist/aos.css",
+                "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+                "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
+            scripts: [
+                "/js/script.js",
+                "/js/mobile_script.js",
+                "/js/checkout.js"
+            ],
+        });
+    } catch (e) {
+        res.redirect('/')
     }
-    const availableTickets = new AvailableTickets(db, req.body.ticket);
-    await availableTickets.init()
-    const category = await availableTickets.getCategory();
-    await category.init()
-    const sale = await TicketSales.create(
-        db,
-        req.body.regular,
-        req.body.children,
-        req.body.student,
-        req.body.audioguide,
-        (req.body.amea === 'on'),
-        category.getRegularPrice()*parseInt(req.body.regular)+category.getChildrenPrice()*parseInt(req.body.children)+category.getStudentPrice()*parseInt(req.body.student)+category.getAudioguidePrice()*req.body.audioguide,
-        person,
-        availableTickets
-    )
-    await sale.init()
-    await sendMailBuy(process.env.DOMAIN, sale)
-    res.render("buy", {
-        stylesheets: [
-            "/css/style.css",
-            "/css/checkout.css",
-            "/css/buy.css",
-            "https://unpkg.com/aos@2.3.4/dist/aos.css",
-            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
-            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"],
-        scripts: [
-            "/js/script.js",
-            "/js/mobile_script.js",
-            "/js/checkout.js"
-        ],
-    });
 })
 
 router.get('/gallery', async (req, res) => {

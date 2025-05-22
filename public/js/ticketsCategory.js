@@ -110,30 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Close availability popup
-    // closeAvailabilityBtn.addEventListener("click", () => {
-    //     availabilityPopup.classList.remove("show");
-    //     overlay.classList.remove("show");
-    // });
-
-    availabilityForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const date = document.getElementById("availabilityDate").value;
-        const startTime = document.getElementById("availabilityStartTime").value;
-        const endTime = document.getElementById("availabilityEndTime").value;
-        const total = document.getElementById("availabilityTotal").value;
-
-        if (date && startTime && endTime && total) {
-            console.log("New availability:", { date, startTime, endTime, total });
-
-            availabilityPopup.classList.remove("show");
-            overlay.classList.remove("show");
-            availabilityForm.reset();
-        }
-    });
-
-
-
 });
 
 
