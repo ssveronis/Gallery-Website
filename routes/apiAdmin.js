@@ -2,7 +2,6 @@ import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_U
 import express from 'express';
 import {db} from "../index.js";
 import crypto from "crypto";
-import {sendMailRegister} from "../controller/mailer.js";
 
 const router = express.Router();
 
@@ -184,7 +183,6 @@ router.post('/api/newUser', async (req, res) => {
             email
         )
         await user.init()
-        await sendMailRegister(process.env.DOMAIN, user.getEmail().getEmail())
     } catch (e) {
         req.flash("error", e.message)
     }
