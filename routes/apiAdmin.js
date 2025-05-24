@@ -1,6 +1,6 @@
 import DB, { Email, Person, TicketsCategory, AvailableTickets, TicketSales, WP_User, TicketSalesSummary, getAvailTicketSearch } from "../db.js";
 import express from 'express';
-import {db} from "../index.js";
+import { db } from "../index.js";
 import crypto from "crypto";
 
 const router = express.Router();
@@ -70,7 +70,7 @@ router.post('/api/newTicketsCategory', async (req, res) => {
         if (req.body.childrenPrice != category.getChildrenPrice()) category.updateChildrenPrice(req.body.childrenPrice)
         if (req.body.studentPrice != category.getStudentPrice()) category.updateStudentPrice(req.body.studentPrice)
         if (req.body.audioguidePrice != category.getAudioguidePrice()) category.updateAudioguidePrice(req.body.audioguidePrice)
-        const amea = (req.body.accessAmea!=null)?1:0
+        const amea = (req.body.accessAmea != null) ? 1 : 0
         if (amea != category.getName()) category.updateCanAccAMEA(amea)
     } else {
         TicketsCategory.create(
@@ -80,10 +80,10 @@ router.post('/api/newTicketsCategory', async (req, res) => {
             req.body.childrenPrice,
             req.body.studentPrice,
             req.body.audioguidePrice,
-            ((req.body.accessAmea!=null)?1:0),
+            ((req.body.accessAmea != null) ? 1 : 0),
         )
     }
-    res.redirect(303,'/admin/tickets')
+    res.redirect(303, '/admin/tickets')
 })
 
 router.get('/api/ticketCategory/:id', async (req, res) => {
@@ -127,7 +127,7 @@ router.post('/api/newTicketAvailability', async (req, res) => {
         res.redirect("/logout")
         return
     }
-    res.redirect(303,'/admin/tickets')
+    res.redirect(303, '/admin/tickets')
 })
 
 router.post('/api/editTicketAvailability', async (req, res) => {
@@ -143,8 +143,30 @@ router.post('/api/editTicketAvailability', async (req, res) => {
         return
     }
     if (salesSum.getTotalSoldTickets() <= req.body.total) availability.updateMaxTickets(req.body.total); else req.flash("error", "Μη αποδεκτή τιμή")
-    res.redirect(303,'/admin/tickets')
+    res.redirect(303, '/admin/tickets')
 })
+
+router.delete('/api/deleteTicketsCategory/:id', async (req, res) => {
+    let category;
+    let salesSum;
+    try {
+        category = new TicketsCategory(db, req.params.id);
+        await category.init();
+        salesSum = new TicketSalesSummary(db, req.params.id);
+        await salesSum.init();
+    } catch (e) {
+        res.redirect("/logout")
+        return
+    }
+    if (salesSum.getTotalSoldTickets() === 0) {
+        await db.query('DELETE FROM AVAIL_TICKETS WHERE category_id = ?', [category.getId()]);
+        await category.delete();
+    } else{
+        req.flash("error", "Δεν μπορείτε να διαγράψετε αυτή την κατηγορία εισιτηρίων, καθώς υπάρχουν πωλήσεις που σχετίζονται με αυτήν.")
+    }
+
+    res.sendStatus(204)
+});
 
 router.delete('/api/deleteTicketAvailability/:id', async (req, res) => {
     let availability
@@ -187,7 +209,7 @@ router.post('/api/newUser', async (req, res) => {
         req.flash("error", e.message)
     }
 
-    res.redirect(303,'/admin/user-list')
+    res.redirect(303, '/admin/user-list')
 })
 
 router.get('/api/getUser/:id', async (req, res) => {
@@ -222,7 +244,7 @@ router.post('/api/editUser', async (req, res) => {
     } catch (e) {
         req.flash("error", e.message)
     }
-    res.redirect(303,'/admin/user-list')
+    res.redirect(303, '/admin/user-list')
 })
 
 router.delete('/api/deleteUser/:id', async (req, res) => {

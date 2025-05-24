@@ -11,6 +11,9 @@
     <div class="ticket_category">
         <div>{{this.name}}</div>
         <div>
+            <button class="delete-category-btn" onclick="fetch('/api/deleteTicketsCategory/{{this.id}}', {method: 'DELETE'}).then(()=>{document.location.reload()})">
+                <span class="material-symbols-outlined">delete</span>
+            </button>
             <button class="edit-category-btn" data-category-id="{{this.id}}">
                 <span class="material-symbols-outlined" data-category-id="{{this.id}}">edit</span>
             </button>
