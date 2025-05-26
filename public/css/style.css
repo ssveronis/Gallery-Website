@@ -297,6 +297,18 @@ body {
     .burger-btn {
         display: block;
     }
+
+    .navbar {
+        padding: 6px 10px;
+        min-height: 48px;
+        border-radius: 14px;
+    }
+
+    .logo img {
+        width: 90px;
+        height: 45px;
+        border-radius: 7px;
+    }
 }
 
 @media (min-width: 1077px) {

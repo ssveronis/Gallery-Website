@@ -71,12 +71,37 @@
     .ticket-steps-bar {
         flex-direction: column;
         gap: 10px;
-        padding: 18px 0 10px 0;
+        padding: 10px 8px 8px 8px;
     }
     .step-line {
         width: 2px;
         height: 32px;
         margin: 0;
+    }
+    .exhibition-selection {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        padding: 0 8px;
+    }
+    .ticket-list {
+        flex-direction: column !important;
+        gap: 16px;
+        padding: 0 8px;
+        align-items: stretch;
+    }
+    .ticket-list > table {
+        width: 100% !important;
+        max-width: 100%;
+        margin-bottom: 12px;
+    }
+    .tickets-details, .tickets-table {
+        display: block;
+        width: 100% !important;
+        max-width: 100%;
+        padding-top: 10px;
     }
 }
 .ticket-form-section {
@@ -325,6 +350,8 @@
     padding-left: 40px;  
     padding-right: 40px;
 }
+
+
 
 .tickets-table {
     padding-top: 20px;
