@@ -152,13 +152,16 @@ router.delete('/api/deleteTicketsCategory/:id', async (req, res) => {
     try {
         category = new TicketsCategory(db, req.params.id);
         await category.init();
-        salesSum = new TicketSalesSummary(db, req.params.id);
-        await salesSum.init();
+        salesSum = await TicketSalesSummary.getAll(db, req.params.id);
     } catch (e) {
         res.redirect("/logout")
         return
     }
-    if (salesSum.getTotalSoldTickets() === 0) {
+    let totalSold = 0;
+    salesSum.forEach((item) => {
+        totalSold += item.getTotalSoldTickets();
+    })
+    if (totalSold === 0) {
         await db.query('DELETE FROM AVAIL_TICKETS WHERE category_id = ?', [category.getId()]);
         await category.delete();
     } else{

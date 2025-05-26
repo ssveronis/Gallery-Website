@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Εξυπηρετητής: mariadb:3306
--- Χρόνος δημιουργίας: 09 Μάη 2025 στις 11:04:45
+-- Χρόνος δημιουργίας: 26 Μάη 2025 στις 06:32:21
 -- Έκδοση διακομιστή: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- Έκδοση PHP: 8.2.27
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Βάση δεδομένων: `gallery`
+-- Βάση δεδομένων: `eschool69_gallery_panelladikes`
 --
 
 -- --------------------------------------------------------
@@ -36,15 +36,6 @@ CREATE TABLE `AVAIL_TICKETS` (
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Άδειασμα δεδομένων του πίνακα `AVAIL_TICKETS`
---
-
-INSERT INTO `AVAIL_TICKETS` (`id`, `date`, `start_time`, `end_time`, `max_tickets`, `category_id`) VALUES
-(1, '2025-05-04', '11:00:00', '12:00:00', 15, 1),
-(2, '2025-05-07', '11:00:00', '12:00:00', 15, 1),
-(3, '2025-05-07', '12:00:00', '13:00:00', 15, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -57,13 +48,17 @@ CREATE TABLE `EMAIL` (
   `newsletter` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Άδειασμα δεδομένων του πίνακα `EMAIL`
+-- Δομή πίνακα για τον πίνακα `PASSWD_FORGOT_TOKENS`
 --
 
-INSERT INTO `EMAIL` (`id`, `email`, `newsletter`) VALUES
-(1, 'abc@example.com', 0),
-(2, 'def@me.me', 0);
+CREATE TABLE `PASSWD_FORGOT_TOKENS` (
+  `id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -74,17 +69,9 @@ INSERT INTO `EMAIL` (`id`, `email`, `newsletter`) VALUES
 CREATE TABLE `PERSON` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `phone_country` int(4) NOT NULL DEFAULT 30,
-  `phone_number` int(10) NOT NULL,
+  `phone_number` bigint(10) NOT NULL,
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Άδειασμα δεδομένων του πίνακα `PERSON`
---
-
-INSERT INTO `PERSON` (`first_name`, `last_name`, `phone_country`, `phone_number`, `id`) VALUES
-('Μάκης', 'Κοτσάμπασης', 30, 1234567890, 1);
 
 -- --------------------------------------------------------
 
@@ -102,13 +89,6 @@ CREATE TABLE `TICKETS_CATEGORY` (
   `can_acc_AMEA` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Άδειασμα δεδομένων του πίνακα `TICKETS_CATEGORY`
---
-
-INSERT INTO `TICKETS_CATEGORY` (`id`, `name`, `regular_price`, `children_price`, `student_price`, `audioguide_price`, `can_acc_AMEA`) VALUES
-(1, 'TEST 1', 15, 5, 10, 2, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -117,24 +97,16 @@ INSERT INTO `TICKETS_CATEGORY` (`id`, `name`, `regular_price`, `children_price`,
 
 CREATE TABLE `TICKET_SALES` (
   `id` int(11) NOT NULL,
-  `timestamp` datetime NOT NULL,
+  `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
   `regular_tickets` int(11) NOT NULL DEFAULT 0,
   `children_tickets` int(11) NOT NULL DEFAULT 0,
   `student_tickets` int(11) NOT NULL DEFAULT 0,
   `audioguides` int(11) NOT NULL DEFAULT 0,
-  `accessibility` bit(1) NOT NULL DEFAULT b'0',
+  `accessibility` tinyint(1) NOT NULL DEFAULT 0,
   `total` float NOT NULL,
   `buyer_id` int(11) NOT NULL,
   `avail_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Άδειασμα δεδομένων του πίνακα `TICKET_SALES`
---
-
-INSERT INTO `TICKET_SALES` (`id`, `timestamp`, `regular_tickets`, `children_tickets`, `student_tickets`, `audioguides`, `accessibility`, `total`, `buyer_id`, `avail_id`) VALUES
-(1, '2025-05-01 09:55:59', 1, 0, 0, 1, b'0', 17, 1, 1),
-(2, '2025-05-02 09:56:10', 3, 0, 0, 1, b'1', 43, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -169,14 +141,6 @@ CREATE TABLE `WP_USERS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Άδειασμα δεδομένων του πίνακα `WP_USERS`
---
-
-INSERT INTO `WP_USERS` (`id`, `user_login`, `user_pass`, `display_name`, `email_id`) VALUES
-(1, 'test', 'test', 'test account', 1),
-(3, 'newtest', 'test', 'new test account', 2);
-
---
 -- Ευρετήρια για άχρηστους πίνακες
 --
 
@@ -185,7 +149,7 @@ INSERT INTO `WP_USERS` (`id`, `user_login`, `user_pass`, `display_name`, `email_
 --
 ALTER TABLE `AVAIL_TICKETS`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `date` (`date`,`start_time`,`end_time`),
+  ADD UNIQUE KEY `date` (`date`,`start_time`,`end_time`,`category_id`) USING BTREE,
   ADD KEY `category_id` (`category_id`);
 
 --
@@ -194,6 +158,12 @@ ALTER TABLE `AVAIL_TICKETS`
 ALTER TABLE `EMAIL`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `e-mail` (`email`);
+
+--
+-- Ευρετήρια για πίνακα `PASSWD_FORGOT_TOKENS`
+--
+ALTER TABLE `PASSWD_FORGOT_TOKENS`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Ευρετήρια για πίνακα `PERSON`
@@ -231,31 +201,31 @@ ALTER TABLE `WP_USERS`
 -- AUTO_INCREMENT για πίνακα `AVAIL_TICKETS`
 --
 ALTER TABLE `AVAIL_TICKETS`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT για πίνακα `EMAIL`
 --
 ALTER TABLE `EMAIL`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT για πίνακα `TICKETS_CATEGORY`
 --
 ALTER TABLE `TICKETS_CATEGORY`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT για πίνακα `TICKET_SALES`
 --
 ALTER TABLE `TICKET_SALES`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT για πίνακα `WP_USERS`
 --
 ALTER TABLE `WP_USERS`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 -- --------------------------------------------------------
 
@@ -264,8 +234,7 @@ ALTER TABLE `WP_USERS`
 --
 DROP TABLE IF EXISTS `view_ticket_sales_summary`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_ticket_sales_summary`  AS SELECT `AVAIL_TICKETS`.`category_id` AS `category_id`, `AVAIL_TICKETS`.`id` AS `id`, `AVAIL_TICKETS`.`date` AS `date`, `AVAIL_TICKETS`.`start_time` AS `start_time`, `AVAIL_TICKETS`.`end_time` AS `end_time`, `AVAIL_TICKETS`.`max_tickets` AS `max_tickets`, sum(`TICKET_SALES`.`regular_tickets`) AS `total_regular_tickets`, sum(`TICKET_SALES`.`children_tickets`) AS `total_children_tickets`, sum(`TICKET_SALES`.`student_tickets`) AS `total_student_tickets` FROM (`AVAIL_TICKETS` left join `TICKET_SALES` on(`TICKET_SALES`.`avail_id` = `AVAIL_TICKETS`.`id`)) GROUP BY `AVAIL_TICKETS`.`category_id`, `AVAIL_TICKETS`.`date`, `AVAIL_TICKETS`.`start_time`, `AVAIL_TICKETS`.`end_time`, `AVAIL_TICKETS`.`max_tickets` ;
-
+CREATE VIEW `view_ticket_sales_summary`  AS SELECT `AVAIL_TICKETS`.`category_id` AS `category_id`, `AVAIL_TICKETS`.`id` AS `id`, `AVAIL_TICKETS`.`date` AS `date`, `AVAIL_TICKETS`.`start_time` AS `start_time`, `AVAIL_TICKETS`.`end_time` AS `end_time`, `AVAIL_TICKETS`.`max_tickets` AS `max_tickets`, sum(`TICKET_SALES`.`regular_tickets`) AS `total_regular_tickets`, sum(`TICKET_SALES`.`children_tickets`) AS `total_children_tickets`, sum(`TICKET_SALES`.`student_tickets`) AS `total_student_tickets` FROM (`AVAIL_TICKETS` left join `TICKET_SALES` on(`TICKET_SALES`.`avail_id` = `AVAIL_TICKETS`.`id`)) GROUP BY `AVAIL_TICKETS`.`category_id`, `AVAIL_TICKETS`.`date`, `AVAIL_TICKETS`.`start_time`, `AVAIL_TICKETS`.`end_time`, `AVAIL_TICKETS`.`max_tickets` ;
 --
 -- Περιορισμοί για άχρηστους πίνακες
 --
@@ -275,6 +244,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_ti
 --
 ALTER TABLE `AVAIL_TICKETS`
   ADD CONSTRAINT `AVAIL_TICKETS_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `TICKETS_CATEGORY` (`id`);
+
+--
+-- Περιορισμοί για πίνακα `PASSWD_FORGOT_TOKENS`
+--
+ALTER TABLE `PASSWD_FORGOT_TOKENS`
+  ADD CONSTRAINT `PASSWD_FORGOT_TOKENS_ibfk_1` FOREIGN KEY (`id`) REFERENCES `WP_USERS` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Περιορισμοί για πίνακα `PERSON`

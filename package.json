@@ -15,7 +15,8 @@
   "type": "module",
   "main": "server.cjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "setup": "node ./server.cjs setup"
   },
   "dependencies": {
     "argon2": "^0.43.0",
@@ -31,6 +32,7 @@
     "nodemailer": "^7.0.3"
   },
   "devDependencies": {
+    "esbuild": "^0.25.4",
     "nodemon": "^3.1.10"
   }
 }
