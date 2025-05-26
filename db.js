@@ -1,5 +1,7 @@
 import mariadb from 'mariadb';
 import fs from 'fs';
+import WP_User from "./data/wp_users.ts";
+import Email from "./data/email.ts";
 
 class DB {
 
@@ -32,6 +34,22 @@ class DB {
         })
 
         this.ready = true;
+
+        if(process.argv[2] === "setup" && process.argv[3].includes("@")){
+            const email = await Email.create(
+                this,
+                process.argv[3],
+            )
+            await email.init()
+            await WP_User.create(
+                this,
+                "admin",
+                "admin",
+                "Administrator",
+                email
+            )
+            process.exit(0)
+        }
     }
 
     async query(query, params = []){
