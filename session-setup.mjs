@@ -1,8 +1,10 @@
 import session from 'express-session'
 import dotenv from 'dotenv'
+import { ConnectSessionKnexStore } from 'connect-session-knex';
+import knexConstructor from "knex";
 dotenv.config();
 
-const knex = require('knex')({
+const knex = knexConstructor({
    client: 'mysql2',
    connection: {
       host: process.env.DB_HOST,
@@ -12,7 +14,7 @@ const knex = require('knex')({
    }
 });
 
-const store = new KnexSessionStore({
+const store = new ConnectSessionKnexStore({
    knex,
    tablename: 'sessions', // Optional. Defaults to 'sessions'
    sidfieldname: 'sid',
