@@ -2,6 +2,7 @@ import mariadb from 'mariadb';
 import fs from 'fs';
 import WP_User from "./data/wp_users.ts";
 import Email from "./data/email.ts";
+import 'dotenv/config'
 
 class DB {
 
