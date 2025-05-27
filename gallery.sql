@@ -129,6 +129,18 @@ CREATE TABLE `view_ticket_sales_summary` (
 -- --------------------------------------------------------
 
 --
+-- Δομή πίνακα για τον πίνακα `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `sid` varchar(255) NOT NULL,
+  `sess` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`sess`)),
+  `expired` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Δομή πίνακα για τον πίνακα `WP_USERS`
 --
 
