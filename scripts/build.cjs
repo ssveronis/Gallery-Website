@@ -9,5 +9,5 @@ esbuild.build({
     outfile: 'dist/app.cjs',
     minify: true, // optional: minify output
     sourcemap: false,
-    external: ['request', 'yamlparser', 'argon2'],
+    external: ['request', 'yamlparser', 'argon2', 'knex'],
 }).catch(() => process.exit(1));
