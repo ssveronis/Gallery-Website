@@ -271,10 +271,13 @@ router.post('/newPassword', async (req, res) => {
         return
     }
     const user = await tokenObj.getUser()
-    if(req.body["new_password"] === req.body["new_password_repeat"])
-    await user.updatePassword(req.body.new_password)
-    await tokenObj.delete()
-    req.flash("success", "Η αλλαγή κωδικού πραγματοποιήθηκε.")
+    if(req.body["new_password"] === req.body["new_password_repeat"]){
+        await user.updatePassword(req.body.new_password)
+        await tokenObj.delete()
+        req.flash("success", "Η αλλαγή κωδικού πραγματοποιήθηκε.")
+    } else {
+        req.flash("error", "Οι κωδικοί δεν ταιριάζουν")
+    }
     res.redirect(303, '/admin')
 })
 
