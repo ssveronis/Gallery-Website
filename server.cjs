@@ -1,3 +1,4 @@
+const DB = require('./db').default;
 if(process.argv[2] === "setup" && process.argv[3].includes("@")){
     const db = new DB();
 } else {
